@@ -13,11 +13,11 @@ var Playlist =  function (){
 		id_counter++;//je sais, j'aurais pu le faire en une ligne, mais c'est moins lisible, voilà
 		this.list[this.list.length] = song;
 	}
-	//private seekSong() : int
+	//public seekSong() : int
 	//songid : int
 	//returns the index of the song defined by songid
 	//returns -1 if the song isn't found
-	var seekSong=function(songid){
+	this.seekSong=function(songid){
 		var i=0;
 		while (this.list[i].id!=songid) i++;
 		//at this point i is the index of the song in the list

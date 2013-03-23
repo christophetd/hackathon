@@ -28,7 +28,7 @@ var Playlist =  function (){
 	//public get() : Song
 	//ind : int
 	//returns the song at the position id
-	//if the id is out of range, go fuck yourself
+	//if the index is out of range, go fuck yourself
 	this.get=function(ind){
 		return this.list[ind];
 	}
@@ -65,6 +65,6 @@ var Playlist =  function (){
 	}
 }
 
-var events = require("events")
+var events = require("events");
 Playlist.prototype = new events.EventEmitter;
 module.exports = Playlist;

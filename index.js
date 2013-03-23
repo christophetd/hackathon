@@ -9,12 +9,12 @@ var port =  process.env.PORT || 5000;
 
 app.configure(function(){
     app.set('port', port);
-    /*app.set('views', __dirname + '/views');
+    app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
-    app.use(app.router);*/
+    app.use(app.router);
     app.use(express.static(__dirname + '/public'));
 });
 
@@ -26,17 +26,31 @@ server.listen(app.get('port'), function() {
 
 
 
+
+
 //	TEST SETUP
 
 var Song = require('./server/Song.js');
 
+var testParty = {
+	playlist: [
+		new Song('Testygaga - one big fat test', 'url', '/song.wma')
+	]
+};
+
+app.get('/api/:hash/:action', function(req, res){
+	
+	if(req.params.action == 'getPlaylist'){
+		res.send(JSON.stringify(testParty.playlist));
+	} else {
+		res.end();
+	}
+});
+
+
 io.sockets.on('connection', function (socket) {
 	socket.on('party_getState', function (data) {
-		socket.emit('party_state', {
-			playlist: [
-				new Song('Testygaga - one big fat test', 'url', '/song.wma')
-			]
-		});
+		socket.emit('party_state', testParty.playlist);
 		console.log(data);
 	});
   

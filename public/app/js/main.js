@@ -10,7 +10,7 @@ socket.on('party_state', function (data) {
 	urlSource.buildSong(song);
 	
 	console.log('playing song');
-	song.play($('#container'));
+	//song.play($('#container'));
 });
 
 socket.emit('party_getState');

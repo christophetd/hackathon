@@ -53,8 +53,9 @@ var Playlist =  function (){
 		if (this.list[ind-1].score<this.list[ind].score)
 			upSong(songid);
 	}
-	//public read() : song
+	//public read() : Song
 	//resets to 0 the score of the top song and gets it to the end
+	//returns that song
 	this.read=function(){
 		var tmp=this.list[0];
 		this.list=this.list.slice(1);

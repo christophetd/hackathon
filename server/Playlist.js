@@ -1,5 +1,5 @@
 //class Playlist
-var Playlist = function (){
+module.exports = function (){
 	//list : Song []
 	this.list= new Array();
 	//private id_counter : int

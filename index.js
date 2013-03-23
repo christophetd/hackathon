@@ -30,35 +30,52 @@ server.listen(app.get('port'), function() {
 });
 
 
-
-
-
-
-
 //	TEST SETUP
 
 var Song = require('./server/Song.js');
+var Playlist = require('./server/Playlist.js');
 
-var testParty = {
-	playlist: [
-		new Song('Testygaga - one big fat test', 'url', '/song.wma')
-	]
-};
+var parties = new Array();
 
 app.get('/api/:hash/:action', function(req, res){
 	
 	if(req.params.action == 'getPlaylist'){
-		res.send(JSON.stringify(testParty.playlist));
+		res.send(JSON.stringify(parties[0].playlist));
 	} else {
 		res.end();
 	}
 });
 
+app.post('/api/:hash/:action', function(req, res){
+	if(req.params.action == 'up'){
+		var id = parties[0].playlist.seekSong(req.body.id);
+		
+		if(id !== -1){
+			parties[0].playlist.vote(id);
+		} else {
+			res.send('{"error": "Id '+id+' could not be found in playlist."}');
+		}
+	}
+});
 
 io.sockets.on('connection', function (socket) {
+	
+	var party = {
+		playlist: new Playlist(),
+		socket: socket
+	};
+	
+	parties.push(party);
+	party.playlist.addSong(new Song('Testygaga - one big fat test', 'url', '/song.wma'));
+	
 	socket.on('party_getState', function (data) {
-		socket.emit('party_state', testParty.playlist);
+		socket.emit('party_state', party.playlist);
 		console.log(data);
+	}).on('disconnect', function(){
+	
+		parties.splice(parties.indexOf(party), 1);
+		
+		console.log('closed');
 	});
   
 });

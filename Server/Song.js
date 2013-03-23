@@ -7,6 +7,6 @@ module.exports = function (name,data,type){
 	//path to the song, relative to the source
 	this.data=data;
 	//type : string
-	//
+	//values : 'url', 'youtube', 'local', ...
 	this.type=type;
 }

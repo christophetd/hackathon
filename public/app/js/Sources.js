@@ -1,8 +1,5 @@
 function URLSource() {
 
-	this.play = function(song) {
-		var html = "<audio src='"+song.data+"'>"
-	}
 	this.buildSong = function(song) {
 		if(song.type != "url")  {
 			console.log("Song type error : expected url, "+song.type+" got.");
@@ -35,4 +32,8 @@ function URLSource() {
 			$container.html(html);
 		};
 	}
+}
+
+function YoutubeSource() {
+
 }

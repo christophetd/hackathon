@@ -13,10 +13,10 @@ var Playlist =  function (){
 		id_counter++;//je sais, j'aurais pu le faire en une ligne, mais c'est moins lisible, voilà
 		this.list[this.list.length] = song;
 	}
-	//public upSong() : void
+	//private upSong() : void
 	//songid : id
 	//move up the song defined by the id in the queue
-	this.upSong=function(songid){
+	var upSong=function(songid){
 		var i=0;
 		while (this.list[i].id!=songid) i++;
 		//at this point i is the index of the song in the list

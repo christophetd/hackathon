@@ -2,7 +2,7 @@
 module.exports = function (){
 	//list : Song []
 	this.list= new Array();
-	//addSong : void
+	//public addSong() : void
 	//song : Song
 	//Adds a song at the end of the queue
 	this.addSong=function(song){

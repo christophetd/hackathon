@@ -30,13 +30,14 @@ server.listen(app.get('port'), function() {
 });
 
 
-//	TEST SETUP
+
 
 var Song = require('./server/Song.js');
 var Playlist = require('./server/Playlist.js');
 
 var parties = new Array();
 
+//Mobile api calls
 app.get('/api/:hash/:action', function(req, res){
 	
 	if(req.params.action == 'getPlaylist'){
@@ -58,6 +59,8 @@ app.post('/api/:hash/:action', function(req, res){
 	}
 });
 
+
+//Desktop app
 io.sockets.on('connection', function (socket) {
 	
 	var party = {
@@ -71,7 +74,10 @@ io.sockets.on('connection', function (socket) {
 	socket.on('party_getState', function (data) {
 		socket.emit('party_state', party.playlist);
 		console.log(data);
-	}).on('disconnect', function(){
+	}).on('playlist_getNext', function(){
+		socket.emit('playlist_next', party.playlist.read());
+	})
+	.on('disconnect', function(){
 	
 		parties.splice(parties.indexOf(party), 1);
 		

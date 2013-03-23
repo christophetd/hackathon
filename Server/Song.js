@@ -1,5 +1,5 @@
 //class Song
-module.exports = function (name,type,data,id){
+module.exports = function (name,type,data){
 	//name : string
 	//"artist - title" or whatever
 	this.name=name;
@@ -11,5 +11,5 @@ module.exports = function (name,type,data,id){
 	this.data=data;
 	//id : int
 	//unique id of the song in the queue
-	this.id=id;
+	this.id=0;
 }

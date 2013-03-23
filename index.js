@@ -16,6 +16,13 @@ app.configure(function(){
     app.use(express.methodOverride());
     app.use(app.router);
     app.use(express.static(__dirname + '/public'));
+	
+	//Set special header for iframe
+	app.get('/app/', function(req, res, next){
+		res.setHeader('X-Frame-Options', 'GOFORIT');
+		
+		next();
+	});
 });
 
 server.listen(app.get('port'), function() {

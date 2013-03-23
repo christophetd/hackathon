@@ -1,8 +1,8 @@
 function URLSource() {
-
 	this.buildSong = function(song) {
 		if(song.type != "url")  {
 			console.log("Song type error : expected url, "+song.type+" got.");
+			return;
 		}
 		
 		var splitted = song.data.split("."), mimeType = "";
@@ -35,5 +35,16 @@ function URLSource() {
 }
 
 function YoutubeSource() {
-
+	this.buildSong = function(song) {
+		if(song.type != "youtube") {
+			console.log("Song type error : expected youtube, "+song.type+" got.");
+			return;
+		}
+		var html = '<iframe width="560" height="315" src="'+song.data+'" frameborder="0" allowfullscreen></iframe>';
+		song.play = function($container) {
+			console.log("Playing song");
+			console.log(song);
+			$container.html(html);
+		}
+	}
 }

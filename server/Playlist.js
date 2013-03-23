@@ -53,13 +53,14 @@ var Playlist =  function (){
 		if (this.list[ind-1].score<this.list[ind].score)
 			upSong(songid);
 	}
-	//public read() : void
+	//public read() : song
 	//resets to 0 the score of the top song and gets it to the end
 	this.read=function(){
 		var tmp=this.list[0];
 		this.list=this.list.slice(1);
 		tmp.score=0;
 		this.list.push(tmp);
+		return tmp;
 	}
 }
 

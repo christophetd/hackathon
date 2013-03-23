@@ -33,10 +33,9 @@ var Playlist =  function (){
 		return this.list[ind];
 	}
 	//private upSong() : void
-	//songid : id
+	//ind : int
 	//moves up the song defined by the id in the queue
-	var upSong=function(songid){
-		var ind = seekSong(songid);
+	var upSong=function(ind){
 		if (ind>=1){
 			//list[ind-1] is the song that is now just after the selected song,
 			//and which is going to be replaced by (not sure if correct english here)

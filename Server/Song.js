@@ -12,4 +12,7 @@ module.exports = function (name,type,data){
 	//id : int
 	//unique id of the song in the queue
 	this.id=0;
+	//score : int
+	//is incremented by the votes
+	this.score=0;
 }

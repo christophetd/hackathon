@@ -1,5 +1,5 @@
 //class Playlist
-module.exports = function (){
+var Playlist =  function (){
 	//list : Song []
 	this.list= new Array();
 	//private id_counter : int
@@ -32,3 +32,7 @@ module.exports = function (){
 		}
 	}
 }
+
+var events = require("events")
+Playlist.prototype = new events.EventEmitter;
+module.exports = Playlist;

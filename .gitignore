@@ -7,6 +7,8 @@ lib-cov
 *.pid
 *.gz
 
+*.wma
+
 pids
 logs
 results

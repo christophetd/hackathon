@@ -9,4 +9,7 @@ module.exports = function (name,type,data){
 	//data : string
 	//path to the song, relative to the source
 	this.data=data;
+	//id : int
+	//unique id of the song in the queue
+	this.id=0;
 }

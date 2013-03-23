@@ -11,7 +11,7 @@ var Playlist =  function (){
 	this.addSong=function(song){
 		song.id = id_counter;
 		id_counter++;//je sais, j'aurais pu le faire en une ligne, mais c'est moins lisible, voilà
-		this.list[this.list.length] = song;
+		this.push(song);
 	}
 	//public seekSong() : int
 	//songid : int
@@ -52,6 +52,16 @@ var Playlist =  function (){
 		this.list[ind].score++;
 		if (this.list[ind-1].score<this.list[ind].score)
 			upSong(songid);
+	}
+	//public read() : Song
+	//resets to 0 the score of the top song and gets it to the end
+	//returns that song
+	this.read=function(){
+		var tmp=this.list[0];
+		this.list=this.list.slice(1);
+		tmp.score=0;
+		this.list.push(tmp);
+		return tmp;
 	}
 }
 

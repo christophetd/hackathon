@@ -1,5 +1,5 @@
 //class Playlist
-module.exports = function (){
+var Playlist =  function (){
 	//list : Song []
 	this.list= new Array();
 	//private id_counter : int
@@ -11,24 +11,60 @@ module.exports = function (){
 	this.addSong=function(song){
 		song.id = id_counter;
 		id_counter++;//je sais, j'aurais pu le faire en une ligne, mais c'est moins lisible, voilà
-		this.list[this.list.length] = song;
+		this.push(song);
 	}
-	//public upSong() : void
-	//songid : id
-	//move up the song defined by the id in the queue
-	this.upSong=function(songid){
+	//public seekSong() : int
+	//songid : int
+	//returns the index of the song defined by songid
+	//returns -1 if the song isn't found
+	this.seekSong=function(songid){
 		var i=0;
 		while (this.list[i].id!=songid) i++;
 		//at this point i is the index of the song in the list
 		//if it values 0 it is the top song,
 		//if it values list.length your songid argument is invalid, bitch
-		//in both of this cases nothing changes
-		if(i!=0&&i!=this.list.length){
-			//list[i-1] is the song that is now just after the selected song,
+		return (i!=this.list.length)?i:-1;
+	}
+	//public get() : Song
+	//ind : int
+	//returns the song at the position id
+	//if the index is out of range, go fuck yourself
+	this.get=function(ind){
+		return this.list[ind];
+	}
+	//private upSong() : void
+	//ind : int
+	//moves up the song defined by the id in the queue
+	var upSong=function(ind){
+		if (ind>=1){
+			//list[ind-1] is the song that is now just after the selected song,
 			//and which is going to be replaced by (not sure if correct english here)
-			var tmp=this.list[i];
-			this.list[i]=this.list[i-1];
-			this.list[i-1]=tmp;
+			var tmp=this.list[ind];
+			this.list[ind]=this.list[ind-1];
+			this.list[ind-1]=tmp;
 		}
 	}
+	//public vote() : void
+	//songid : int
+	//increases the score of the song and possibly reorganises the queue
+	this.vote=function(songid){
+		var ind=seekSong(songid);
+		this.list[ind].score++;
+		if (this.list[ind-1].score<this.list[ind].score)
+			upSong(songid);
+	}
+	//public read() : Song
+	//resets to 0 the score of the top song and gets it to the end
+	//returns that song
+	this.read=function(){
+		var tmp=this.list[0];
+		this.list=this.list.slice(1);
+		tmp.score=0;
+		this.list.push(tmp);
+		return tmp;
+	}
 }
+
+var events = require("events");
+Playlist.prototype = new events.EventEmitter;
+module.exports = Playlist;

@@ -2,6 +2,7 @@
 
 var urlSource = new URLSource();
 
+
 socket.on('party_state', function (data) {
 	console.log(data);
 	var song = data.playlist[0];
@@ -9,7 +10,7 @@ socket.on('party_state', function (data) {
 	urlSource.buildSong(song);
 	
 	console.log('playing song');
-	song.play();
+	song.play($('#container'));
 });
 
 socket.emit('party_getState');

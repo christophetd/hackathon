@@ -7,11 +7,22 @@ var app = express()
 var port =  process.env.PORT || 5000;
 
 
-app.use(express.static(__dirname + '/public'));
+app.configure(function(){
+    app.set('port', port);
+    /*app.set('views', __dirname + '/views');
+    app.set('view engine', 'jade');
+    app.use(express.logger('dev'));
+    app.use(express.bodyParser());
+    app.use(express.methodOverride());
+    app.use(app.router);*/
+    app.use(express.static(__dirname + '/public'));
+});
 
-app.listen(port);
+server.listen(app.get('port'), function() {
+	console.log("server running and listening on port "+port);
+});
 
-console.log("server running and listening on port "+port);
+
 
 
 

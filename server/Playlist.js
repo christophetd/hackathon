@@ -25,6 +25,13 @@ var Playlist =  function (){
 		//if it values list.length your songid argument is invalid, bitch
 		return (i!=this.list.length)?i:-1;
 	}
+	//public get() : Song
+	//ind : int
+	//returns the song at the position id
+	//if the id is out of range, go fuck yourself
+	this.get=function(ind){
+		return this.list[ind];
+	}
 	//private upSong() : void
 	//songid : id
 	//moves up the song defined by the id in the queue

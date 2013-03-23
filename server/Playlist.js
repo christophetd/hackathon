@@ -45,6 +45,15 @@ var Playlist =  function (){
 			this.list[ind-1]=tmp;
 		}
 	}
+	//public vote() : void
+	//songid : int
+	//increases the score of the song and possibly reorganises the queue
+	this.vote=function(songid){
+		var ind=seekSong(songid);
+		this.list[ind].score++;
+		if (this.list[ind-1].score<this.list[ind].score)
+			upSong(songid);
+	}
 }
 
 var events = require("events")

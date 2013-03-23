@@ -11,7 +11,7 @@ var Playlist =  function (){
 	this.addSong=function(song){
 		song.id = id_counter;
 		id_counter++;//je sais, j'aurais pu le faire en une ligne, mais c'est moins lisible, voilà
-		this.list[this.list.length] = song;
+		this.push(song);
 	}
 	//public seekSong() : int
 	//songid : int
@@ -53,6 +53,8 @@ var Playlist =  function (){
 		if (this.list[ind-1].score<this.list[ind].score)
 			upSong(songid);
 	}
+
+	this.
 }
 
 var events = require("events")

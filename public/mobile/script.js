@@ -40,7 +40,7 @@ $(document).bind('pageinit',function() {
     $('#sub').submit(function() {
       var toAdd = $("input[name=search-1]").val();
         // modify string
-        $.post('/api/'+phash+'/search', {q: toAdd, n: 4})
+        $.post('/api/'+phash+'/search', {q: toAdd, n: 6})
 			.done(function(data) {
 			console.log(data);
 			data = JSON.parse(data);
@@ -50,13 +50,14 @@ $(document).bind('pageinit',function() {
 			for(var i = 0 ; i < data.length ; i++){
 				var item = data[i];
 				var liItem = $('<li id="' + item.id + '""></li>');
-				liItem.click(function(){
+				liItem.click((function(item){
+					return function(){
 
 					$.post('/api/'+phash+'/add', {item: item})
 					.done(function(data) {
 						console.log("Data Loaded: " + data);
 					});
-				});
+				}})(item));
 				liItem.append($('<a href="#"> <img src="'+ item.picture + '">' + item.name + '</a>'));
 				//liItem.append($('<a href="#">' + item.name + '</a>'));
 				$('#dynamicResults').append(liItem);

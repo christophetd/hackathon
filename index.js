@@ -244,8 +244,8 @@ io.sockets.on('connection', function (socket) {
 		
 		console.log('closed');
 		
-	}).on('playlist_remove', function(elem){
-		party.playlist.remove(elem.id);
+	}).on('playlist_remove', function(id){
+		party.playlist.remove(id);
 	}).on('playlist_getNext', function(){
 		socket.emit('playlist_next', party.playlist.read());
 	}).on('disconnect', function(){

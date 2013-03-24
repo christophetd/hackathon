@@ -59,8 +59,16 @@ module.exports = {
 	// 	}
 	// },
 	LocalSource : function(){
-		this.search=function(terms,nb,callback){
-
+		this.search=function(terms,nb,callback,party){,
+			var socket=party.socket;
+			var songs = [];
+			socket.emit('source_query',terms);
+			socket.on('source_search',function(data){
+				data=data.slice(0,nb);
+				for(var d in data)
+					songs.push(new Song(d.split('/').pop(),'local',d));
+				callback(data);
+			});
 		}
 	}
 };

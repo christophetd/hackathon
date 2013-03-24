@@ -18,7 +18,7 @@ function LocalSong (path){
 	this.score=0;
 	//picture : string
 	//contains the path of the picture
-	this.picture=picture;
+	this.picture='';
 	//getFile() : file
 	//
 }

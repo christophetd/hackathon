@@ -11,7 +11,7 @@ var Playlist =  function (){
 	this.addSong=function(song){
 		song.id = id_counter;
 		id_counter++;//je sais, j'aurais pu le faire en une ligne, mais c'est moins lisible, voilà
-		this.push(song);
+		this.list.push(song);
 	}
 	//public seekSong() : int
 	//songid : int
@@ -19,7 +19,7 @@ var Playlist =  function (){
 	//returns -1 if the song isn't found
 	this.seekSong=function(songid){
 		var i=0;
-		while (this.list[i].id!=songid) i++;
+		for (i = 0 ; i < this.list.length && this.list[i].id != songid  ; i++);
 		//at this point i is the index of the song in the list
 		//if it values 0 it is the top song,
 		//if it values list.length your songid argument is invalid, bitch

@@ -6,20 +6,65 @@ var app = express()
 	
 var port =  process.env.PORT || 5000;
 
+//Keeps track of bonds between app's hash and api's hash
+var hashPairs = new Array();
+//Holds every party going on
+var parties = new Array();
 
 app.configure(function(){
     app.set('port', port);
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
-    app.use(express.methodOverride());
+	app.use(express.cookieParser());
     app.use(app.router);
     app.use(express.static(__dirname + '/public'));
 	
-	//Set special header for iframe
-	app.get('/app/', function(req, res, next){
-		res.setHeader('X-Frame-Options', 'GOFORIT');
+	app.get('/', function(req, res, next){
+		if(typeof(req.cookies.partyHash) !== 'undefined'){
+			res.redirect('/app/');
+		} else {
+			next();
+		}
+	});
+	
+	app.get('/start', function(req, res, next){
 		
-		next();
+		//Creating a new key pair
+		var apiKey;
+		do{
+			apiKey = Math.random().toString(36).substr(2, 34);
+		} while(typeof(hashPairs[apiKey]) !== 'undefined');
+		
+		var appKey;
+		do{
+			appKey = Math.random().toString(36).substr(2, 34);
+		} while(hashPairs.indexOf(appKey) !== -1);
+		
+		hashPairs[apiKey] = appKey;
+		
+		//Creating a new party
+		var party = {
+			playlist: new Playlist(),
+			sockets: new Array(),
+			appKey: appKey,
+			apiKey: apiKey,
+			serialize: function(){
+				return {
+					playlist: this.playlist.list,
+					apiKey: this.apiKey
+				};
+			}
+		};
+		
+		parties[appKey] = party;
+		party.playlist.addSong(new Song('Rickrolld', 'youtube', 'oHg5SJYRHA0'));
+		party.playlist.addSong(new Song('Hysteria', 'url', '/song.mp3'));
+		party.playlist.addSong(new Song('Rickrolld', 'youtube', 'w8KQmps-Sog'));
+		
+		console.log("Creating new party with appKey : "+appKey);
+		
+		res.cookie('partyHash', appKey);
+		res.redirect('/app/');
 	});
 });
 
@@ -36,40 +81,52 @@ var Sources = require('./server/Sources.js');
 
 var youtubeSource = new Sources.YoutubeSource();
 
-var parties = new Array();
 
 //Mobile api calls
 app.get('/api/:hash/:action', function(req, res){
-	if(typeof(parties[req.params.hash]) !== 'undefined'){
-		if(req.params.action == 'getPlaylist'){
-			res.send(JSON.stringify(parties[req.params.hash].playlist.list));
+	var appKey = hashPairs[req.params.hash];
+	
+	if(typeof(appKey) !== 'undefined'){
+		if(typeof(parties[appKey]) !== 'undefined'){
+			if(req.params.action == 'getPlaylist'){
+				res.send(JSON.stringify(parties[appKey].playlist.list));
+			} else {
+				res.send('{"error": "Action not implemented"}');
+			}
 		} else {
-			res.send('{"error": "Action not implemented"}');
+			res.send('{"error": "No party with such hash was found"}');
 		}
 	} else {
-		res.send('{"error": "No party with such hash was found"}');
+		res.send('{"error": "No matching pair found"}');
 	}
 });
 
 app.post('/api/:hash/:action', function(req, res){
-	if(typeof(parties[req.params.hash]) !== 'undefined'){
-		if(req.params.action == 'up'){
-			parties[req.params.hash].playlist.vote(req.body.id);
-			res.send('{"ack": true}');
-		} else if(req.params.action == 'search'){
-			if(typeof(req.body.q) !== 'undefined'){
-				var n = (typeof(req.body.n) !== 'undefined') ? req.body.n : 5;
-				youtubeSource.search(req.body.q, n, function(sResult){
-					res.send(JSON.stringify(sResult));
-				});
+	var appKey = hashPairs[req.params.hash];
+	
+	if(typeof(appKey) !== 'undefined'){
+		if(typeof(parties[appKey]) !== 'undefined'){
+			if(req.params.action == 'up'){
+				parties[appKey].playlist.vote(req.body.id);
+				res.send('{"ack": true}');
+			} else if(req.params.action == 'search'){
+				//Search for new music in sources
+				if(typeof(req.body.q) !== 'undefined'){
+					var n = (typeof(req.body.n) !== 'undefined') ? req.body.n : 5;
+					youtubeSource.search(req.body.q, n, function(sResult){
+						res.send(JSON.stringify(sResult));
+					});
+				} else {
+					res.send('{"error": "no search query"}');
+				}
 			} else {
-				res.send('{"error": "no search query"}');
+				res.send('{"error": "Action not implemented"}');
 			}
 		} else {
-			res.send('{"error": "Action not implemented"}');
+			res.send('{"error": "No party with such hash was found"}');
 		}
 	} else {
-		res.send('{"error": "No party with such hash was found"}');
+		res.send('{"error": "No matching pair found"}');
 	}
 });
 
@@ -78,32 +135,28 @@ app.post('/api/:hash/:action', function(req, res){
 io.sockets.on('connection', function (socket) {
 	
 	var party;
+	
+	function onPlaylistUpdate(){
+		socket.emit('playlist_update', party.playlist.list);
+	}
 
 	socket.on('party_init', function(hash){
 		party = parties[hash];
 		if(typeof(party) === 'undefined'){
-			party = {
-				playlist: new Playlist(),
-				sockets: new Array(),
-				hash: hash
-			};
+			console.log("Error : user tried to init a party with invalid app hash");
+			socket.emit('error', 'invalid hash');
 			
-			party.sockets.push(socket);
-			
-			parties[hash] = party;
-			party.playlist.addSong(new Song('Rickrolld', 'youtube', 'oHg5SJYRHA0'));
-			party.playlist.addSong(new Song('Hysteria', 'url', '/song.mp3'));
-			party.playlist.addSong(new Song('Rickrolld', 'youtube', 'w8KQmps-Sog'));
-			
-			console.log("Creating new party with hash : "+hash);
 		} else {
 			console.log("Using existing party with hash : "+hash);
+			
+			party.sockets.push(socket);
+			console.log(party);
+			socket.emit('party_initialized', party.serialize());
+			party.playlist.on('updated', onPlaylistUpdate);
 		}
-		
-		socket.emit('party_initialized', party.playlist.list);
 	}).on('party_close', function(){
 		
-		delete parties[party.hash];
+		delete parties[party.appKey];
 		
 		console.log('closed');
 		
@@ -114,6 +167,7 @@ io.sockets.on('connection', function (socket) {
 		if(typeof(party) !== 'undefined'){
 			party.sockets.splice(party.sockets.indexOf(socket), 1);
 			
+			party.playlist.removeListener('updated', onPlaylistUpdate);
 			console.log('disconnected');
 		}
 	});

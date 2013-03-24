@@ -4,14 +4,14 @@ function printPlaylist(playlist) {
 	$list = $('#playlist>ol');
 	$list.empty();
 	for(var i in playlist) {
-		$('<li>').html(playList[i].name).appendTo($list);
+		$('<li>').html(playlist[i].name).appendTo($list);
 	}
 }
 socket.on('playlist_update', function(newPlaylist) {
 	printPlaylist(newPlaylist);
 });
 socket.on('party_initialized', function (data) {
-	var playlist = data.playlist.list;
+	var playlist = data.playlist;
 	var apiKey = data.apiKey;
 	printPlaylist(playlist);
 	var source;

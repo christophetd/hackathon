@@ -34,5 +34,33 @@ module.exports = {
 			  })
 			});
 		}
+	},
+	// MP3SkullSource : function(){
+	// 	this.search=function(terms,nb,callback){
+	// 		terms=terms.replace(' ','_');
+	// 		var url="http://mp3skull.com/mp3/"+terms+".html";
+	// 		var songs=[];
+	// 		http.get(url, function(res){
+	// 			var data='';
+	// 			res.on('data',function(chunk){
+	// 				data+=chunk;
+	// 			})
+	// 			res.on('end',function(){
+	// 				var vals=data.split('"');
+	// 				var i = 0
+	// 				while (i<vals.length&&i<nb){
+	// 					if (vals[i].substr(vals[i].length-4)==".mp3")
+	// 						i++;
+	// 					else
+	// 						vals.splice(i,1);
+	// 				}
+	// 			})
+	// 		})
+	// 	}
+	// },
+	LocalSource : function(){
+		this.search=function(terms,nb,callback){
+
+		}
 	}
 };

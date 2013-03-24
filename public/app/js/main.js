@@ -58,6 +58,19 @@ socket.on('party_initialized', function (data) {
 
 });
 
+socket.on('error', function(msg){
+	if(msg == 'invalid hash'){
+		setCookie('partyHash', '', 0);
+		window.location.href = '/end';
+	} else if(msg == 'socket already init'){
+	
+	} else if(msg == 'other instance took control'){
+	
+	} else {
+		//TODO : unhandeled error
+	}
+});
+
 socket.emit("party_init", getCookie('partyHash'));
 
 

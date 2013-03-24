@@ -37,7 +37,7 @@ $(document).bind('pageinit',function() {
     $('#refresh-1').click(refresh);
 
     //Search function
-    $('#addnew').click(function() {
+    $('#sub').submit(function() {
       var toAdd = $("input[name=search-1]").val();
         // modify string
         $.post('/api/'+phash+'/search', {q: toAdd, n: 4})
@@ -65,6 +65,7 @@ $(document).bind('pageinit',function() {
 
 			$('#dynamicResults').listview('refresh');
         });
+		return false;
     
     });
 
@@ -74,6 +75,8 @@ $(document).bind('pageinit',function() {
 		$('#dynamicFieldList').listview();
 		refresh();
 	}
+
+
 	
 
 });

@@ -115,7 +115,7 @@ app.post('/api/:hash/:action', function(req, res){
 					var n = (typeof(req.body.n) !== 'undefined') ? req.body.n : 5;
 					youtubeSource.search(req.body.q, n, function(sResult){
 						res.send(JSON.stringify(sResult));
-					});
+					}, parties[appKey]);
 				} else {
 					res.send('{"error": "no search query"}');
 				}

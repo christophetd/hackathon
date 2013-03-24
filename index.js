@@ -91,11 +91,9 @@ io.sockets.on('connection', function (socket) {
 			party.sockets.push(socket);
 			
 			parties[hash] = party;
-			party.playlist.addSong(new Song('Testygaga - one big fat test', 'url', '/song.wma'));
-			party.playlist.addSong(new Song('Another song', 'url', '/Another.wma'));
-			party.playlist.addSong(new Song('Blablabla', 'url', '/Blablabla.wma'));
-			party.playlist.addSong(new Song('Supersong', 'url', '/Supersong.wma'));
-			party.playlist.addSong(new Song('Supersong2, le retour', 'url', '/Supersong2.wma'));
+			party.playlist.addSong(new Song('Rickrolld', 'youtube', 'oHg5SJYRHA0'));
+			party.playlist.addSong(new Song('Hysteria', 'url', '/song.mp3'));
+			party.playlist.addSong(new Song('Rickrolld', 'youtube', 'w8KQmps-Sog'));
 			
 			console.log("Creating new party with hash : "+hash);
 		} else {

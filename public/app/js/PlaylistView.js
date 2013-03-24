@@ -22,7 +22,7 @@ function PlaylistView(socket) {
 				class: "icon-trash"
 			}).click((function(elem) {
 				return function() {
-					socket.emit("playlist_remove", elem);
+					socket.emit("playlist_remove", elem.id);
 					return false;
 				}
 			})(_this.list[i])).appendTo($el);

@@ -1,15 +1,16 @@
 //class LocalSong
-function LocalSong (path){
+function LocalSong (file){
 	//name : string
 	//"artist - title" or whatever
-	var t = path.split('/').pop().split('\\').pop();
-	this.name = t.substr(0,t.lastIndexOf('.'));
+	//var t = path.split('/').pop().split('\\').pop();
+	//this.name = t.substr(0,t.lastIndexOf('.'));
+	this.name=file.name;
 	//type : string
 	//values : 'url', 'youtube', 'local', ...
 	this.type='local';
-	//data : string
-	//path to the song, relative to the source
-	this.data=path;
+	//data : File
+	//object File
+	this.data=file;
 	//id : int
 	//unique id of the song in the queue
 	this.id=0;

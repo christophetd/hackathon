@@ -2,18 +2,18 @@
 function LocalFiles(){
 	this.list=[];
 	//add() : void
-	//path : string
+	//path : File
 	//adds the path into the list, avoiding doublons
-	this.add=function(path){
+	this.add=function(file){
 		for(var i in this.list)
 			if (this.list[i]==path)
 				return;
 		this.list.push(path);
 	}
 	//remove() : void
-	//path : string
+	//path : File
 	//removes the path from the list
-	this.remove=function(path){
+	this.remove=function(file){
 		for(var ind=0;ind<this.list.length;ind++)
 			if (this.list[ind]==path){
 				this.list.splice(ind,1);
@@ -31,7 +31,7 @@ function LocalFiles(){
 		var results = [];
 		for(var ind=0;ind<this.list.length;ind++)
 			for (i in words)
-				if (this.list[ind].toLowerCase().search(words[i].toLowerCase())!=-1)
+				if (this.list[ind].name.toLowerCase().search(words[i].toLowerCase())!=-1)
 					scores[ind]++;
 		for(var i = words.length;i>0;i--)
 			for(var ind = 0; ind<scores.length ; ind++)

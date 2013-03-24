@@ -1,7 +1,7 @@
 //class Playlist
 var Playlist =  function (){
 	//list : Song []
-	this.list= new Array();
+	var list = this.list = new Array();
 	//private id_counter : int
 	//autoincremented, id of the next song entering in the queue
 	var id_counter = 1;
@@ -39,9 +39,9 @@ var Playlist =  function (){
 		if (ind>=1){
 			//list[ind-1] is the song that is now just after the selected song,
 			//and which is going to be replaced by (not sure if correct english here)
-			var tmp=this.list[ind];
-			this.list[ind]=this.list[ind-1];
-			this.list[ind-1]=tmp;
+			var tmp=list[ind];
+			list[ind]=list[ind-1];
+			list[ind-1]=tmp;
 		}
 	}
 	//public vote() : void
@@ -52,8 +52,9 @@ var Playlist =  function (){
 		if(ind != -1){
 			this.list[ind].score++;
 			if(ind-1 >= 0){
-				if (this.list[ind-1].score<this.list[ind].score)
-					upSong(songid);
+				for (; ind >= 1 && this.list[ind-1].score < this.list[ind].score; ind--){
+					upSong(ind);
+				}
 			}
 		}
 	}
@@ -62,7 +63,7 @@ var Playlist =  function (){
 	//returns that song
 	this.read=function(){
 		var tmp=this.list[0];
-		this.list=this.list.slice(1);
+		this.list.splice(0, 1);
 		tmp.score=0;
 		this.list.push(tmp);
 		return tmp;

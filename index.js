@@ -63,8 +63,6 @@ app.configure(function(){
 		
 		parties[appKey] = party;
 		party.playlist.addSong(new Song('Rickrolld', 'youtube', 'oHg5SJYRHA0'));
-		party.playlist.addSong(new Song('Hysteria', 'url', '/song.mp3'));
-		party.playlist.addSong(new Song('Rickrolld', 'youtube', 'w8KQmps-Sog'));
 		
 		console.log("Creating new party with appKey : "+appKey);
 		
@@ -77,7 +75,7 @@ server.listen(app.get('port'), function() {
 	console.log("server running and listening on port "+port);
 });
 
-var VOTE_TIMEOUT = 120;
+var VOTE_TIMEOUT = 60;
 
 var lockIpVote = (function(){
 	var locks = new Array();
@@ -246,6 +244,8 @@ io.sockets.on('connection', function (socket) {
 		
 		console.log('closed');
 		
+	}).on('playlist_remove', function(elem){
+		party.playlist.remove(elem.id);
 	}).on('playlist_getNext', function(){
 		socket.emit('playlist_next', party.playlist.read());
 	}).on('disconnect', function(){

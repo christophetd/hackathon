@@ -74,7 +74,6 @@ function LocalSource(localFiles) {
 		console.log(song);
 		
 		song.play = function($container) {
-
 			$container.html("");
 			$('<h2>').text(file.name).appendTo($container);
 			console.log("Playing song");

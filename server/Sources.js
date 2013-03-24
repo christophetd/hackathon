@@ -68,8 +68,9 @@ module.exports = {
 			socket.emit('source_query',terms);
 			socket.once('source_search',function(data){
 				data=data.slice(0,nb);
+				console.log(data);
 				for(var d in data)
-					songs.push(new Song(d.split('/').pop(),'local',d));
+					songs.push(data[d]);
 				callback(data);
 			});
 		}

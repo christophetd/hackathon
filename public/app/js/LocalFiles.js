@@ -1,5 +1,5 @@
 //class LocalFiles
-module.exports = function(socket){
+function LocalFiles(){
 	this.list=[];
 	//add() : void
 	//path : string
@@ -20,7 +20,7 @@ module.exports = function(socket){
 				return;
 			}
 	}
-	//search () : string[]
+	//search () : LocalSongs[]
 	//words : string
 	//returns all the members of the list containing at least on of the words (separated by spacies),
 	//sorted by pertinence
@@ -36,7 +36,7 @@ module.exports = function(socket){
 		for(var i = words.length;i>0;i--)
 			for(var ind = 0; ind<scores.length ; ind++)
 				if (scores[ind] == i)
-					results.push(this.list[ind]);
+					results.push(new LocalSong(this.list[ind]));
 		return results;
 	}
 	//get () : string []

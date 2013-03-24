@@ -1,7 +1,6 @@
 function Player(socket, playlist) {
 	var _this = this;
 	this.playlist = playlist;
-
 	var source;
 
 	_this.play = function(song) {

@@ -21,10 +21,11 @@ module.exports = function(socket){
 			}
 	}
 	//search () : string[]
-	//words : string []
-	//returns all the members of the list containing at least on of the words,
+	//words : string
+	//returns all the members of the list containing at least on of the words (separated by spacies),
 	//sorted by pertinence
-	this.search=function(words){
+	this.search=function(terms){
+		var words = terms.split(' ');
 		var scores=[];
 		for (var i = 0 ; i < this.list.length; i++) scores.push(0);
 		var results = [];

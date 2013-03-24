@@ -9,8 +9,6 @@ var port =  process.env.PORT || 5000;
 
 app.configure(function(){
     app.set('port', port);
-    app.set('views', __dirname + '/views');
-    app.set('view engine', 'jade');
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
@@ -39,7 +37,6 @@ var parties = new Array();
 
 //Mobile api calls
 app.get('/api/:hash/:action', function(req, res){
-	
 	if(req.params.action == 'getPlaylist'){
 		res.send(JSON.stringify(parties[0].playlist));
 	} else {
@@ -49,13 +46,8 @@ app.get('/api/:hash/:action', function(req, res){
 
 app.post('/api/:hash/:action', function(req, res){
 	if(req.params.action == 'up'){
-		var id = parties[0].playlist.seekSong(req.body.id);
-		
-		if(id !== -1){
-			parties[0].playlist.vote(id);
-		} else {
-			res.send('{"error": "Id '+id+' could not be found in playlist."}');
-		}
+		parties[0].playlist.vote(req.body.id);
+		res.send('{"ack": true}');
 	}
 });
 

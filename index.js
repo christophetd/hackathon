@@ -62,7 +62,7 @@ app.configure(function(){
 		};
 		
 		parties[appKey] = party;
-		party.playlist.addSong(new Song('Rickrolld', 'youtube', 'oHg5SJYRHA0'));
+		party.playlist.addSong(new Song('Muse - Time is running out', 'youtube', '3dm_5qWWDV8'));
 		
 		console.log("Creating new party with appKey : "+appKey);
 		

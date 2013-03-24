@@ -1,7 +1,7 @@
 ﻿{
-  "name": "hackatonEPFL",
+  "name": "SquareTune",
   "description": "music vote system for parties",
-  "version": "0.0.1",
+  "version": "0.0.42",
   "private": true,
   "dependencies": {
     "express": "3.x",

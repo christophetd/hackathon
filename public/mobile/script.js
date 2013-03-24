@@ -71,7 +71,6 @@ $(document).bind('pageinit',function() {
     
     });
 
-    $('#vlist').click(refresh);
 
     $("#Home").on("pageshow",function(e) {
     	refresh();   

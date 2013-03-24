@@ -20,11 +20,16 @@ app.configure(function(){
     app.use(express.static(__dirname + '/public'));
 	
 	app.get('/', function(req, res, next){
-		if(typeof(req.cookies.partyHash) !== 'undefined'){
+		if(typeof(req.cookies.partyHash) !== 'undefined' && req.cookies.partyHash !== ''){
 			res.redirect('/app/');
 		} else {
 			next();
 		}
+	});
+	
+	app.get('/end', function(req, res, next){
+		res.cookie('partyHash', '');
+		res.redirect('/');
 	});
 	
 	app.get('/start', function(req, res, next){
@@ -45,7 +50,7 @@ app.configure(function(){
 		//Creating a new party
 		var party = {
 			playlist: new Playlist(),
-			sockets: new Array(),
+			socket: null,
 			appKey: appKey,
 			apiKey: apiKey,
 			serialize: function(){
@@ -140,7 +145,7 @@ io.sockets.on('connection', function (socket) {
 		socket.emit('playlist_update', party.playlist.list);
 	}
 
-	socket.on('party_init', function(hash){
+	socket.on('party_init', function(hash, force){
 		party = parties[hash];
 		if(typeof(party) === 'undefined'){
 			console.log("Error : user tried to init a party with invalid app hash");
@@ -149,10 +154,23 @@ io.sockets.on('connection', function (socket) {
 		} else {
 			console.log("Using existing party with hash : "+hash);
 			
-			party.sockets.push(socket);
-			console.log(party);
-			socket.emit('party_initialized', party.serialize());
-			party.playlist.on('updated', onPlaylistUpdate);
+			function doInit(){
+				party.socket = socket;
+				socket.emit('party_initialized', party.serialize());
+				party.playlist.on('updated', onPlaylistUpdate);
+			}
+			
+			if(party.socket != null){
+				if(force !== true){
+					console.log('socket already assigned and not force');
+					socket.emit('error', 'socket already init');
+				} else {
+					party.socket.emit('error', 'other instance took control');
+					doInit();
+				}
+			} else {
+				doInit();
+			}
 		}
 	}).on('party_close', function(){
 		
@@ -165,7 +183,7 @@ io.sockets.on('connection', function (socket) {
 	}).on('disconnect', function(){
 		
 		if(typeof(party) !== 'undefined'){
-			party.sockets.splice(party.sockets.indexOf(socket), 1);
+			party.socket = null;
 			
 			party.playlist.removeListener('updated', onPlaylistUpdate);
 			console.log('disconnected');

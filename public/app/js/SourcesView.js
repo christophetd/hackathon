@@ -27,7 +27,8 @@
 						id: item.id
 					}).after("<br />--");
 					$a = $('<a>', {
-						href: "#"
+						href: "#",
+						style: "display: block;"
 					}).html(item.name).click( (function(item) {
 						return function() {
 							$.post('/api/'+hash+'/add', { item: item});
@@ -37,7 +38,8 @@
 					})(item));
 					$img = $('<img />', {
 						src: item.picture,
-						width: '75%'
+						width: '50%', 
+						style: "display: block;"
 					}).appendTo($a);
 					$a.appendTo($p);
 					$('#library_dynamicResults').append($p);

@@ -7,6 +7,7 @@ function printPlaylist(playlist) {
 		$('<li>').html(playlist[i].name).appendTo($list);
 	}
 }
+
 socket.on('playlist_update', function(newPlaylist) {
 	printPlaylist(newPlaylist);
 });

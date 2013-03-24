@@ -70,14 +70,16 @@ var Playlist =  function (){
 	//resets to 0 the score of the top song and gets it to the end
 	//returns that song
 	this.read=function(){
-		var tmp=this.list[0];
-		this.list.splice(0, 1);
-		tmp.score=0;
-		this.list.push(tmp);
-		
-		this.emit('updated');
-		
-		return tmp;
+		if(this.list.length > 0){
+			var tmp=this.list[0];
+			this.list.splice(0, 1);
+			tmp.score=0;
+			this.list.push(tmp);
+			
+			this.emit('updated');
+			
+			return tmp;
+		}
 	}
 }
 

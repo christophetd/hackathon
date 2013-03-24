@@ -36,7 +36,7 @@ socket.on('party_initialized', function (data) {
 
 });
 
-socket.init("party_init", "hqhq");
+socket.emit("party_init", "hqhq");
 
 
 

@@ -55,25 +55,43 @@ app.post('/api/:hash/:action', function(req, res){
 //Desktop app
 io.sockets.on('connection', function (socket) {
 	
-	var party = {
-		playlist: new Playlist(),
-		socket: socket
-	};
-	
-	parties.push(party);
-	party.playlist.addSong(new Song('Testygaga - one big fat test', 'url', '/song.wma'));
-	
-	socket.on('party_getState', function (data) {
-		socket.emit('party_state', party.playlist);
-		console.log(data);
-	}).on('playlist_getNext', function(){
-		socket.emit('playlist_next', party.playlist.read());
-	})
-	.on('disconnect', function(){
-	
-		parties.splice(parties.indexOf(party), 1);
+	var party;
+
+	socket.on('party_init', function(hash){
+		party = parties[hash];
+		if(typeof(party) === 'undefined'){
+			party = {
+				playlist: new Playlist(),
+				sockets: new Array(),
+				hash: hash
+			};
+			
+			party.sockets.push(socket);
+			
+			parties[hash] = party;
+			party.playlist.addSong(new Song('Testygaga - one big fat test', 'url', '/song.wma'));
+			
+			console.log("Creating new party with hash : "+hash);
+		} else {
+			console.log("Using existing party with hash : "+hash);
+		}
+		
+		socket.emit('party_initialized', party.playlist.list);
+	}).on('party_close', function(){
+		
+		delete parties[party.hash];
 		
 		console.log('closed');
+		
+	}).on('playlist_getNext', function(){
+		socket.emit('playlist_next', party.playlist.read());
+	}).on('disconnect', function(){
+		
+		if(typeof(party !== 'undefined')){
+			party.sockets.splice(party.sockets.indexOf(socket), 1);
+			
+			console.log('disconnected');
+		}
 	});
   
 });

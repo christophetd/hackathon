@@ -38,7 +38,7 @@ var parties = new Array();
 //Mobile api calls
 app.get('/api/:hash/:action', function(req, res){
 	if(req.params.action == 'getPlaylist'){
-		res.send(JSON.stringify(parties[0].playlist));
+		res.send(JSON.stringify(parties[0].playlist.list));
 	} else {
 		res.end();
 	}

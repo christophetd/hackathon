@@ -8,7 +8,7 @@ socket.on('party_initialized', function (data) {
 	qr.target("qr-container");
 	qr.size(250);
 	qr.border(10);
-	qr.data("http://128.179.140.92:5000/mobile/?p="+apikey);
+	qr.data("http://"+window.location.host+"/mobile/?p="+apikey);
 	qr.image();
 
 	playlist.set(data);

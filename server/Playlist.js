@@ -57,10 +57,9 @@ var Playlist =  function (){
 				for (; ind >= 1 && this.list[ind-1].score < this.list[ind].score; ind--){
 					upSong(ind);
 				}
-				
-				this.emit('updated');
 			}
 		}
+		this.emit('updated');
 	}
 	//public read() : Song
 	//resets to 0 the score of the top song and gets it to the end

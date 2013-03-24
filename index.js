@@ -63,8 +63,6 @@ app.configure(function(){
 		
 		parties[appKey] = party;
 		party.playlist.addSong(new Song('Rickrolld', 'youtube', 'oHg5SJYRHA0'));
-		party.playlist.addSong(new Song('Hysteria', 'url', '/song.mp3'));
-		party.playlist.addSong(new Song('Rickrolld', 'youtube', 'w8KQmps-Sog'));
 		
 		console.log("Creating new party with appKey : "+appKey);
 		

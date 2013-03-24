@@ -31,11 +31,16 @@
 	        };
 		}
 	)})
-	//});
 	
 
-	$('#library_addFilesButton').click(function(){
-		//TODO : add files to localFiles
-		
-	});
+	this.openFiles = function(files){
+		console.log(files[0]);
+		$('#library_filesInput').replaceWith(
+		$('<input style="overflow: hidden; width: 1000px; height: 1000px; opacity: 0; position: absolute;" id="library_filesInput" type="file" class="btn" accept="sound/*" multiple onchange="sourcesView.openFiles(this.files)" name="localFileSelection"/>')
+		);
+   
+		for(var i = 0 ; i < files.length ; i++){
+			localFiles.add(files[i]);
+		}
+	};
 }

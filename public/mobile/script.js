@@ -58,7 +58,7 @@ $(document).bind('pageinit',function() {
 						console.log("Data Loaded: " + data);
 					});
 				}})(item));
-				liItem.append($('<a href="#"> <img src="'+ item.picture + '">' + item.name + '</a>'));
+				liItem.append($('<a href="#Home"> <img src="'+ item.picture + '">' + item.name + '</a>'));
 				//liItem.append($('<a href="#">' + item.name + '</a>'));
 				$('#dynamicResults').append(liItem);
 			  

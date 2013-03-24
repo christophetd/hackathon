@@ -1,6 +1,11 @@
 var http = require('http');
 module.exports = {
 	YoutubeSource : function(){
+		//public search () : void
+		//terms : string
+		//nb : int
+		//callback(results : string[])
+		//gets the nb firsts results for the terms
 		this.search=function(terms,nb,callback){
 			terms=terms.replace(' ','+');
 			var url="http://gdata.youtube.com/feeds/api/videos?alt=json&q="+terms;

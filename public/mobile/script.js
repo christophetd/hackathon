@@ -71,7 +71,8 @@ $(document).bind('pageinit',function() {
     });
 
     $('#vlist').click(refresh);
-
+    $('#dynamicResults').click(refresh);
+    
 	if(window.location.hash === '#New'){
 		$('#dynamicResults').listview();
 	} else {

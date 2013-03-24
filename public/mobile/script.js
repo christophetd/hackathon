@@ -1,8 +1,7 @@
 $(document).bind('pageinit',function() {
     
 
-    var phash = window.location.search;
-  	alert(phash);
+    var phash = window.location.search.replace(/\?p=(.+)/, '$1');
 	
   
 	function refresh() {
@@ -38,10 +37,10 @@ $(document).bind('pageinit',function() {
     $('#refresh-1').click(refresh);
 
     //Search function
-    $('#addnew').click(function() {
+    $('#sub').submit(function() {
       var toAdd = $("input[name=search-1]").val();
         // modify string
-        $.post('/api/'+phash+'/search', {q: toAdd, n: 4})
+        $.post('/api/'+phash+'/search', {q: toAdd, n: 6})
 			.done(function(data) {
 			console.log(data);
 			data = JSON.parse(data);
@@ -51,13 +50,14 @@ $(document).bind('pageinit',function() {
 			for(var i = 0 ; i < data.length ; i++){
 				var item = data[i];
 				var liItem = $('<li id="' + item.id + '""></li>');
-				liItem.click(function(){
+				liItem.click((function(item){
+					return function(){
 
 					$.post('/api/'+phash+'/add', {item: item})
 					.done(function(data) {
 						console.log("Data Loaded: " + data);
 					});
-				});
+				}})(item));
 				liItem.append($('<a href="#"> <img src="'+ item.picture + '">' + item.name + '</a>'));
 				//liItem.append($('<a href="#">' + item.name + '</a>'));
 				$('#dynamicResults').append(liItem);
@@ -66,6 +66,7 @@ $(document).bind('pageinit',function() {
 
 			$('#dynamicResults').listview('refresh');
         });
+		return false;
     
     });
 
@@ -75,6 +76,8 @@ $(document).bind('pageinit',function() {
 		$('#dynamicFieldList').listview();
 		refresh();
 	}
+
+
 	
 
 });

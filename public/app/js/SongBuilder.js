@@ -74,7 +74,7 @@ function YoutubeSource() {
 		}
 		_this.endCallback = endCallback;
 		song.play = function($container) {
-			
+			$container.html("");
 			$('<h2>').text(song.name).appendTo($container);
 			$player = $('<object>', {
 				type: 'application/x-shockwave-flash', 

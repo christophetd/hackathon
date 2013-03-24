@@ -32,6 +32,9 @@ server.listen(app.get('port'), function() {
 
 var Song = require('./server/Song.js');
 var Playlist = require('./server/Playlist.js');
+var Sources = require('./server/Sources.js');
+
+var youtubeSource = new Sources.YoutubeSource();
 
 var parties = new Array();
 
@@ -53,6 +56,15 @@ app.post('/api/:hash/:action', function(req, res){
 		if(req.params.action == 'up'){
 			parties[req.params.hash].playlist.vote(req.body.id);
 			res.send('{"ack": true}');
+		} else if(req.params.action == 'search'){
+			if(typeof(req.body.q) !== 'undefined'){
+				var n = (typeof(req.body.n) !== 'undefined') ? req.body.n : 5;
+				youtubeSource.search(req.body.q, n, function(sResult){
+					res.send(JSON.stringify(sResult));
+				});
+			} else {
+				res.send('{"error": "no search query"}');
+			}
 		} else {
 			res.send('{"error": "Action not implemented"}');
 		}

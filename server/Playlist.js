@@ -34,6 +34,7 @@ var Playlist =  function (){
 	this.get=function(ind){
 		return this.list[ind];
 	}
+
 	//private upSong() : void
 	//ind : int
 	//moves up the song defined by the id in the queue
@@ -45,6 +46,10 @@ var Playlist =  function (){
 			list[ind]=list[ind-1];
 			list[ind-1]=tmp;
 		}
+	}
+	this.remove=function(songid){
+		this.list.splice(seekSong(songid),1);
+		this.emit('updated')
 	}
 	//public vote() : void
 	//songid : int

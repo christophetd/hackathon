@@ -20,13 +20,6 @@
     <!--[if lt IE 9]>
       <script src="/bootstrap/js/html5shiv.js"></script>
     <![endif]-->
-
-    <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/bootstrap/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/bootstrap/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bootstrap/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="/bootstrap/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="/bootstrap/ico/favicon.png">
   </head>
 
   <body>
@@ -39,10 +32,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Project name</a>
+          <a class="brand" href="/">Project name</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><a href="/">Home</a></li>
               <li><a href="#about">About</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>
@@ -53,10 +46,33 @@
 
     <div class="container">
 <center><div class="row">
-  <div class="span8"><div id="media-container"></div></div>
-  <div class="span4" style="float: left;"><h2>Playlist en cours</h2><div id="playlist-container"></div>
-<br /><div id="qr-container" style="border-top: 50px;"></div></div>
-</div></center>
+  <div class="span5">
+  		<div id="media-container" class="well well-large"></div>
+  </div>
+  <div class="span4">
+  		<div class="well well-large">
+  			<h2>Current playlist</h2>
+  			<div id="playlist-container">
+  		
+  			</div>
+		<br />
+ 		<div id="qr-container" style="border-top: 50px;"></div>
+ 		<div id="link-container"></div>
+ 		</div>
+ 	</div>
+<div class="span3"><div class="well well-large">
+		<h2>Add songs</h2>
+	<form>
+		<label for="source">Source : 
+			<select id="source">
+				<option value="youtube">YouTube</option>
+				<option value="url">Lien direct</option>
+				<option value="local">Fichier</option>
+			</select>
+</div></div>
+</div>
+  
+</center>
 	<script src="/socket.io/socket.io.js"></script>
 	<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
 	<script src="/app/js/SongBuilder.js"></script>

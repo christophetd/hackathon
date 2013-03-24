@@ -48,10 +48,14 @@ var Playlist =  function (){
 	//songid : int
 	//increases the score of the song and possibly reorganises the queue
 	this.vote=function(songid){
-		var ind=seekSong(songid);
-		this.list[ind].score++;
-		if (this.list[ind-1].score<this.list[ind].score)
-			upSong(songid);
+		var ind= this.seekSong(songid);
+		if(ind != -1){
+			this.list[ind].score++;
+			if(ind-1 >= 0){
+				if (this.list[ind-1].score<this.list[ind].score)
+					upSong(songid);
+			}
+		}
 	}
 	//public read() : Song
 	//resets to 0 the score of the top song and gets it to the end

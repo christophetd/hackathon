@@ -9,8 +9,6 @@ var port =  process.env.PORT || 5000;
 
 app.configure(function(){
     app.set('port', port);
-    app.set('views', __dirname + '/views');
-    app.set('view engine', 'jade');
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
@@ -39,9 +37,8 @@ var parties = new Array();
 
 //Mobile api calls
 app.get('/api/:hash/:action', function(req, res){
-	
 	if(req.params.action == 'getPlaylist'){
-		res.send(JSON.stringify(parties[0].playlist));
+		res.send(JSON.stringify(parties[0].playlist.list));
 	} else {
 		res.end();
 	}
@@ -49,13 +46,8 @@ app.get('/api/:hash/:action', function(req, res){
 
 app.post('/api/:hash/:action', function(req, res){
 	if(req.params.action == 'up'){
-		var id = parties[0].playlist.seekSong(req.body.id);
-		
-		if(id !== -1){
-			parties[0].playlist.vote(id);
-		} else {
-			res.send('{"error": "Id '+id+' could not be found in playlist."}');
-		}
+		parties[0].playlist.vote(req.body.id);
+		res.send('{"ack": true}');
 	}
 });
 
@@ -63,25 +55,43 @@ app.post('/api/:hash/:action', function(req, res){
 //Desktop app
 io.sockets.on('connection', function (socket) {
 	
-	var party = {
-		playlist: new Playlist(),
-		socket: socket
-	};
-	
-	parties.push(party);
-	party.playlist.addSong(new Song('Testygaga - one big fat test', 'url', '/song.wma'));
-	
-	socket.on('party_getState', function (data) {
-		socket.emit('party_state', party.playlist);
-		console.log(data);
-	}).on('playlist_getNext', function(){
-		socket.emit('playlist_next', party.playlist.read());
-	})
-	.on('disconnect', function(){
-	
-		parties.splice(parties.indexOf(party), 1);
+	var party;
+
+	socket.on('party_init', function(hash){
+		party = parties[hash];
+		if(typeof(party) === 'undefined'){
+			party = {
+				playlist: new Playlist(),
+				sockets: new Array(),
+				hash: hash
+			};
+			
+			party.sockets.push(socket);
+			
+			parties[hash] = party;
+			party.playlist.addSong(new Song('Testygaga - one big fat test', 'url', '/song.wma'));
+			
+			console.log("Creating new party with hash : "+hash);
+		} else {
+			console.log("Using existing party with hash : "+hash);
+		}
+		
+		socket.emit('party_initialized', party.playlist.list);
+	}).on('party_close', function(){
+		
+		delete parties[party.hash];
 		
 		console.log('closed');
+		
+	}).on('playlist_getNext', function(){
+		socket.emit('playlist_next', party.playlist.read());
+	}).on('disconnect', function(){
+		
+		if(typeof(party !== 'undefined')){
+			party.sockets.splice(party.sockets.indexOf(socket), 1);
+			
+			console.log('disconnected');
+		}
 	});
   
 });

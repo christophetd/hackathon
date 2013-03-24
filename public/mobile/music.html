@@ -21,56 +21,25 @@
 		</div><!-- /header -->
 
 		<div data-role="content">	
-   		 	<ul data-role="listview" data-filter="true" data-filter-placeholder="Search for music.." data-count-theme="c">
-    			<li><a href="#">Apple<span class="ui-li-count">15</span></a></li>
-    			<li><a href="#">Banana<span class="ui-li-count">13</span></a></li>
-    			<li><a href="#">Cherry<span class="ui-li-count">11</span></a></li>
-    			<li><a href="#">Cranberry<span class="ui-li-count">3</span></a></li>
-    			<li><a href="#">Grape<span class="ui-li-count">2</span></a></li>
-    			<li><a href="#">Orange<span class="ui-li-count">1</span></a></li>
-			</ul>
-			<div id="message1"></div>
+
+			<div id="votelist">
+   		 	<ul id="dynamicFieldList" data-role="listview" data-icon="arrow-u" data-filter="true" data-filter-placeholder="Search for music.." data-count-theme="a">
+
+   		 	</ul>
+			</div>
+			
 
 		</div><!-- /content -->
 		<div data-role="footer" data-theme="a" data-position="fixed">
 			<div data-role="navbar" data-iconpos="bottom">
 			<ul>
 				<li><a href="#Home" class="ui-btn-active ui-state-persist" data-icon="star">Vote</a></li>
-				<li><a href="#Playlist" data-icon="bars">Playlist</a></li>
 				<li><a href="#New" data-icon="plus">New</a></li>
 			</ul>
 			</div><!-- /navbar -->
 		</div><!-- /footer -->
 	</div><!-- /page -->
 
-	<div data-role="page" id="Playlist">
-
-		<div data-role="header" data-icon="refresh" data-theme="a">
-			<h1>Music-App</h1>
-			<a href="#" data-icon="refresh" id="refresh-2" class="ui-btn-right">Refresh</a>
-		</div><!-- /header -->
-
-		<div data-role="content">	
-   		 	<ol data-role="listview">
-    			<li>Acura</li>
-    			<li>Audi</li>
-    			<li>BMW</li>
-    			<li>Cadillac</li>
-    			<li>Ferrari</li>
-			</ol>
-			<div id="message2"></div>
-
-		</div><!-- /content -->
-		<div data-role="footer" data-theme="a" data-position="fixed">
-			<div data-role="navbar" data-iconpos="bottom">
-			<ul>
-				<li><a href="#Home"  data-icon="star">Vote</a></li>
-				<li><a href="#Playlist" class="ui-btn-active ui-state-persist" data-icon="bars">Playlist</a></li>
-				<li><a href="#New" data-icon="plus">New</a></li>
-			</ul>
-			</div><!-- /navbar -->
-		</div><!-- /footer -->
-	</div><!-- /page -->
 
 	<div data-role="page" id="New">
 
@@ -84,14 +53,16 @@
      			<input type="search" name="search-1" id="search-1" value="">
      			<input id="addnew" type="button" value="Search">
 			</form>
-			<div id="messages"></div>
+			<div id="results">
+				<ul id="dynamicResults" data-role="listview" data-icon="plus" data-count-theme="c">
+				</ul>
+			</div>
 
 		</div><!-- /content -->
 		<div data-role="footer" data-theme="a" data-position="fixed">
 			<div data-role="navbar" data-iconpos="bottom">
 			<ul>
 				<li><a href="#Home"  data-icon="star">Vote</a></li>
-				<li><a href="#Playlist" data-icon="bars">Playlist</a></li>
 				<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="plus">New</a></li>
 			</ul>
 			</div><!-- /navbar -->

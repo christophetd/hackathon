@@ -1,3 +1,8 @@
+/*Example :
+ new Sources.YoutubeSource().search("muse uprising",5,function(results){
+ 	console.log(results);
+ });
+ */ 
 var http = require('http');
 module.exports = {
 	YoutubeSource : function(){

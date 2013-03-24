@@ -58,7 +58,7 @@ socket.on('party_initialized', function (data) {
 
 });
 
-socket.emit("party_init", "hqhq");
+socket.emit("party_init", getCookie('partyHash'));
 
 
 

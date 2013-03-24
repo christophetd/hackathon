@@ -77,8 +77,33 @@ server.listen(app.get('port'), function() {
 	console.log("server running and listening on port "+port);
 });
 
+var VOTE_TIMEOUT = 120;
 
-
+var lockIpVote = (function(){
+	var locks = new Array();
+	
+	return function(ip, id){
+		if(typeof(locks[ip]) === 'undefined'){
+			locks[ip] = {
+				time: new Date(),
+				lastVotes: new Array()
+			};
+			locks[ip].lastVotes[0] = id;
+		} else {
+			if(new Date().getSeconds() - locks[ip].time.getSeconds() >= VOTE_TIMEOUT){
+				locks[ip].time = new Date();
+				locks.lastVotes = new Array();
+			}
+			
+			if(locks[ip].lastVotes.indexOf(id) == -1){
+				locks[ip].lastVotes.push(id);
+			} else {
+				return 'you can not vote for the same music twice in so little time';
+			}
+		}
+		return false;
+	};
+})();
 
 var Song = require('./server/Song.js');
 var Playlist = require('./server/Playlist.js');
@@ -119,8 +144,13 @@ app.post('/api/:hash/:action', function(req, res){
 	if(typeof(appKey) !== 'undefined'){
 		if(typeof(parties[appKey]) !== 'undefined'){
 			if(req.params.action == 'up'){
-				parties[appKey].playlist.vote(req.body.id);
-				res.send('{"ack": true}');
+				var err = lockIpVote(req.ip, req.body.id);
+				if(err === false){
+					parties[appKey].playlist.vote(req.body.id);
+					res.send('{"ack": true}');
+				} else {
+					res.send('{"error": "'+err+'"}');
+				}
 			//SEARCH
 			} else if(req.params.action == 'search'){
 				if(typeof(req.body.q) !== 'undefined'){

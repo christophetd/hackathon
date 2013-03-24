@@ -68,14 +68,16 @@
 				</div>
 			</form>
 		<div id="library_list">
-			
            <ol id="library_dynamicResults">
-			
+				
            </ol>
 		</div>
 		
-		<a class="btn">Add files</a>
-
+		<div style="position: relative;">
+			
+			<input style="overflow: hidden; width: 1000px; height: 1000px; opacity: 0; position: absolute;" id="library_filesInput" type="file" class="btn" accept="sound/*" multiple onchange="sourcesView.openFiles(this.files)" name="localFileSelection"/>
+			<span class="btn" >Add files</span>
+		</div>
 	</div></div>
 </div>
 

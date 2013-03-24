@@ -60,22 +60,34 @@
  		<div id="link-container"></div>
  		</div>
  	</div>
-<div class="span3"><div class="well well-large">
-		<h2>Add songs</h2>
-	<form>
-		<label for="source">Source : 
-			<select id="source">
-				<option value="youtube">YouTube</option>
-				<option value="url">Lien direct</option>
-				<option value="local">Fichier</option>
-			</select>
-</div></div>
+	<div class="span3"><div class="well well-large">
+		<h2>Songs</h2>
+			<form id="library_search" class="form-search">
+				<div class="input-append">
+					<input class="span2" id="appendedInputButton" type="text">
+					<button class="btn" type="button"><i class="icon-search" ></i></button>
+				</div>
+			</form>
+		<div id="library_list">
+			
+           <ol id="library_dynamicResults">
+			
+           </ol>
+		</div>
+		
+		<a class="btn">Add files</a>
+
+	</div></div>
 </div>
+
+
   
 </center>
 	<script src="/socket.io/socket.io.js"></script>
 	<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+	<script src="/app/js/LocalFiles.js"></script>
 	<script src="/app/js/SongBuilder.js"></script>
+	<script src="/app/js/SourcesView.js"></script>
 	<script src="/app/js/PlaylistView.js"></script>
 	<script src="/app/js/Player.js"></script>
 	<script type="text/javascript" src="/js/cookies.js"></script>

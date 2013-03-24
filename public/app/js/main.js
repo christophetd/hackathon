@@ -1,9 +1,13 @@
 ﻿var socket = io.connect('/');
 var apikey = '';
 socket.on('party_initialized', function (data) {
-	apikey = data.apiKey;
+	var apiKey = data.apiKey;
+	
+	var localFiles = new LocalFiles();
 	var playlist = new PlaylistView(socket);
 	var player = new Player(socket, playlist);
+	
+	var sourcesView = new SourcesView(apiKey, localFiles);
 	var link = "http://"+window.location.host+"/mobile/?p="+apikey;
 	var qr = new QRtag();
 	qr.target("qr-container");

@@ -6,16 +6,16 @@ function LocalFiles(){
 	//adds the path into the list, avoiding doublons
 	this.add=function(file){
 		for(var i in this.list)
-			if (this.list[i]==path)
+			if (this.list[i]==file)
 				return;
 		this.list.push(path);
 	}
 	//remove() : void
 	//path : File
-	//removes the path from the list
+	//removes the file from the list
 	this.remove=function(file){
 		for(var ind=0;ind<this.list.length;ind++)
-			if (this.list[ind]==path){
+			if (this.list[ind]==file){
 				this.list.splice(ind,1);
 				return;
 			}

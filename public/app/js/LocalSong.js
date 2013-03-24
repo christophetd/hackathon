@@ -20,6 +20,4 @@ function LocalSong (file){
 	//picture : string
 	//contains the path of the picture
 	this.picture='';
-	//getFile() : file
-	//
 }

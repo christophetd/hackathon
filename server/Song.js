@@ -1,5 +1,5 @@
 //class Song
-module.exports = function (name,type,data){
+module.exports = function (name,type,data,picture){
 	//name : string
 	//"artist - title" or whatever
 	this.name=name;
@@ -15,4 +15,7 @@ module.exports = function (name,type,data){
 	//score : int
 	//is incremented by the votes
 	this.score=0;
+	//picture : string
+	//contains the path of the picture
+	this.picture=picture;
 }

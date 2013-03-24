@@ -22,15 +22,53 @@ module.exports = {
 			  	data+=chunk;
 			  })
 			  res.on('end',function(){
-			  	for(var i=0;i<nb;i++){
+			  	var parsed=JSON.parse(data).feed.entry;
+			  	for(var i=0;i<parsed.length;i<nb;i++){
 			  		songs.push (new Song(
-			  			JSON.parse(data).feed.entry[i].title.$t,
+			  			parsed[i].title.$t,
 			  			'youtube',
-			  			JSON.parse(data).feed.entry[i].link[0].href
+			  			parsed[i].link[0].href,
+			  			parsed[0].media$group.media$thumbnail[0].url
 			  		));
 			  	}
 				callback (songs);
 			  })
+			});
+		}
+	},
+	// MP3SkullSource : function(){
+	// 	this.search=function(terms,nb,callback){
+	// 		terms=terms.replace(' ','_');
+	// 		var url="http://mp3skull.com/mp3/"+terms+".html";
+	// 		var songs=[];
+	// 		http.get(url, function(res){
+	// 			var data='';
+	// 			res.on('data',function(chunk){
+	// 				data+=chunk;
+	// 			})
+	// 			res.on('end',function(){
+	// 				var vals=data.split('"');
+	// 				var i = 0
+	// 				while (i<vals.length&&i<nb){
+	// 					if (vals[i].substr(vals[i].length-4)==".mp3")
+	// 						i++;
+	// 					else
+	// 						vals.splice(i,1);
+	// 				}
+	// 			})
+	// 		})
+	// 	}
+	// },
+	LocalSource : function(){
+		this.search=function(terms,nb,callback,party){,
+			var socket=party.socket;
+			var songs = [];
+			socket.emit('source_query',terms);
+			socket.on('source_search',function(data){
+				data=data.slice(0,nb);
+				for(var d in data)
+					songs.push(new Song(d.split('/').pop(),'local',d));
+				callback(data);
 			});
 		}
 	}

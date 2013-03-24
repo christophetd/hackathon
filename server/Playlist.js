@@ -12,6 +12,8 @@ var Playlist =  function (){
 		song.id = id_counter;
 		id_counter++;//je sais, j'aurais pu le faire en une ligne, mais c'est moins lisible, voilà
 		this.list.push(song);
+		
+		this.emit('updated');
 	}
 	//public seekSong() : int
 	//songid : int
@@ -68,6 +70,9 @@ var Playlist =  function (){
 		this.list.splice(0, 1);
 		tmp.score=0;
 		this.list.push(tmp);
+		
+		this.emit('updated');
+		
 		return tmp;
 	}
 }

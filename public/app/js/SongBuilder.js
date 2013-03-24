@@ -57,7 +57,52 @@ function URLSource() {
 	}
 }
 
+function LocalSource(localFiles) {
 
+	var _this = this;
+	var endCallback;
+
+	this.buildSong = function(song, callback) {
+		this.endCallback = callback;
+		if(song.type != "local")  {
+			console.log("Song type error : expected local, "+song.type+" got.");
+			return;
+		}
+
+		var file = localFiles.get(song.data);
+		
+		console.log(song);
+		
+		song.play = function($container) {
+
+			$container.html("");
+			$('<h2>').text(file.name).appendTo($container);
+			console.log("Playing song");
+			console.log(file);
+			$audio = $('<audio>', {
+				controls: '', 
+				preload: '', 
+				autoplay: ''
+			}).appendTo($container);
+			$('<source/>', { src : window.URL.createObjectURL(file) }).appendTo($audio);
+			_this.audio = $audio;
+			_this.audio.bind("ended", function() {
+				$container.html("");
+				_this.endCallback();
+			});
+			return $audio;
+
+		};
+
+		song.getCurrentTime = function() {
+			return _this.audio[0].currentTime;
+		}
+
+		song.getDuration = function() {
+			return _this.audio[0].duration;
+		}
+	}
+}
 
 function YoutubeSource() {
 	var _this = this;

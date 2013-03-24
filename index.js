@@ -110,6 +110,7 @@ var Playlist = require('./server/Playlist.js');
 var Sources = require('./server/Sources.js');
 
 var youtubeSource = new Sources.YoutubeSource();
+var localSource = new Sources.LocalSource();
 
 function checkSong(item){
 	return (typeof(item.id) !== 'undefined'
@@ -155,8 +156,24 @@ app.post('/api/:hash/:action', function(req, res){
 			} else if(req.params.action == 'search'){
 				if(typeof(req.body.q) !== 'undefined'){
 					var n = (typeof(req.body.n) !== 'undefined') ? req.body.n : 5;
+					
+					var completeness = 0;
+					var data = new Array();
+					
+					function complete(chunk){
+						completeness++;
+						data = data.concat(chunk);
+						if(completeness == 2){
+							res.send(JSON.stringify(data));
+						}
+					}
+					
 					youtubeSource.search(req.body.q, n, function(sResult){
-						res.send(JSON.stringify(sResult));
+						complete(sResult);
+					}, parties[appKey]);
+					
+					localSource.search(req.body.q, n, function(sResult){
+						complete(sResult);
 					}, parties[appKey]);
 				} else {
 					res.send('{"error": "no search query"}');

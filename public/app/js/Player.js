@@ -1,4 +1,4 @@
-function Player(socket, playlist) {
+function Player(socket, playlist, localFiles) {
 	var _this = this;
 	this.playlist = playlist;
 	var source;
@@ -6,13 +6,16 @@ function Player(socket, playlist) {
 	_this.play = function(song) {
 		switch(song.type) {
 			case "youtube": 
-			source = new YoutubeSource();
+				source = new YoutubeSource();
 				break;
 
 			case "url": 
-			source = new URLSource();
+				source = new URLSource();
 				break;
-
+			
+			case "local":
+				source = new LocalSource(localFiles);
+				break;
 			default: 
 				console.log("Type error ("+song.type+")");
 		}

@@ -4,7 +4,7 @@ function printPlaylist(playlist) {
 	$list = $('#playlist>ol');
 	$list.empty();
 	for(var i in playlist) {
-		$('<li>').html(playList[i].name).appendTo($list);
+		$('<li>').html(playlist[i].name).appendTo($list);
 	}
 }
 socket.on('playlist_update', function(newPlaylist) {

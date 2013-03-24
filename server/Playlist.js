@@ -55,6 +55,8 @@ var Playlist =  function (){
 				for (; ind >= 1 && this.list[ind-1].score < this.list[ind].score; ind--){
 					upSong(ind);
 				}
+				
+				this.emit('updated');
 			}
 		}
 	}

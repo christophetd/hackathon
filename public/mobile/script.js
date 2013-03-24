@@ -56,6 +56,7 @@ $(document).bind('pageinit',function() {
 					$.post('/api/'+phash+'/add', {item: item})
 					.done(function(data) {
 						console.log("Data Loaded: " + data);
+						setTimeout("refresh();",500);
 					});
 				}})(item));
 				liItem.append($('<a href="#Home"> <img src="'+ item.picture + '">' + item.name + '</a>'));
@@ -71,8 +72,7 @@ $(document).bind('pageinit',function() {
     });
 
     $('#vlist').click(refresh);
-    $('#dynamicResults').click(refresh);
-    
+
 	if(window.location.hash === '#New'){
 		$('#dynamicResults').listview();
 	} else {

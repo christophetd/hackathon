@@ -1,7 +1,13 @@
 ﻿var socket = io.connect('/');
 
-var playlist = new PlaylistView(socket);
-var player = new Player(socket, playlist);
+socket.on('party_initialized', function (data) {
+	var playlist = new PlaylistView(socket);
+	var player = new Player(socket, playlist);
+	
+	playlist.set(data);
+	
+	console.log(data.apiKey);
+});
 
 
 socket.on('error', function(msg){

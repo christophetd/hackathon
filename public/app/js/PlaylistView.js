@@ -1,16 +1,15 @@
 function PlaylistView(socket) {
-	_this = this;
+	var _this = this;
 	this.list = [];
 
 	socket.on('playlist_update', function(newPlaylist) {
-		alert("Updating playlist");
 		console.log(newPlaylist);
 		_this.set(newPlaylist);
-		_this.refresh($('#playlist-container'));
 	});
 
 	this.set = function(data) {
 		_this.list = data;
+		_this.refresh($('#playlist-container'));
 	}
 
 	this.refresh = function($container) {

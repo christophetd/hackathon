@@ -23,15 +23,17 @@ module.exports = {
 			  })
 			  res.on('end',function(){
 			  	var parsed=JSON.parse(data).feed.entry;
-			  	for(var i=0;i<parsed.length && i<nb;i++){
-			  		songs.push (new Song(
-			  			parsed[i].title.$t,
-			  			'youtube',
-			  			parsed[i].link[0].href,
-			  			parsed[0].media$group.media$thumbnail[0].url
-			  		));
-			  	}
-				callback (songs);
+				if(typeof(parsed) !== 'undefined'){
+					for(var i=0;i<parsed.length && i<nb;i++){
+						songs.push (new Song(
+							parsed[i].title.$t,
+							'youtube',
+							parsed[i].link[0].href.replace(/.+v=(.+)/, '$1'),
+							parsed[0].media$group.media$thumbnail[0].url
+						));
+					}
+					callback (songs);
+				}
 			  })
 			});
 		}

@@ -32,6 +32,9 @@ server.listen(app.get('port'), function() {
 
 var Song = require('./server/Song.js');
 var Playlist = require('./server/Playlist.js');
+var Sources = require('./server/Sources.js');
+
+var youtubeSource = new Sources.YoutubeSource();
 
 var parties = new Array();
 
@@ -53,6 +56,15 @@ app.post('/api/:hash/:action', function(req, res){
 		if(req.params.action == 'up'){
 			parties[req.params.hash].playlist.vote(req.body.id);
 			res.send('{"ack": true}');
+		} else if(req.params.action == 'search'){
+			if(typeof(req.body.q) !== 'undefined'){
+				var n = (typeof(req.body.n) !== 'undefined') ? req.body.n : 5;
+				youtubeSource.search(req.body.q, n, function(sResult){
+					res.send(JSON.stringify(sResult));
+				});
+			} else {
+				res.send('{"error": "no search query"}');
+			}
 		} else {
 			res.send('{"error": "Action not implemented"}');
 		}
@@ -79,11 +91,9 @@ io.sockets.on('connection', function (socket) {
 			party.sockets.push(socket);
 			
 			parties[hash] = party;
-			party.playlist.addSong(new Song('Testygaga - one big fat test', 'url', '/song.wma'));
-			party.playlist.addSong(new Song('Another song', 'url', '/Another.wma'));
-			party.playlist.addSong(new Song('Blablabla', 'url', '/Blablabla.wma'));
-			party.playlist.addSong(new Song('Supersong', 'url', '/Supersong.wma'));
-			party.playlist.addSong(new Song('Supersong2, le retour', 'url', '/Supersong2.wma'));
+			party.playlist.addSong(new Song('Rickrolld', 'youtube', 'oHg5SJYRHA0'));
+			party.playlist.addSong(new Song('Hysteria', 'url', '/song.mp3'));
+			party.playlist.addSong(new Song('Rickrolld', 'youtube', 'w8KQmps-Sog'));
 			
 			console.log("Creating new party with hash : "+hash);
 		} else {

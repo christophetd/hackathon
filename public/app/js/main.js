@@ -1,12 +1,28 @@
 ﻿var socket = io.connect('/');
 
-var urlSource = new URLSource();
 
-var current = 0;
 socket.on('party_initialized', function (data) {
+	console.log(data);
+	console.log("Initialized");
+	var source;
 	function play(song) {
-		urlSource.buildSong(song);
-		$media = song.play($('#media-container'), true);
+		switch(song.type) {
+			case "youtube": 
+			source = new YoutubeSource();
+				break;
+
+			case "url": 
+			source = new URLSource();
+
+			default: 
+				console.log("Type error");
+		}
+
+		source.buildSong(song, function() {
+			console.log("Ended");
+			socket.emit("playlist_getNext");
+		});
+		$media = song.play($('#media-container'));
 
 		// Preloading
 		/*var interval = setInterval(function() {
@@ -26,10 +42,6 @@ socket.on('party_initialized', function (data) {
 				clearInterval(interval);
 			}
 		}, 2000);*/
-
-		$media.bind('ended', function() {{
-			socket.emit("playlist_getNext");
-		}});
 	}
 	socket.emit("playlist_getNext");
 	socket.on("playlist_next", function(response) { play(response); });

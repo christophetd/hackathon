@@ -26,7 +26,8 @@ module.exports = {
 			  		songs.push (new Song(
 			  			JSON.parse(data).feed.entry[i].title.$t,
 			  			'youtube',
-			  			JSON.parse(data).feed.entry[i].link[0].href
+			  			JSON.parse(data).feed.entry[i].link[0].href,
+			  			JSON.parse(data).feed.entry[0].media$group.media$thumbnail[0].url
 			  		));
 			  	}
 				callback (songs);

@@ -56,9 +56,10 @@ $(document).bind('pageinit',function() {
 					$.post('/api/'+phash+'/add', {item: item})
 					.done(function(data) {
 						console.log("Data Loaded: " + data);
+						setTimeout("refresh();",500);
 					});
 				}})(item));
-				liItem.append($('<a href="#"> <img src="'+ item.picture + '">' + item.name + '</a>'));
+				liItem.append($('<a href="#Home"> <img src="'+ item.picture + '">' + item.name + '</a>'));
 				//liItem.append($('<a href="#">' + item.name + '</a>'));
 				$('#dynamicResults').append(liItem);
 			  
@@ -69,6 +70,11 @@ $(document).bind('pageinit',function() {
 		return false;
     
     });
+
+
+    $("#Home").on("pageshow",function(e) {
+    	refresh();   
+	});
 
 	if(window.location.hash === '#New'){
 		$('#dynamicResults').listview();

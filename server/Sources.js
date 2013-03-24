@@ -22,12 +22,13 @@ module.exports = {
 			  	data+=chunk;
 			  })
 			  res.on('end',function(){
-			  	for(var i=0;i<nb;i++){
+			  	var parsed=JSON.parse(data).feed.entry;
+			  	for(var i=0;i<parsed.length;i<nb;i++){
 			  		songs.push (new Song(
-			  			JSON.parse(data).feed.entry[i].title.$t,
+			  			parsed[i].title.$t,
 			  			'youtube',
-			  			JSON.parse(data).feed.entry[i].link[0].href,
-			  			JSON.parse(data).feed.entry[0].media$group.media$thumbnail[0].url
+			  			parsed[i].link[0].href,
+			  			parsed[0].media$group.media$thumbnail[0].url
 			  		));
 			  	}
 				callback (songs);

@@ -1,8 +1,7 @@
 $(document).bind('pageinit',function() {
     
 
-    var phash = window.location.search;
-  	alert(phash);
+    var phash = window.location.search.replace(/\?p=(.+)/, '$1');
 	
   
 	function refresh() {

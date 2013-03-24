@@ -86,6 +86,13 @@ var Sources = require('./server/Sources.js');
 
 var youtubeSource = new Sources.YoutubeSource();
 
+function checkSong(item){
+	return (typeof(item.id) !== 'undefined'
+		&& typeof(item.name) !== 'undefined'
+		&& typeof(item.type) !== 'undefined'
+		&& typeof(item.data) !== 'undefined'
+		&& typeof(item.score) !== 'undefined');
+}
 
 //Mobile api calls
 app.get('/api/:hash/:action', function(req, res){
@@ -114,8 +121,8 @@ app.post('/api/:hash/:action', function(req, res){
 			if(req.params.action == 'up'){
 				parties[appKey].playlist.vote(req.body.id);
 				res.send('{"ack": true}');
+			//SEARCH
 			} else if(req.params.action == 'search'){
-				//Search for new music in sources
 				if(typeof(req.body.q) !== 'undefined'){
 					var n = (typeof(req.body.n) !== 'undefined') ? req.body.n : 5;
 					youtubeSource.search(req.body.q, n, function(sResult){
@@ -123,6 +130,20 @@ app.post('/api/:hash/:action', function(req, res){
 					}, parties[appKey]);
 				} else {
 					res.send('{"error": "no search query"}');
+				}
+			//ADD
+			} else if(req.params.action == 'add'){
+				if(typeof(req.body.item) !== 'undefined'){
+					var item = req.body.item;
+					console.log(item);
+					if(checkSong(item)){
+						console.log('hqhq');
+						parties[appKey].playlist.addSong(item);
+					} else {
+						res.send('{"error": "invalid song"}');
+					}
+				} else {
+					res.send('{"error": "no songb to add"}');
 				}
 			} else {
 				res.send('{"error": "Action not implemented"}');

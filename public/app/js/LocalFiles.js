@@ -1,12 +1,12 @@
 //class LocalFiles
-module.export = function(socket){
+module.exports = function(socket){
 	this.list=[];
 	//add() : void
 	//path : string
 	//adds the path into the list, avoiding doublons
 	this.add=function(path){
-		for(var p in list)
-			if (p==path)
+		for(var i in this.list)
+			if (this.list[i]==path)
 				return;
 		this.list.push(path);
 	}
@@ -14,8 +14,8 @@ module.export = function(socket){
 	//path : string
 	//removes the path from the list
 	this.remove=function(path){
-		for(var ind=0;ind<this.list.length;i++)
-			if (p==path){
+		for(var ind=0;ind<this.list.length;ind++)
+			if (this.list[ind]==path){
 				this.list.splice(ind,1);
 				return;
 			}
@@ -25,21 +25,22 @@ module.export = function(socket){
 	//returns all the members of the list containing at least on of the words,
 	//sorted by pertinence
 	this.search=function(words){
-		var scores = new Array(this.list.length);
+		var scores=[];
+		for (var i = 0 ; i < this.list.length; i++) scores.push(0);
 		var results = [];
-		for(var ind=0;ind<list.length;i++)
-			for (word in word)
-				if (this.list[ind].search(word)!=-1)
+		for(var ind=0;ind<this.list.length;ind++)
+			for (i in words)
+				if (this.list[ind].toLowerCase().search(words[i].toLowerCase())!=-1)
 					scores[ind]++;
 		for(var i = words.length;i>0;i--)
 			for(var ind = 0; ind<scores.length ; ind++)
 				if (scores[ind] == i)
-					results.push(list[ind]);
+					results.push(this.list[ind]);
 		return results;
 	}
 	//get () : string []
 	//returns the whole list
 	this.get=function(){
-		return list[];
+		return this.list;
 	}
 }

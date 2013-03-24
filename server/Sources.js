@@ -29,7 +29,7 @@ module.exports = {
 							parsed[i].title.$t,
 							'youtube',
 							parsed[i].link[0].href.replace(/.+v=(.+)/, '$1'),
-							parsed[0].media$group.media$thumbnail[0].url
+							parsed[i].media$group.media$thumbnail[0].url
 						));
 					}
 					callback (songs);

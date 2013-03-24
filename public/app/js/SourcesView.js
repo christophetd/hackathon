@@ -33,7 +33,6 @@
 						return function() {
 							$.post('/api/'+hash+'/add', { item: item});
 							$('#search').val('');
-							$('#library_dynamicResults').html("");
 						}
 					})(item));
 					$img = $('<img />', {

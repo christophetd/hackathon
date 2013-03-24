@@ -71,6 +71,9 @@ function LocalSource(localFiles) {
 
 		var file = localFiles.get(song.data);
 		
+		if(typeof(file) === 'undefined'){
+			callback();
+		}
 		console.log(song);
 		
 		song.play = function($container) {

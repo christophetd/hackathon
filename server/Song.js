@@ -14,7 +14,7 @@ module.exports = function (name,type,data,picture){
 	this.id=0;
 	//score : int
 	//is incremented by the votes
-	this.score=0;
+	this.score=1;
 	//picture : string
 	//contains the path of the picture
 	this.picture=picture;

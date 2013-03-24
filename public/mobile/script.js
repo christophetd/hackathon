@@ -1,9 +1,12 @@
 $(document).bind('pageinit',function() {
     
+
+    var phash = window.location.search;
+  	alert(phash);
 	
   
 	function refresh() {
-        $.getJSON('/api/hqhq/getPlaylist', function(data) {
+        $.getJSON('/api/'+ phash +'/getPlaylist', function(data) {
 		
 			$('#dynamicFieldList').empty();
 			
@@ -11,7 +14,7 @@ $(document).bind('pageinit',function() {
 				var liItem = $('<li id="' + item.id + '"><a href="#">' + item.name + '<span class="ui-li-count">'+ item.score +'</span></a></li>');
 				//Up function
 				liItem.click(function(){
-					$.post('/api/hqhq/up', {id: item.id})
+					$.post('/api/'+phash+'/up', {id: item.id})
 					.done(function(res) {
 						res = JSON.parse(res);
 						if(res.error){
@@ -38,7 +41,7 @@ $(document).bind('pageinit',function() {
     $('#addnew').click(function() {
       var toAdd = $("input[name=search-1]").val();
         // modify string
-        $.post('/api/hqhq/search', {q: toAdd, n: 4})
+        $.post('/api/'+phash+'/search', {q: toAdd, n: 4})
 			.done(function(data) {
 			console.log(data);
 			data = JSON.parse(data);
@@ -50,7 +53,7 @@ $(document).bind('pageinit',function() {
 				var liItem = $('<li id="' + item.id + '""></li>');
 				liItem.click(function(){
 
-					$.post('/api/hqhq/add', {item: item})
+					$.post('/api/'+phash+'/add', {item: item})
 					.done(function(data) {
 						console.log("Data Loaded: " + data);
 					});

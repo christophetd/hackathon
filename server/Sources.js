@@ -66,7 +66,7 @@ module.exports = {
 			var socket=party.socket;
 			var songs = [];
 			socket.emit('source_query',terms);
-			socket.on('source_search',function(data){
+			socket.once('source_search',function(data){
 				data=data.slice(0,nb);
 				for(var d in data)
 					songs.push(new Song(d.split('/').pop(),'local',d));

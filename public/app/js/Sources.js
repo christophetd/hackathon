@@ -1,3 +1,5 @@
+
+
 function URLSource() {
 
 	var _this = this;
@@ -8,22 +10,6 @@ function URLSource() {
 		if(song.type != "url")  {
 			console.log("Song type error : expected url, "+song.type+" got.");
 			return;
-		}
-		
-		var splitted = song.data.split("."), mimeType = "";
-		switch(splitted[splitted.length-1]) {
-			case "mp3": 
-			mimeType = "mpeg";
-				break;
-			case "wav": 
-			mimeType = "x-wav";
-				break;
-			case "wma": 
-			mimeType = "x-ms-wma";
-				break;
-			default: 
-				console.log("type error");
-				mimeType = splitted[splitted.length-1];
 		}
 
 		song.play = function($container) {
@@ -56,6 +42,7 @@ function URLSource() {
 		}
 	}
 }
+
 
 
 

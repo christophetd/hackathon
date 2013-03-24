@@ -35,7 +35,7 @@ $(document).bind('pageinit',function() {
     $('#addnew').click(function() {
       var toAdd = $("input[name=search-1]").val();
         // modify string
-        $.post('/api/hqhq/search', {q: toAdd})
+        $.post('/api/hqhq/search', {q: toAdd, n: 4})
           .done(function(data) {
           alert("Data Loaded: " + data);
         });
@@ -54,7 +54,7 @@ $(document).bind('pageinit',function() {
                 });
                 alert(item);
             });
-            //liItem.data=item;
+            //liItem.append($('<a href="#"> <img src="'+ item.picture + '">' + item.name + '</a>'));
             liItem.append($('<a href="#">' + item.name + '</a>'));
             $('#dynamicResults').append(liItem);
           

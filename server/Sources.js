@@ -23,7 +23,7 @@ module.exports = {
 			  })
 			  res.on('end',function(){
 			  	var parsed=JSON.parse(data).feed.entry;
-			  	for(var i=0;i<parsed.length;i<nb;i++){
+			  	for(var i=0;i<parsed.length && i<nb;i++){
 			  		songs.push (new Song(
 			  			parsed[i].title.$t,
 			  			'youtube',
@@ -60,7 +60,7 @@ module.exports = {
 	// 	}
 	// },
 	LocalSource : function(){
-		this.search=function(terms,nb,callback,party){,
+		this.search=function(terms,nb,callback,party){
 			var socket=party.socket;
 			var songs = [];
 			socket.emit('source_query',terms);

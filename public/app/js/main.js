@@ -7,6 +7,7 @@ function printPlaylist(playlist) {
 		$('<li>').html(playlist[i].name).appendTo($list);
 	}
 }
+
 socket.on('playlist_update', function(newPlaylist) {
 	printPlaylist(newPlaylist);
 });
@@ -72,6 +73,13 @@ socket.on('error', function(msg){
 });
 
 socket.emit("party_init", getCookie('partyHash'));
+
+socket.on("error", function(msg) {
+	if(msg == "invalid hash") {
+		setCookie('partyHash', '', -1);
+		window.location.href = "/";
+	}
+})
 
 
 

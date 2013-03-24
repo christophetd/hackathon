@@ -1,8 +1,7 @@
 $(document).bind('pageinit',function() {
     
-
-    $('#refresh-1').click(function() {
-        $.getJSON('test.json', function(data) {
+	function refresh() {
+        $.getJSON('/api/hqhq/getPlaylist', function(data) {
   			
         $('#dynamicFieldList').empty()
  			  $('#dynamicFieldList').html();
@@ -10,11 +9,14 @@ $(document).bind('pageinit',function() {
             var liItem = $('<li id="' + item.id + '"><a href="#">' + item.name + '<span class="ui-li-count">'+ item.score +'</span></a></li>');
             //Up function
             liItem.click(function(){
-                $.post('/api/foo/up', {id: this.id})
-                .done(function(data) {
-                alert("Data Loaded: " + data);
+                $.post('/api/hqhq/up', {id: item.id})
+                .done(function(res) {
+					if(res.error){
+						alert("Error: " + res.error);
+					} else {
+						refresh();
+					}
                 });
-                alert(item);
             });
             
             liItem.append($('<a href="#">' + item.name + '</a>'));
@@ -25,13 +27,15 @@ $(document).bind('pageinit',function() {
         });
 
 
-    });
+    }
+
+    $('#refresh-1').click(refresh);
 
     //Search function
     $('#addnew').click(function() {
       var toAdd = $("input[name=search-1]").val();
         // modify string
-        $.post('/api/foo/search', {q: toAdd})
+        $.post('/api/hqhq/search', {q: toAdd})
           .done(function(data) {
           alert("Data Loaded: " + data);
         });
@@ -61,9 +65,8 @@ $(document).bind('pageinit',function() {
     
     });
 
-
-
-
+	refresh();
+	
 
 });
 

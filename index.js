@@ -37,17 +37,27 @@ var parties = new Array();
 
 //Mobile api calls
 app.get('/api/:hash/:action', function(req, res){
-	if(req.params.action == 'getPlaylist'){
-		res.send(JSON.stringify(parties[0].playlist.list));
+	if(typeof(parties[req.params.hash]) !== 'undefined'){
+		if(req.params.action == 'getPlaylist'){
+			res.send(JSON.stringify(parties[req.params.hash].playlist.list));
+		} else {
+			res.send('{"error": "Action not implemented"}');
+		}
 	} else {
-		res.end();
+		res.send('{"error": "No party with such hash was found"}');
 	}
 });
 
 app.post('/api/:hash/:action', function(req, res){
-	if(req.params.action == 'up'){
-		parties[0].playlist.vote(req.body.id);
-		res.send('{"ack": true}');
+	if(typeof(parties[req.params.hash]) !== 'undefined'){
+		if(req.params.action == 'up'){
+			parties[req.params.hash].playlist.vote(req.body.id);
+			res.send('{"ack": true}');
+		} else {
+			res.send('{"error": "Action not implemented"}');
+		}
+	} else {
+		res.send('{"error": "No party with such hash was found"}');
 	}
 });
 
@@ -70,6 +80,10 @@ io.sockets.on('connection', function (socket) {
 			
 			parties[hash] = party;
 			party.playlist.addSong(new Song('Testygaga - one big fat test', 'url', '/song.wma'));
+			party.playlist.addSong(new Song('Another song', 'url', '/Another.wma'));
+			party.playlist.addSong(new Song('Blablabla', 'url', '/Blablabla.wma'));
+			party.playlist.addSong(new Song('Supersong', 'url', '/Supersong.wma'));
+			party.playlist.addSong(new Song('Supersong2, le retour', 'url', '/Supersong2.wma'));
 			
 			console.log("Creating new party with hash : "+hash);
 		} else {
@@ -87,7 +101,7 @@ io.sockets.on('connection', function (socket) {
 		socket.emit('playlist_next', party.playlist.read());
 	}).on('disconnect', function(){
 		
-		if(typeof(party !== 'undefined')){
+		if(typeof(party) !== 'undefined'){
 			party.sockets.splice(party.sockets.indexOf(socket), 1);
 			
 			console.log('disconnected');

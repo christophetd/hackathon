@@ -11,7 +11,7 @@ socket.on('playlist_update', function(newPlaylist) {
 	printPlaylist(newPlaylist);
 });
 socket.on('party_initialized', function (data) {
-	var playlist = data.playlist.list;
+	var playlist = data.playlist;
 	var apiKey = data.apiKey;
 	printPlaylist(playlist);
 	var source;
@@ -59,6 +59,13 @@ socket.on('party_initialized', function (data) {
 });
 
 socket.emit("party_init", getCookie('partyHash'));
+
+socket.on("error", function(msg) {
+	if(msg == "invalid hash") {
+		setCookie('partyHash', '', -1);
+		window.location.href = "/";
+	}
+})
 
 
 

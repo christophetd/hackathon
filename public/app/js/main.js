@@ -4,6 +4,7 @@ var urlSource = new URLSource();
 
 var current = 0;
 socket.on('party_initialized', function (data) {
+	console.log("Initialized");
 	function play(song) {
 		urlSource.buildSong(song);
 		$media = song.play($('#media-container'), true);
@@ -36,7 +37,7 @@ socket.on('party_initialized', function (data) {
 
 });
 
-socket.init("party_init", "hqhq");
+socket.emit("party_init", "hqhq");
 
 
 

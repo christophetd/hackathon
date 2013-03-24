@@ -80,8 +80,8 @@ function YoutubeSource() {
 				type: 'application/x-shockwave-flash', 
 				id: 'yt-player'
 			}).attr('data', 'http://www.youtube.com/v/'+song.data+'?enablejsapi=1&amp;playerapiid=ytplayer&amp;version=3&amp;autoplay=1');
-			$player.attr('width', 425);
-			$player.attr('height', 356);
+			$player.attr('width', 420);
+			$player.attr('height', 315);
 			$player.appendTo($container);
 			$('<param />', {
 				name: "allowScriptAccess", 

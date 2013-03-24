@@ -3,6 +3,11 @@ function Player(socket, playlist) {
 	this.playlist = playlist;
 	var source;
 
+	$('#__next').click(function() {
+		socket.emit('playlist_getNext');
+		return false;
+	});
+
 	_this.play = function(song) {
 		switch(song.type) {
 			case "youtube": 

@@ -16,7 +16,16 @@ function PlaylistView(socket) {
 		$container.empty();
 		$l = $('<ol>').appendTo($container);
 		for(var i in _this.list) {
-			$('<li>').html(_this.list[i].name+" ("+_this.list[i].score+" votes)").appendTo($l);
+			$el = $('<li>').html(_this.list[i].name+" ("+_this.list[i].score+" votes)").appendTo($l);
+			$a = $('<a>', {
+				href: '#', 
+				class: "icon-trash"
+			}).click((function(elem) {
+				return function() {
+					socket.emit("playlist_remove", elem);
+					return false;
+				}
+			})(_this.list[i])).appendTo($el);
 		}
 	}
 

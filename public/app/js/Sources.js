@@ -1,4 +1,7 @@
 function URLSource() {
+
+	var _this = this;
+
 	this.buildSong = function(song) {
 		if(song.type != "url")  {
 			console.log("Song type error : expected url, "+song.type+" got.");
@@ -11,26 +14,46 @@ function URLSource() {
 			mimeType = "mpeg";
 				break;
 			case "wav": 
-			mimeType = "wave";
+			mimeType = "x-wav";
 				break;
 			case "wma": 
-			mimeType = "wma";
+			mimeType = "x-ms-wma";
 				break;
 			default: 
 				console.log("type error");
 				mimeType = splitted[splitted.length-1];
 		}
-		var html = '<audio controls autoplay preload>'
-			+'<source src="'+song.data+'" type="audio/'+mimeType+'" >'
-		+'Your browser does not support audio html5 element. Get a real one.'
-		+'<embed height="50" width="100" src="'+song.data+'" >'
-		+'</audio>';
-		
-		song.play = function($container) {
+		 var html = '<audio controls autoplay preload>'
+		 	+'<source src="'+song.data+'" />'
+		 +'<embed height="50" width="100" src="'+song.data+'" >'
+		 +'</audio>';
+
+		song.play = function($container, autoload) {
+			$container.html("");
 			console.log("Playing song");
 			console.log(song);
-			$container.html(html);
+			//$container.html(html);
+			$audio = $('<audio>', {
+				controls: '', 
+				preload: ''
+			}).appendTo($container);
+			if(autoload === true) {
+				$audio.attr("autoplay", "");
+			}
+			$('<source/>', { src : song.data }).appendTo($audio);
+			
+			_this.audio = $audio;
+			return $audio;
+
 		};
+
+		song.getCurrentTime = function() {
+			return _this.audio[0].currentTime;
+		}
+
+		song.getDuration = function() {
+			return _this.audio[0].duration;
+		}
 	}
 }
 

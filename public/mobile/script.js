@@ -24,7 +24,6 @@ $(document).bind('pageinit',function() {
 					});
 				});
 				
-				liItem.append($('<a href="#">' + item.name + '</a>'));
 				$('#dynamicFieldList').append(liItem);
 			  
 			});

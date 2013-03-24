@@ -64,14 +64,14 @@
 		<h2>Songs</h2>
 			<form id="library_search" class="form-search" method="">
 				<div class="input-append">
-					<input class="span2" type="text">
+					<input class="span2" id="search" type="text">
 					<button class="btn" type="submit"><i class="icon-search" ></i></button>
 				</div>
 			</form>
 		<div id="library_list">
-           <ol id="library_dynamicResults">
+           <div id="library_dynamicResults" style="height: 300px; overflow: auto;">
 				
-           </ol>
+           </div>
 		</div>
 		
 		<div style="position: relative;">
@@ -85,19 +85,19 @@
 
   
 </center>
-	
 
-    </div> <!-- /container -->
-<script src="/socket.io/socket.io.js"></script>
-  <script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
-  <script src="/app/js/LocalFiles.js"></script>
-  <script src="/app/js/SongBuilder.js"></script>
-  <script src="/app/js/SourcesView.js"></script>
-  <script src="/app/js/PlaylistView.js"></script>
-  <script src="/app/js/Player.js"></script>
-  <script type="text/javascript" src="/js/cookies.js"></script>
-  <script src="/js/qr.js"></script>
-  <script src="/app/js/main.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+	<script src="/app/js/LocalFiles.js"></script>
+	<script src="/app/js/LocalTunnel.js"></script>
+	<script src="/app/js/LocalSong.js"></script>
+	<script src="/app/js/SongBuilder.js"></script>
+	<script src="/app/js/SourcesView.js"></script>
+	<script src="/app/js/PlaylistView.js"></script>
+	<script src="/app/js/Player.js"></script>
+	<script type="text/javascript" src="/js/cookies.js"></script>
+	<script src="/js/qr.js"></script>
+	<script src="/app/js/main.js"></script>
     
   </body>
 </html>

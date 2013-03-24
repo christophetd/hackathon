@@ -39,7 +39,14 @@ function LocalFiles(){
 	}
 	//get () : string []
 	//returns the whole list
-	this.get=function(){
-		return this.list;
+	this.get=function(title){
+		//TODO : use something else than titles
+		console.log('length : '+this.list.length);
+		for(var i = 0 ; i < this.list.length ; i++){
+			console.log(this.list[i].name+" <---> "+title);
+			if(this.list[i].name == title)
+				return this.list[i];
+		}
+		console.log("could not find local song : "+title);
 	}
 }

@@ -29,7 +29,7 @@ module.exports = {
 							parsed[i].title.$t,
 							'youtube',
 							parsed[i].link[0].href.replace(/.+v=(.+)/, '$1'),
-							parsed[0].media$group.media$thumbnail[0].url
+							parsed[i].media$group.media$thumbnail[0].url
 						));
 					}
 					callback (songs);
@@ -66,10 +66,11 @@ module.exports = {
 			var socket=party.socket;
 			var songs = [];
 			socket.emit('source_query',terms);
-			socket.on('source_search',function(data){
+			socket.once('source_search',function(data){
 				data=data.slice(0,nb);
+				console.log(data);
 				for(var d in data)
-					songs.push(new Song(d.split('/').pop(),'local',d));
+					songs.push(data[d]);
 				callback(data);
 			});
 		}

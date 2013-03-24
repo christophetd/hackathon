@@ -63,8 +63,6 @@ app.configure(function(){
 		
 		parties[appKey] = party;
 		party.playlist.addSong(new Song('Rickrolld', 'youtube', 'oHg5SJYRHA0'));
-		party.playlist.addSong(new Song('Hysteria', 'url', '/song.mp3'));
-		party.playlist.addSong(new Song('Rickrolld', 'youtube', 'w8KQmps-Sog'));
 		
 		console.log("Creating new party with appKey : "+appKey);
 		
@@ -77,7 +75,7 @@ server.listen(app.get('port'), function() {
 	console.log("server running and listening on port "+port);
 });
 
-var VOTE_TIMEOUT = 120;
+var VOTE_TIMEOUT = 60;
 
 var lockIpVote = (function(){
 	var locks = new Array();
@@ -110,6 +108,7 @@ var Playlist = require('./server/Playlist.js');
 var Sources = require('./server/Sources.js');
 
 var youtubeSource = new Sources.YoutubeSource();
+var localSource = new Sources.LocalSource();
 
 function checkSong(item){
 	return (typeof(item.id) !== 'undefined'
@@ -155,8 +154,24 @@ app.post('/api/:hash/:action', function(req, res){
 			} else if(req.params.action == 'search'){
 				if(typeof(req.body.q) !== 'undefined'){
 					var n = (typeof(req.body.n) !== 'undefined') ? req.body.n : 5;
+					
+					var completeness = 0;
+					var data = new Array();
+					
+					function complete(chunk){
+						completeness++;
+						data = data.concat(chunk);
+						if(completeness == 2){
+							res.send(JSON.stringify(data));
+						}
+					}
+					
 					youtubeSource.search(req.body.q, n, function(sResult){
-						res.send(JSON.stringify(sResult));
+						complete(sResult);
+					}, parties[appKey]);
+					
+					localSource.search(req.body.q, n, function(sResult){
+						complete(sResult);
 					}, parties[appKey]);
 				} else {
 					res.send('{"error": "no search query"}');
@@ -229,6 +244,8 @@ io.sockets.on('connection', function (socket) {
 		
 		console.log('closed');
 		
+	}).on('playlist_remove', function(elem){
+		party.playlist.remove(elem.id);
 	}).on('playlist_getNext', function(){
 		socket.emit('playlist_next', party.playlist.read());
 	}).on('disconnect', function(){

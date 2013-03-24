@@ -10,7 +10,7 @@ function LocalSong (file){
 	this.type='local';
 	//data : File
 	//object File
-	this.data=file;
+	this.data = file.name;
 	//id : int
 	//unique id of the song in the queue
 	this.id=0;

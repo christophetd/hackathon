@@ -48,7 +48,7 @@ var Playlist =  function (){
 		}
 	}
 	this.remove=function(songid){
-		this.list.splice(seekSong(songid),1);
+		this.list.splice(this.seekSong(songid),1);
 		this.emit('updated')
 	}
 	//public vote() : void

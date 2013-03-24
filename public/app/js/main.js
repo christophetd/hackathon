@@ -1,9 +1,19 @@
 ﻿var socket = io.connect('/');
 
-
+function printPlaylist(playlist) {
+	$list = $('#playlist>ol');
+	$list.empty();
+	for(var i in playlist) {
+		$('<li>').html(playlist[i].name).appendTo($list);
+	}
+}
+socket.on('playlist_update', function(newPlaylist) {
+	printPlaylist(newPlaylist);
+});
 socket.on('party_initialized', function (data) {
-	console.log(data);
-	console.log("Initialized");
+	var playlist = data.playlist;
+	var apiKey = data.apiKey;
+	printPlaylist(playlist);
 	var source;
 	function play(song) {
 		switch(song.type) {
@@ -48,7 +58,7 @@ socket.on('party_initialized', function (data) {
 
 });
 
-socket.emit("party_init", "hqhq");
+socket.emit("party_init", getCookie('partyHash'));
 
 
 

@@ -1,9 +1,19 @@
 ﻿var socket = io.connect('/');
 
-
+function printPlaylist(playlist) {
+	$list = $('#playlist>ol');
+	$list.empty();
+	for(var i in playlist) {
+		$('<li>').html(playList[i].name).appendTo($list);
+	}
+}
+socket.on('playlist_update', function(newPlaylist) {
+	printPlaylist(newPlaylist);
+});
 socket.on('party_initialized', function (data) {
-	console.log(data);
-	console.log("Initialized");
+	var playlist = data.playlist.list;
+	var apiKey = data.apiKey;
+	printPlaylist(playlist);
 	var source;
 	function play(song) {
 		switch(song.type) {

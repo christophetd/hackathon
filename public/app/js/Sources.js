@@ -29,6 +29,7 @@ function URLSource() {
 		song.play = function($container) {
 
 			$container.html("");
+			$('<h2>').text(song.name).appendTo($container);
 			console.log("Playing song");
 			console.log(song);
 			$audio = $('<audio>', {
@@ -39,7 +40,7 @@ function URLSource() {
 			$('<source/>', { src : song.data }).appendTo($audio);
 			_this.audio = $audio;
 			_this.audio.bind("ended", function() {
-				$audio.hide();
+				$container.html("");
 				_this.endCallback();
 			});
 			return $audio;
@@ -73,9 +74,19 @@ function YoutubeSource() {
 		}
 		_this.endCallback = endCallback;
 		song.play = function($container) {
-			swfobject.embedSWF("http://www.youtube.com/v/"+song.data+"?enablejsapi=1&playerapiid=ytplayer&version=3&autoplay=1",
-                        "ytapiplayer", "425", "356", "8", null, null, { allowScriptAccess: "always"}, {id: "yt-player"});
 			
+			$('<h2>').text(song.name).appendTo($container);
+			$player = $('<object>', {
+				type: 'application/x-shockwave-flash', 
+				id: 'yt-player'
+			}).attr('data', 'http://www.youtube.com/v/'+song.data+'?enablejsapi=1&amp;playerapiid=ytplayer&amp;version=3&amp;autoplay=1');
+			$player.attr('width', 425);
+			$player.attr('height', 356);
+			$player.appendTo($container);
+			$('<param />', {
+				name: "allowScriptAccess", 
+				value: "always"
+			}).appendTo($player);
 		}
 	}
 
@@ -86,9 +97,7 @@ function YoutubeSource() {
 
 	window.checkEnd = function(state) { 
 		if(state == 0) {
-			//document.getElementById('yt-player').parentNode.removeChild(document.getElementById('yt-player'));
 			$('#yt-player').remove();
-			swfobject.removeSWF("ytapiplayer");
 			_this.endCallback();
 		}
 	}

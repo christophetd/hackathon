@@ -73,6 +73,10 @@ $(document).bind('pageinit',function() {
 
     $('#vlist').click(refresh);
 
+    $("#Home").on("pageshow",function(e) {
+    	refresh();   
+	});
+
 	if(window.location.hash === '#New'){
 		$('#dynamicResults').listview();
 	} else {

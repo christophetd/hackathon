@@ -7,7 +7,7 @@ socket.on('party_initialized', function (data) {
 	var playlist = new PlaylistView(socket);
 	var player = new Player(socket, playlist);
 	
-	var sourcesView = new SourcesView(apiKey, localFiles);
+	sourcesView = new SourcesView(apiKey, localFiles);
 	var link = "http://"+window.location.host+"/mobile/?p="+apikey;
 	var qr = new QRtag();
 	qr.target("qr-container");

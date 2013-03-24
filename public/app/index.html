@@ -23,7 +23,6 @@
   </head>
 
   <body>
-
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -62,40 +61,42 @@
  	</div>
 	<div class="span3"><div class="well well-large">
 		<h2>Songs</h2>
-			<form id="library_search" class="form-search">
+			<form id="library_search" class="form-search" method="">
 				<div class="input-append">
-					<input class="span2" id="appendedInputButton" type="text">
-					<button class="btn" type="button"><i class="icon-search" ></i></button>
+					<input class="span2" type="text">
+					<button class="btn" type="submit"><i class="icon-search" ></i></button>
 				</div>
 			</form>
 		<div id="library_list">
-			
            <ol id="library_dynamicResults">
-			
+				
            </ol>
 		</div>
 		
-		<a class="btn">Add files</a>
-
+		<div style="position: relative;">
+			
+			<input style="overflow: hidden; width: 1000px; height: 1000px; opacity: 0; position: absolute;" id="library_filesInput" type="file" class="btn" accept="sound/*" multiple onchange="sourcesView.openFiles(this.files)" name="localFileSelection"/>
+			<span class="btn" >Add files</span>
+		</div>
 	</div></div>
 </div>
 
 
   
 </center>
-	<script src="/socket.io/socket.io.js"></script>
-	<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
-	<script src="/app/js/LocalFiles.js"></script>
-	<script src="/app/js/SongBuilder.js"></script>
-	<script src="/app/js/SourcesView.js"></script>
-	<script src="/app/js/PlaylistView.js"></script>
-	<script src="/app/js/Player.js"></script>
-	<script type="text/javascript" src="/js/cookies.js"></script>
-	<script src="/js/qr.js"></script>
-	<script src="/app/js/main.js"></script>
+	
 
     </div> <!-- /container -->
-
+<script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+  <script src="/app/js/LocalFiles.js"></script>
+  <script src="/app/js/SongBuilder.js"></script>
+  <script src="/app/js/SourcesView.js"></script>
+  <script src="/app/js/PlaylistView.js"></script>
+  <script src="/app/js/Player.js"></script>
+  <script type="text/javascript" src="/js/cookies.js"></script>
+  <script src="/js/qr.js"></script>
+  <script src="/app/js/main.js"></script>
     
   </body>
 </html>

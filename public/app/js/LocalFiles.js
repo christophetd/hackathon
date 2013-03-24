@@ -5,10 +5,8 @@ function LocalFiles(){
 	//path : File
 	//adds the path into the list, avoiding doublons
 	this.add=function(file){
-		for(var i in this.list)
-			if (this.list[i]==file)
-				return;
-		this.list.push(path);
+		if(this.list.indexOf(file) == -1)
+			this.list.push(file);
 	}
 	//remove() : void
 	//path : File

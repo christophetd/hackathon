@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+
+<!--
+
+
+	/!\ TODO /!\
+
+
+	Refactor the whole page with "templates" and maybe a default 
+	content displayed (for search engines).
+	
+
+	This page is the only html page served for the desktop app
+	(no more /start).
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>SquareTune - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="/common/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+		body {
+			padding-top: 60px;
+			padding-bottom: 40px;
+		}
+		.centered-content{ text-align:center !important;}
+    </style>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+		<script src="/css/bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/css/bootstrap/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/css/bootstrap/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/css/bootstrap/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/css/bootstrap/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="/css/bootstrap/ico/favicon.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Project name</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="/">Home</a></li>
+              <li><a href="/about">About</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit" 
+      style="background-image: url('/app/img/background.jpg');background-position-x: -200px; background-position-y: -500px;">
+          <h1>Let the music begin</h1>
+        <p><center><a href="#start" id="__start" class="btn btn-primary btn-large ">Get started &raquo;</a></center></p>
+      </div>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="span4">
+          <h2>What is SquareTune?</h2>
+          <p>SquareTune is a collaborative music system for your parties, designed for you.</p>
+          <p>« <i>Nice party, but the music kind of sucked</i> » <br />
+            « <i>Let's get out of here, the DJ is soo bad</i> » <br />
+            Two kinds of complaints you'll probably never hear again.</p>
+        </div>
+        <div class="span4">
+          <h2>How does it works?</h2>
+          <p>Create playlists by importing music from YouTube or your hard drive and let your friends vote from their smartphone for the music they want to listen to. Anyone can also propose a new song via an integrated YouTube search.</p>
+       </div>
+        <div class="span4">
+          <h2>Why should I use it?</h2>
+          <p>It's fast, simple, and especially useful. Your friends can access the vote page just by scanning a QR code.</p>
+        </div>
+
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>H. Milano, E. Body, P. Schwaller, C. Tafani-Dereeper.</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script data-main='app/js/main' src='/common/js/require-jquery.js'></script>
+	
+  </body>
+</html>

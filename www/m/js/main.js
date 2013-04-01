@@ -6,9 +6,9 @@
 
 requirejs.config({
     paths: {
-        'socket.io': '/socket.io/socket.io',
-        'underscore': '/common/js/underscore',
-        'backbone': '/common/js/backbone'
+        'socket.io': '/socket.io/lib/socket.io',
+        'underscore': '/common/js/lib/underscore',
+        'backbone': '/common/js/lib/backbone'
     }
 });
 

@@ -1,0 +1,13 @@
+/*
+	jasmine style fix for mobile app
+*/
+#HTMLReporter{
+	position: absolute;
+	background-color: white;
+	border-left: 2px red solid;
+	border-right: 2px red solid;
+	border-radius: 5px;
+	overflow: auto;
+	height: 100%;
+	z-index: 1000;
+}

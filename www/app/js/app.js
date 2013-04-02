@@ -1,17 +1,14 @@
-/* app.js defines the app object containing every constructors and 
- * every main models, collections and views.
+/* 
+ * app.js defines the app object containing every main models, collections and views.
  */
 
-//It does not require any thing
-define(function(){
 
-    return window.app = {    
-        // Classes
-        Collections: {},
-        Models: {},
-        Views: {},
-        Routers: {},
-        
+define([
+    'backbone', 'Router', 'views/Home'],
+    function(){
+
+    return window.app = {
+    
         // Instances
         collections: {},
         models: {},
@@ -19,7 +16,14 @@ define(function(){
         
         init: function () {
             
-            /* Lots of cool stuf to do here */
+            /* Loading views */
+            this.views.home = new (require('views/Home'))({el: '#mainContents'});
+            
+            var router = new (require('Router'));
+            
+            if(!Backbone.history.start()){
+                window.location.hash = '/';
+            }
         }
     };
 });

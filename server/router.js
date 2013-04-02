@@ -1,4 +1,6 @@
-
+/*
+    Special routes for non-static files serving
+*/
 module.exports = function(app){
 
     /*

@@ -1,8 +1,10 @@
-﻿
+﻿/*
+    This model represents an abstracted song.
+*/
 
-define(["app", "backbone"], function(app){
+define(["backbone"], function(){
 
-    app.Models.Song = Backbone.Model.extend({
+    return Backbone.Model.extend({
     
     
     });

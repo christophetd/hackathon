@@ -3,7 +3,7 @@
 <!--
 
 
-	/!\ TODO /!\
+	/!\ TODO (half done) /!\
 
 
 	Refactor the whole page with "templates" and maybe a default 
@@ -12,15 +12,6 @@
 
 	This page is the only html page served for the desktop app
 	(no more /start).
-
-
-
-
-
-
-
-
-
 
 
 
@@ -71,14 +62,31 @@
         </div>
       </div>
     </div>
+	
 
     <div class="container">
+		<div id="mainContents">
+			<noscript>
+				<!-- TODO : handle users without javascript -->
+			</noscript>
+		</div>
+		<hr>
 
+		<footer>
+			<p>H. Milano, E. Body, P. Schwaller, C. Tafani-Dereeper.</p>
+		</footer>
+
+    </div> <!-- /container -->
+	
+	
+	<!-- Templates -->
+	
+	<script type="text/jst" id="homeTemplate">
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit" 
       style="background-image: url('/app/img/background.jpg');background-position-x: -200px; background-position-y: -500px;">
           <h1>Let the music begin</h1>
-        <p><center><a href="#start" id="__start" class="btn btn-primary btn-large ">Get started &raquo;</a></center></p>
+        <center><a href="#start" id="__start" class="btn btn-primary btn-large ">Get started &raquo;</a></center>
       </div>
 
       <!-- Example row of columns -->
@@ -100,19 +108,10 @@
         </div>
 
       </div>
+	</script>
 
-      <hr>
-
-      <footer>
-        <p>H. Milano, E. Body, P. Schwaller, C. Tafani-Dereeper.</p>
-      </footer>
-
-    </div> <!-- /container -->
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script data-main='app/js/main' src='/common/js/lib/require-jquery.js'></script>
+    <!-- Javascript placed at the end of the document so the page loads faster -->
+    <script data-main="app/js/main" src="/common/js/lib/require-jquery.js"></script>
 	
   </body>
 </html>

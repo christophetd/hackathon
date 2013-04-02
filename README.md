@@ -17,6 +17,34 @@ Then run the server
 
 Navigate to http://localhost:5000/ with your favourite browser and enjoy :)
 
+Unit testing
+============
+
+Unit testing is done with [jasmine](http://pivotal.github.com/jasmine/) for both client and server code.
+
+
+Running the tests
+-----------------
+
+To run client tests, just start the server in development mode (default) and navigate to /test to test the desktop app and /m/test to test the mobile app.
+
+To run server tests, you will need jasmine-node installed
+`npm install jasmine-node -g`
+
+Then all you need to do is :
+`jasmine-node spec/server/`
+
+Adding new tests
+----------------
+
+For client-side tests, add your spec file to spec/m, spec/app or spec/common.
+For server-side tests, add your spec file to spec/server.
+
+All spec files must end with "spec.js" or they won't be executed.
+
+That's it, jasmine-node and unitTest.js will do the rest of the job.
+
+See jasmine's doc and the example tests to see how to create a spec file.
 
 Guidelines
 ==========
@@ -37,6 +65,12 @@ File structure
 	+-+ html/			: html files explicitely sent by the router
 	| +- desktop.html 	: page for the desktop app
 	| +- mobile.html	: page for the mobile app
+	+-+ spec/			: unit testing files
+	| +-+ app/			: client-side desktop app tests
+	| +-+ m/			: client-side mobile app tests
+	| +-+ common/		: client-side common tests
+	| +-+ server/		: server test files
+	+-+	lib/			: dependencies not handled by npm
 	+- old/				: files from the hackathon to recycle and then delete
 
 If a mobile user navigates to the root ( '/' ), he will be redirected to /m so there is no problem.
@@ -47,3 +81,8 @@ Client-side js class files are camel-cased 'java-like' (starts with upper case).
 
 Backbone models should be shared between desktop and mobile, therefore placed into '/www/common/'
 Third parties libraries should also be placed in /www/common.
+
+General rules
+-------------
+
+Always run unit tests before pushing.

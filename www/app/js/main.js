@@ -15,9 +15,6 @@ requirejs.config({
 
 require([
     "jquery",
-    "socket.io",
-    "underscore",
-    "backbone",
     "app"],
     
     /*
@@ -25,7 +22,7 @@ require([
         in the same order as in the list above. Therefore, we retreive jquery
         first, then the app object.
     */
-    function($) {
+    function($, app) {
     
         /* We can still use jquery to make sure the dom is completely loaded even though
             it's very unlikely it isn't already loaded. */

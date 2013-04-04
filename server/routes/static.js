@@ -1,9 +1,7 @@
-/*
-    Special routes for non-static files serving
-*/
-module.exports = function(app){
 
-    /*
+
+module.exports = function(app){
+	/*
         For now the router is really trivial and could be replaced by static file serving.
         But it can be extended to serve the app for more complex urls (see later).
     */

@@ -11,7 +11,7 @@ var app = express()
 require('./config.js')(app);
 
 //Declares every routes
-require('./router.js')(app);
+require('./routes')(app);
 
 
 

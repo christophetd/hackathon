@@ -1,4 +1,4 @@
-﻿/*
+﻿/* Mobile
  * main.js is the only file explicitly loaded by require (see index.html)
  * It will load every main classes needed by app to initialize.
  * One doesn't need to specify here sub-dependencies.
@@ -8,7 +8,9 @@ requirejs.config({
     paths: {
         'socket.io': '/socket.io/lib/socket.io',
         'underscore': '/common/js/lib/underscore',
-        'backbone': '/common/js/lib/backbone'
+        'backbone': '/common/js/lib/backbone',
+        'jqm': '/m/js/jquery.mobile-1.3.0.min',
+        'jqmconfig': 'm/js/jqm-config'
     }
 });
 

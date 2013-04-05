@@ -1,8 +1,11 @@
-/* 
+/*  Mobile
  * app.js defines the app object containing every every main models, collections and views.
  */
 
-define(function(){
+define([
+    'backbone', 'Router','jqm', 'jqmconfig', 'views/Home', 'views/Share', 'views/Search'],
+
+    function(){
 
     return window.app = {    
         
@@ -13,7 +16,15 @@ define(function(){
         
         init: function () {
             
-            /* Lots of cool stuf to do here */
+            /* Loading views */
+            //this.views.home = new (require('views/home'))({});
+
+            console.log('document ready');
+            var router = new (require('Router'));
+            
+            if(!Backbone.history.start()){
+                window.location.hash = '/m';
+            }
         }
     };
 });

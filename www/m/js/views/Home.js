@@ -10,7 +10,7 @@ define(['jquery', 'backbone'], function($){
     
 
         render: function () {
-            this.$el.html(this.template);
+            $(this.el).html(this.template);
             return this;
         }
     });

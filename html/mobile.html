@@ -20,9 +20,8 @@
 			<!-- Do we need the refresh button? -->
 			<a href="#" data-icon="refresh" id="refresh-1" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner"><span class="ui-btn-text">Refresh</span><span class="ui-icon ui-icon-refresh ui-icon-shadow">&nbsp;</span></span></a>
 		</div><!-- /header -->
-
-		<div data-role="content">	
-
+		<div data-role="content" data-theme="a">	
+		<br>
 			<div id="votelist">
    		 	<ul id="dynamicFieldList" data-role="listview" data-icon="arrow-u" data-filter="true" data-filter-placeholder="Add new songs and vote.." data-count-theme="c">
 
@@ -31,11 +30,11 @@
 
 		</div><!-- /content -->
 
-		<div data-role="footer" data-theme="a" data-position="fixed" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
-			<div data-role="navbar" data-iconpos="bottom" class="ui-navbar ui-mini" role="navigation">
-			<ul class="ui-grid-a">
-				<li class="ui-block-a"><a href="#" class="ui-btn-active ui-state-persist ui-btn ui-btn-inline ui-btn-icon-bottom ui-btn-up-a" data-icon="bars" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="span" data-iconpos="bottom" data-theme="a" data-inline="true"><span class="ui-btn-inner"><span class="ui-btn-text">Playlist</span><span class="ui-icon ui-icon-bars ui-icon-shadow">&nbsp;</span></span></a></li>
-				<li class="ui-block-b"><a href="#share" data-icon="forward" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="span" data-iconpos="bottom" data-theme="a" data-inline="true" class="ui-btn ui-btn-inline ui-btn-icon-bottom ui-btn-up-a"><span class="ui-btn-inner"><span class="ui-btn-text">Share URL</span><span class="ui-icon ui-icon-forward ui-icon-shadow">&nbsp;</span></span></a></li>
+		<div data-role="footer" data-theme="a" data-position="fixed">
+			<div data-role="navbar" data-iconpos="bottom">
+			<ul>
+				<li><a href="#" class="ui-btn-active ui-state-persist" data-icon="bars">Playlist</a></li>
+				<li><a href="#share" data-icon="forward">Share URL</a></li>
 			</ul>
 			</div><!-- /navbar -->
 		</div><!-- /footer -->
@@ -45,11 +44,13 @@
 
 	<script type="text/template" id="share">
 	
-		<div data-role="header" data-theme="a">
-			<img src="m/img/tunelarge2.png" width="90" hspace="15"/>
+		<div data-role="header" data-theme="a" class="ui-header ui-bar-a" role="banner">
+			<img src="m/img/tunelarge2.png" width="90" hspace="15">
+			<!-- Do we need the refresh button? -->
+			<a href="#" data-icon="refresh" id="refresh-1" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner"><span class="ui-btn-text">Refresh</span><span class="ui-icon ui-icon-refresh ui-icon-shadow">&nbsp;</span></span></a>
 		</div><!-- /header -->
 
-		<div data-role="content">	
+		<div data-role="content" data-theme="a">	
 
 			<div id="qr-code">
    		 	
@@ -70,11 +71,13 @@
 	<!-- Page, where you get if you hit the enter button in the filter on playlist-page, list of search results -->
 	<script type="text/template" id="search">
 
-		<div data-role="header" data-theme="a">
-			<img src="m/img/tunelarge2.png" width="90" hspace="15"/>
+		<div data-role="header" data-theme="a" class="ui-header ui-bar-a" role="banner">
+			<img src="m/img/tunelarge2.png" width="90" hspace="15">
+			<!-- Do we need the refresh button? -->
+			<a href="#" data-icon="refresh" id="refresh-1" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner"><span class="ui-btn-text">Refresh</span><span class="ui-icon ui-icon-refresh ui-icon-shadow">&nbsp;</span></span></a>
 		</div><!-- /header -->
 
-		<div data-role="content">	
+		<div data-role="content" data-theme="a">	
 
 			<form>
      			<input type="search" name="search-1" id="search-1"  placeholder="Search something else.." value="">

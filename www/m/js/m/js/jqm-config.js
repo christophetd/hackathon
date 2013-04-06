@@ -11,8 +11,8 @@ $(document).delegate('[data-role="page"]', 'pageinit', function () {
                 var toAdd = $('input[data-type="search"]').val();
                 //just to show that the value is saved in toAdd
                 alert(toAdd);
-                $.mobile.changePage( $("#search"), "slide", true, true);
-
+                location.hash = "#search";
+                //$.mobile.changePage( $("#search"), "slide", true, true);
                 //Make a searchrequest
             };
         });
@@ -33,7 +33,7 @@ $(document).bind("mobileinit", function () {
     });
 
     //page refresh function
-    function refreshPage(page){
+    refreshPage = function(page){
     // Page refresh
         page.trigger('pagecreate');
         page.listview('refresh');

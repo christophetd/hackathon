@@ -6,29 +6,57 @@
 
 requirejs.config({
     paths: {
-        'socket.io': '/socket.io/lib/socket.io',
         'underscore': '/common/js/lib/underscore',
         'backbone': '/common/js/lib/backbone',
-        'jqm': '/m/js/jquery.mobile-1.3.0.min',
-        'jqmconfig': 'm/js/jqm-config'
+        'jqm': 'lib/jquery.mobile-1.3.0.min'
     }
 });
 
 
-require([
-    "jquery",
-    "app"],
-    
-    /*
-        The arguments of the callback function are the required objects 
-        in the same order as in the list above. Therefore, we retreive jquery
-        first, then the app object.
-    */
-    function($, app) {
-    
-        /* We can still use jquery to make sure the dom is completely loaded even though
-            it's very unlikely it isn't already loaded. */
-        $(function() {
+require(["jquery"], function($) {
+        
+        /* Piece of code copied from jqm-config. I don't know what it does but it looks like application logic
+            which should go inside a view's code...
+        */
+        //Searchrequest if Enter is hit in filter form
+        $(document).delegate('[data-role="page"]', 'pageinit', function () {
+            var _this = this
+            $(_this).delegate('input[data-type="search"]', 'keydown', function (event) {
+                //detect if enter was hit (13)
+                if (event.which == 13) {
+                    event.preventDefault();
+                    var toAdd = $('input[data-type="search"]').val();
+                    //just to show that the value is saved in toAdd
+                    alert(toAdd);
+                    $.mobile.changePage( $("#search"), "slide", true, true);
+
+                    //Make a searchrequest
+                };
+            });
+        });
+        
+        
+        /***    Actual implementation of main.js     ***/
+        
+        // We listen to mobileinit event before loading jquery mobile so that we are ready when this event will be fired.
+        $( document ).on( "mobileinit",
+            // Set up the "mobileinit" handler before requiring jQuery Mobile's module
+            function() {
+                // Prevents all anchor click handling including the addition of active button state and alternate link bluring.
+                $.mobile.linkBindingEnabled = false;
+
+                // Disabling this will prevent jQuery Mobile from handling hash changes
+                $.mobile.hashListeningEnabled = false;
+                
+               
+            }
+        );
+        
+        
+        /* We only want to require jqm now that we are listening to mobileinit.
+            Since app may have sub-dependencies requireing jqm, we also only requrie it now.
+        */
+        require(['app', 'jqm'], function(app){
             //Initializing app
             app.init();
         });

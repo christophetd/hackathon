@@ -1,4 +1,4 @@
-﻿/* Mobile
+/* Mobile
  * main.js is the only file explicitly loaded by require (see index.html)
  * It will load every main classes needed by app to initialize.
  * One doesn't need to specify here sub-dependencies.

@@ -13,6 +13,7 @@ require('./config.js')(app);
 //Declares every routes
 require('./routes')(app);
 
+require('./sock')(io);
 
 
 

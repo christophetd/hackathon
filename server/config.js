@@ -21,7 +21,7 @@ module.exports = function(app){
         
         app.use(express.bodyParser());
         app.use(express.cookieParser());
-        app.use(redirect('m', 'api'));
+        app.use(redirect('m', ['api', 'common']));
         app.use(app.router);
         app.use(express.static(__dirname + '/../www'));
         

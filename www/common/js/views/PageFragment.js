@@ -13,8 +13,11 @@ define(['jquery', 'backbone'], function($){
         }
 
         this.isActive = true;
-
+        
         Backbone.View.apply(this, [options]);
+        
+        // And to be sure the view stays up to date, we bind the activated event to the render method
+        this.on('activated', this.render);
     };
 
     _.extend(Fragment.prototype, Backbone.View.prototype, {
@@ -28,6 +31,8 @@ define(['jquery', 'backbone'], function($){
                 for(var i in this.childFragments){
                     this.childFragments[i].activate();
                 }
+                
+                this.trigger('activated');
             }
         },
         
@@ -38,6 +43,32 @@ define(['jquery', 'backbone'], function($){
                 
                 for(var i in this.childFragments){
                     this.childFragments[i].deactivate();
+                }
+                
+                this.trigger('deactivated');
+            }
+        },
+        
+        activeCb: function(cb){
+            var self = this;
+            
+            return function(){
+                if(self.isActive){
+                    self[cb].apply(this, arguments);
+                }
+            };
+        },
+        
+        makeActive: function(){
+            var self = this;
+            
+            for(var i = 0 ; i < arguments.length ; i++){
+                var fn = this[arguments[i]];
+                
+                this[arguments[i]] = function(){
+                    if(self.isActive){
+                        fn.apply(this, arguments);
+                    }
                 }
             }
         }

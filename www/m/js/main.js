@@ -8,7 +8,8 @@ requirejs.config({
     paths: {
         'underscore': '/common/js/lib/underscore',
         'backbone': '/common/js/lib/backbone',
-        'jqm': 'lib/jquery.mobile-1.3.0.min'
+        'jqm': 'lib/jquery.mobile-1.3.0.min',
+        'common': '/common/js'
     }
 });
 

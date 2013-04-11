@@ -53,17 +53,17 @@ define([
             });
         },
         
-        home:function () {
+        home: function () {
             console.log('#home');
             this.manager.changePage('home');
         },
 
-        share:function () {
+        share: function () {
             console.log('#share');
             this.manager.changePage('share');
         },
 
-        search:function () {
+        search: function () {
             console.log('#search');
             this.manager.changePage('search');
         }

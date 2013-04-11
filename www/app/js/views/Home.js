@@ -1,8 +1,8 @@
 /*
     This view is displayed when a user first arrives to the website.
  */
-define(['jquery', 'backbone'], function($){
-    return Backbone.View.extend({
+define(['jquery', 'PageFragment', 'backbone'], function($, PageFragment){
+    return PageFragment.extend({
     
         // the constructor
         initialize: function () {

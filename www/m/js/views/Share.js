@@ -1,7 +1,7 @@
 /*
     Shareview
  */
-define(['jquery', 'common/views/PageFragment'], function($, PageFragment){
+define(['jquery', 'PageFragment'], function($, PageFragment){
     return PageFragment.extend({
     
         initialize: function () {

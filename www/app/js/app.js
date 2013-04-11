@@ -4,22 +4,17 @@
 
 
 define([
-    'backbone', 'Router', 'views/Home'],
-    function(){
+    'collections/Parties',
+    'backbone', 'util/Router', 'views/Home'],
+    function(Parties){
 
     return window.app = {
-    
-        // Instances
-        collections: {},
-        models: {},
-        views: {},
         
         init: function () {
+        
+            this.parties = new Parties();
             
-            /* Loading views */
-            this.views.home = new (require('views/Home'))({el: '#mainContents'});
-            
-            var router = new (require('Router'));
+            var router = new (require('util/Router'));
             
             if(!Backbone.history.start()){
                 window.location.hash = '/';

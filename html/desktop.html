@@ -86,7 +86,7 @@
       <div class="hero-unit" 
       style="background-image: url('/app/img/background.jpg');background-position-x: -200px; background-position-y: -500px;">
           <h1>Let the music begin</h1>
-        <center><a href="#start" id="__start" class="btn btn-primary btn-large ">Get started &raquo;</a></center>
+        <center><a href="#new" id="__start" class="btn btn-primary btn-large ">Get started &raquo;</a></center>
       </div>
 
       <!-- Example row of columns -->
@@ -109,6 +109,26 @@
 
       </div>
 	</script>
+    
+    <script type="text/jst" id="djTemplate">
+        
+        <h1>This is <s>sparta</s> the main app page</h1>
+        
+        <div class="playlist"></div>
+        <div class="player"></div>
+        <div class="library"></div>
+    
+    </script>
+    
+    <script type="text/jst" id="partyEditTemplate">
+        <h1>Edit a party</h1>
+        
+        
+    </script>
+    
+    <script type="text/jst" id="resNotFoundTemplate">
+        <h1>Not found</h1>
+    </script>
 
     <!-- Javascript placed at the end of the document so the page loads faster -->
     <script data-main="app/js/main" src="/common/js/lib/require-jquery.js"></script>

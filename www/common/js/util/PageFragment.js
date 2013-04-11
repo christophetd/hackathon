@@ -8,11 +8,11 @@ define(['jquery', 'backbone'], function($){
         
         this.childFragments = new Array();
         
-        if(options.parent && options.parent.childFragments){
+        if(options && options.parent && options.parent.childFragments){
             options.parent.childFragments.push(this);
         }
 
-        this.isActive = true;
+        this.isActive = false;
         
         Backbone.View.apply(this, [options]);
         

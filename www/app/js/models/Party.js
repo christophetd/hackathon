@@ -1,0 +1,10 @@
+﻿/*
+    Party model
+*/
+
+define(['backbone'], function(){
+    
+    return Backbone.Model.extend({
+    
+    });
+});

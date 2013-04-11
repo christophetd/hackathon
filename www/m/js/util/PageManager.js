@@ -7,12 +7,10 @@ define(['jquery', 'jqm'], function($){
     /*
         The constructor takes the page's root id as an argument
     */
-    return function(rootId){
+    return function(){
         
         // Hash storing registered pages.
         var pages = {};
-        
-        var root;
         
         var currentPage;
         
@@ -23,7 +21,6 @@ define(['jquery', 'jqm'], function($){
             view is a string associated to a specific view registered via registerPages.
         */
         this.changePage = function(pageName){
-            if(!root) root = $(rootId);
             
             var page = pages[pageName];
             if(!page){

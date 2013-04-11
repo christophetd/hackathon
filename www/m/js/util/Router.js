@@ -2,7 +2,7 @@
  * This is the only app router. It handles navigation and shows the proper views.
  */
 define([
-    'views/PageManager',
+    'util/PageManager',
     'views/Home',
     'views/Search',
     'views/Share',

@@ -36,15 +36,22 @@ define(
             // Update model's attributes
             this.model.set('name', this.$el.find('[name=partyName]').val());
             
+            
+            var loader = this.$el.find('.ajaxLoader').show();
+            var button = this.$el.find('.submitBtn').attr('disabled', 'disabled');
+            
             this.model.save(null, {
                 success: $.proxy(function(){
                     window.location.hash = '#/show/'+this.model.id;
+                    
                 }, this),
                 
-                error: function(){
+                error: $.proxy(function(){
+                    button.removeAttr('disabled', '');
+                    loader.hide();
                     console.log('uh oh');
-                     window.location.hash = '#/';
-                }
+                    window.location = 'http://www.youtube.com/watch?v=oHg5SJYRHA0';
+                }, this)
             });
             return false;
         },

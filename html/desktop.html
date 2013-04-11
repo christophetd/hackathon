@@ -121,9 +121,24 @@
     </script>
     
     <script type="text/jst" id="partyEditTemplate">
-        <h1>Edit a party</h1>
-        
-        
+        <form class="partyForm">
+        <fieldset>
+            <legend><% if(isNew){ %> 
+                Create 
+            <%} else { %>
+                Edit
+            <%}%>
+            a party</legend>
+            <label>Choose a cool name :</label>
+            <input name="partyName" type="text" <% if(isNew){%>placeholder="My awesome party"<%} else {%> value="<%= party.name %>"<% } %> >
+            <span class="help-block">Bitches love cool names</span>
+            <label class="checkbox">
+                <input type="checkbox"> Check out this useless checkbox
+            </label>
+            <a href="#" class="btn cancelBtn">Cancel</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </fieldset>
+        </form>
     </script>
     
     <script type="text/jst" id="resNotFoundTemplate">

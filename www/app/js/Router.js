@@ -4,27 +4,30 @@
 define([
     'app',
     'util/PageManager',
-    'views/Home',
-    'views/EditParty',
-    'views/ShowParty',
-    'views/ResNotFound',
+    'views/HomePage',
+    'views/MusicPage',
+    'views/SearchPage',
+    'views/ResNotFoundPage',
     'backbone'
 ], function(
     app,
     Manager,
-    HomeView,
-    EditView,
-    ShowView,
-    ResNotFoundView
+    HomePage,
+    MusicPage,
+    SearchPage,
+    ResNotFoundPage
 ){
     return Backbone.Router.extend({
 
         //Defines mapping between routes and methods
         routes: {
+            
             "": "index",
             "new": "create",
             "edit/:id": "edit",
-            "show/:id": "show"
+            "party": "party",
+            "music": "music",
+            "search/:query": "search"
         },
 
         //Called when the router is instanciated. 
@@ -34,23 +37,31 @@ define([
             
             this.manager = new Manager('#mainContents');
             
+            this.searchPage = new SearchPage();
+            
             this.manager.registerPages({
-                'home': new HomeView(),
-                'resNotFound': new ResNotFoundView()
+                'home': new HomePage(),
+                'music': new MusicPage(),
+                'search': this.searchPage,
+                'resNotFound': new ResNotFoundPage()
             });
         },
         
         index: function () {
+            this.hidePanel();
             this.manager.changePage('home');
         },
         
         create: function(){
+            this.hidePanel();
+            // TODO : refactor this
+            
             // Creating an editView without parameters will create a new party
             this.manager.changePage(new EditView());
         },
         
         edit: function(id){
-            
+            this.hidePanel();
             // We pass an existing party to this view so that it will edit it.
             var party = app.parties.get(id);
             if(party){
@@ -62,16 +73,24 @@ define([
             }
         },
         
-        show: function(id){
-            // We pass an existing party to this view so that it will edit it.
-            var party = app.parties.get(id);
-            if(party){
-                this.manager.changePage(new ShowView({
-                    model: party
-                }));
-            } else {
-                this.manager.changePage('resNotFound');
-            }
+        party: function(){
+            app.partyPanel.expand();
+        },
+        
+        music: function(){
+            this.hidePanel();
+            this.manager.changePage('music');
+        },
+        
+        search: function(query){
+            this.hidePanel();
+            this.searchPage.search(decodeURIComponent(query));
+            this.manager.changePage('search');
+        },
+        
+        // Hides the partyPanel
+        hidePanel: function(){
+            app.partyPanel.shrink();
         }
     });
 });

@@ -1,5 +1,5 @@
 ﻿/*
-    Collection of party models
+    Collection of party models (not used currently)
 */
 
 define(['models/Party', 'backbone'], function(Party){

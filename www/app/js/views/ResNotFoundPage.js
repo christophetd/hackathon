@@ -5,7 +5,7 @@
 define(['jquery', 'PageFragment', 'backbone'], function($, PageFragment){
 
     return PageFragment.extend({
-    
+        
         initialize: function(){
             this.template = $('#resNotFoundTemplate').html();
         },

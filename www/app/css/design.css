@@ -1,0 +1,80 @@
+.mainContainer {
+    z-index: 100;
+    
+    position: absolute;
+    width: 100%;
+    top: 41px;
+    bottom: 121px;
+    overflow: auto;
+}
+
+#mainContents {
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#partyPanel {
+    z-index: 200;
+    
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    background-color: #222;
+    border: 1px solid #000;
+    border-width: 1px 0 0 0;
+    
+    background-image: -moz-linear-gradient(top,#252525,#151515);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#252525),to(#151515));
+    background-image: -webkit-linear-gradient(top,#252525,#151515);
+    background-image: -o-linear-gradient(top,#252525,#151515);
+    background-image: linear-gradient(to bottom,#252525,#151515);
+    
+    background-repeat: repeat-x;
+    
+    color: #ccc;
+}
+
+#partyPanel > div{
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.panelShrinked {
+    height: 120px;
+}
+
+.dropdown-menu form{
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.dropdown-menu > form > .form-actions {
+    margin-bottom: 0px;
+    margin-top: 5px;
+    padding: 6px 12px;
+}
+
+.btn-link {
+    display: inline-block;
+    padding: 4px 4px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.dropdown-menu .form-actions .btn{
+    margin-top: 0px;
+}
+
+.expandButton {
+    opacity: 0.5;
+}
+
+.expandButton:hover {
+    opacity: 1;
+    text-decoration: none;
+}
+

@@ -26,14 +26,8 @@
 
     <!-- Le styles -->
     <link href="/common/css/bootstrap.min.css" rel="stylesheet">
-    <style type="text/css">
-		body {
-			padding-top: 60px;
-			padding-bottom: 40px;
-		}
-		.centered-content{ text-align:center !important;}
-    </style>
-
+    <link href="/app/css/design.css" rel="stylesheet">
+    
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
 		<script src="/css/bootstrap/js/html5shiv.js"></script>
@@ -49,65 +43,130 @@
 
   <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="#">Project name</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
+    <div class="navbar navbar-static-top navbar-inverse" id="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+
+
+                <!-- Brand -->
+                <a class="brand" href="#">Project name</a>
+                
+                <!-- Nav links -->
+                <ul class="nav">
+                    <li class="nav-link active" data-page="music">
+                        <a href="#/music">Music</a>
+                    </li>
+                    <li class="nav-link" data-page="party">
+                        <a href="#/party">Party</a>
+                    </li>
+                </ul>
+
+                <!-- Search field -->
+                <form id="navbarSearch" class="navbar-search pull-left">
+                    <input type="text" class="search-query" placeholder="Search">
+                </form>
+                
+                <!-- login -->
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Log in
+                            <b class="caret"></b>
+                        </a>
+                        <div class="dropdown-menu">
+                            
+                            <form>
+                               
+                                <div class="container-fluid">
+                                    <input type="text" class="span3" placeholder="Username">
+                                    <input type="password" class="span3" placeholder="Password">
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn pull-left;">Log in</button>
+                                    <div class="pull-right btn-link">
+                                        <a href="#">new to [project name] ?</a>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                        </div>
+                    </li>
+                </ul>
+                        
+                <!-- Login view -
+                <form class="navbar-form pull-right">
+                    <input type="text" class="span2" placeholder="Username">
+                    <input type="password" class="span2" placeholder="Password">
+                    <button type="submit" class="btn">Log in</button>
+                </form>-->
+        
+            </div>
         </div>
-      </div>
     </div>
 	
-
-    <div class="container">
-		<div id="mainContents">
-			<noscript>
-				<!-- TODO : handle users without javascript -->
-			</noscript>
-		</div>
-		<hr>
-
-		<footer>
-			<p>H. Milano, E. Body, P. Schwaller, C. Tafani-Dereeper.</p>
-		</footer>
-
-    </div> <!-- /container -->
-	
-	
+    
+    <div class="mainContainer">
+        <div id="mainContents" class="container">
+            <noscript>
+                <!-- TODO : handle users without javascript -->
+            </noscript>
+        </div> <!-- /container -->
+	</div>
+    
+	<div id="partyPanel" class="panelShrinked">
+        <div id="panelShrinkedContents">
+            <div class="container">
+                <div class="text-center">
+                    <a href="#" class="expandButton" data-action="expand">
+                        <i class="icon-arrow-up icon-white" ></i>
+                        <i class="icon-arrow-up icon-white" ></i>
+                        <i class="icon-arrow-up icon-white" ></i>
+                    </a>
+                </div>
+                Here will be a condensed player and playlist.
+            </div>
+        </div>
+        <div id="panelExpandedContents" style="display: none">
+            <div class="container">
+                <div class="text-center">
+                    <a href="#" class="expandButton" data-action="shrink">
+                        <i class="icon-arrow-down icon-white" ></i>
+                        <i class="icon-arrow-down icon-white" ></i>
+                        <i class="icon-arrow-down icon-white" ></i>
+                    </a>
+                </div>
+                <div id="panelPage"><!--- TODO : place in a template with specific js view file -->
+                    <h1>Party</h1>
+                    <p>Here will be a complete player with it's playlist and some party administration stuff</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 	<!-- Templates -->
 	
 	<script type="text/jst" id="homeTemplate">
-      <!-- Main hero unit for a primary marketing message or call to action -->
-      <div class="hero-unit" 
-      style="background-image: url('/app/img/background.jpg');background-position-x: -200px; background-position-y: -500px;">
-          <h1>Let the music begin</h1>
-        <center><a href="#new" id="__start" class="btn btn-primary btn-large ">Get started &raquo;</a></center>
-      </div>
-
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="span4">
-          <h2>What is SquareTune?</h2>
-          <p>SquareTune is a collaborative music system for your parties, designed for you.</p>
-          <p>« <i>Nice party, but the music kind of sucked</i> » <br />
-            « <i>Let's get out of here, the DJ is soo bad</i> » <br />
-            Two kinds of complaints you'll probably never hear again.</p>
+        <h1>Welcome to square...something !</h1>
+        <div class="row">
+            <div class="span12">
+                <h2>Start right now</h2>
+                <p>Go <a href="#/music">right here</a> to pick some cool sound or <a href="#/party">here</a> to manage your party. Don't forget to use
+                the search bar ;)</p>
+            </div>
         </div>
-        <div class="span4">
-          <h2>How does it works?</h2>
-          <p>Create playlists by importing music from YouTube or your hard drive and let your friends vote from their smartphone for the music they want to listen to. Anyone can also propose a new song via an integrated YouTube search.</p>
-       </div>
-        <div class="span4">
-          <h2>Why should I use it?</h2>
-          <p>It's fast, simple, and especially useful. Your friends can access the vote page just by scanning a QR code.</p>
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="span6">
+            <h2>What is SquareTune?</h2>
+            <p>SquareTune is a collaborative music system for your parties, designed for you.</p>
+            <p>Don't worry about the playlist anymore, it's up to your guests to make it.</p>
+            </div>
+            <div class="span6">
+                <h2>How does it works?</h2>
+                <p>Create playlists by importing music from YouTube or your hard drive and let your friends vote from their 
+                smartphone for the music they want to listen to. Anyone can also propose a new song via an integrated YouTube search.</p>
+            </div>
         </div>
-
-      </div>
 	</script>
     
     <script type="text/jst" id="djTemplate">
@@ -148,7 +207,7 @@
     </script>
     
     <script type="text/jst" id="playlistTemplate">
-        <a href="#" class="openLibrary"><i class="icon-plus-sign" /> Add songs</a>
+        <a href="#/music" class="openLibrary"><i class="icon-plus-sign" /> Add songs</a>
         <ol>
             <% _.each(songs, function(song){ %>
             <li><%= song.title %></li>
@@ -164,6 +223,19 @@
     
     <script type="text/jst" id="resNotFoundTemplate">
         <h1>Not found</h1>
+    </script>
+    
+    <script type="text/jst" id="musicTemplate">
+        <h1>Music</h1>
+        
+    </script>
+    
+    <script type="text/jst" id="searchTemplate">
+        <h1>Search</h1>
+        
+        <p>Displaying search results for query : <strong><%= query %></strong><br />
+        <em>Btw : check out this awesome XSS</em></p>
+        
     </script>
 
     <!-- Javascript placed at the end of the document so the page loads faster -->

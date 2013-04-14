@@ -12,7 +12,7 @@ define(['jquery'], function($){
         // Hash storing registered pages.
         var pages = {};
         
-        var root;
+        var root = $(rootId);
         
         var currentPage;
         
@@ -23,7 +23,6 @@ define(['jquery'], function($){
             view is a string associated to a specific view registered via registerPages.
         */
         this.changePage = function(page){
-            if(!root) root = $(rootId);
             
             if(typeof(page) == 'string'){
                 page = pages[page];
@@ -36,6 +35,14 @@ define(['jquery'], function($){
             
             root.children().detach();
             root.append(currentPage.$el);
+        };
+        
+        this.setBlankPage = function(){
+            console.log("blanking");
+            if(currentPage) currentPage.deactivate();
+            currentPage = null;
+            
+            root.children().detach();
         };
         
         /*

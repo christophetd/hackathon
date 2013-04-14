@@ -9,6 +9,7 @@ requirejs.config({
         'socket.io': '/socket.io/lib/socket.io',
         'underscore': '/common/js/lib/underscore',
         'backbone': '/common/js/lib/backbone',
+        'bootstrap': '/common/js/lib/bootstrap',
         'common': '/common/js',
         'PageFragment': '/common/js/util/PageFragment'
     }
@@ -17,7 +18,8 @@ requirejs.config({
 
 require([
     "jquery",
-    "app"],
+    "app",
+    "bootstrap"],
     
     /*
         The arguments of the callback function are the required objects 

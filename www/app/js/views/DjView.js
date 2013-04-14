@@ -1,4 +1,6 @@
 ﻿/*
+    / ! \ This file has to be removed / ! \
+    
     ShowParty.js 
     This is the root view for the interesting part : where the dj can throw a party !
 */

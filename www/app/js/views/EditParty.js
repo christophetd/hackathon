@@ -3,8 +3,8 @@
     This view allows the user to edit a party's properties.
 */
 define(
-    ['jquery', 'PageFragment', 'models/Party', 'backbone'], 
-    function($, PageFragment, Party){
+    ['app', 'jquery', 'PageFragment', 'models/Party', 'backbone'], 
+    function(app, $, PageFragment, Party){
 
     return PageFragment.extend({
         
@@ -14,7 +14,10 @@ define(
         },
         
         initialize: function(){
-        
+            
+            // Ensures the app is properly defined (there is a circular dependency here)
+            if(!app) app = require('app');
+            
             _.bindAll(this, 'save');
             
             // Gets the template from the DOM
@@ -33,26 +36,51 @@ define(
             evt.preventDefault();
             evt.stopPropagation();
             
-            // Update model's attributes
-            this.model.set('name', this.$el.find('[name=partyName]').val());
+            // Getting data from the form
+            var name = this.$el.find('#partyNameInput').val();
             
-            
-            var loader = this.$el.find('.ajaxLoader').show();
-            var button = this.$el.find('.submitBtn').attr('disabled', 'disabled');
-            
-            this.model.save(null, {
-                success: $.proxy(function(){
-                    window.location.hash = '#/show/'+this.model.id;
-                    
-                }, this),
+            // If no name was provided
+            if(!name){
+                // Use bootstrap's magic to display an error
+                this.$el.find('#nameControlGroup').addClass('error')
+                    .find('.helper')
+                        .text('You must provide a name');
                 
-                error: $.proxy(function(){
-                    button.removeAttr('disabled', '');
-                    loader.hide();
-                    console.log('uh oh');
-                    window.location = 'http://www.youtube.com/watch?v=oHg5SJYRHA0';
-                }, this)
-            });
+            // Else we can processe the data
+            } else {
+                // Update model's attributes
+                this.model.set('name', name);
+                
+                /* We show the ajax loader and disable the submit button. 
+                    We also get a reference to the loader image and submit button so that
+                    we can restore their state later if something fails. */
+                var loader = this.$el.find('.ajaxLoader').show();
+                var button = this.$el.find('.submitBtn').attr('disabled', 'disabled');
+                
+                // If the model is new, we add it to the collection
+                if(this.isNew){
+                    app.parties.add(this.model);
+                    this.isNew = false;
+                }
+                
+                // Then we can save it
+                this.model.save(null, {
+                    
+                    // If the model was saved successfully
+                    success: $.proxy(function(){
+                        window.location.hash = '#/show/'+this.model.id;
+                    }, this),
+                    
+                    // Otherwise, we restore the form to it's enabled state.
+                    error: $.proxy(function(){
+                        button.removeAttr('disabled', '');
+                        loader.hide();
+                        
+                        // Todo : show error
+                    }, this)
+                });
+                
+            }
             return false;
         },
         

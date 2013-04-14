@@ -5,6 +5,7 @@
 define(['models/Party', 'backbone'], function(Party){
 
     return Backbone.Collection.extend({
-        model: Party
+        model: Party,
+        url: 'api/party/'
     });
 });

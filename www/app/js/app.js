@@ -14,11 +14,19 @@ define([
         
             this.parties = new Parties();
             
-            var router = new (require('util/Router'));
-            
-            if(!Backbone.history.start()){
-                window.location.hash = '/';
-            }
+            /* We need to know the parties already created before starting the app.
+                However, this only makes sense if we can keep track of a user which is not
+                yet implemented so we need to find out how to do all of this.
+             */
+            this.parties.fetch({
+                success: function(){
+                    var router = new (require('util/Router'));
+                    
+                    if(!Backbone.history.start()){
+                        window.location.hash = '/';
+                    }
+                }
+            });
         }
     };
 });

@@ -55,8 +55,8 @@
           <a class="brand" href="#">Project name</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="/">Home</a></li>
-              <li><a href="/about">About</a></li>
+              <li><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -112,12 +112,16 @@
     
     <script type="text/jst" id="djTemplate">
         
-        <h1>This is <s>sparta</s> the main app page</h1>
+        <h1><%= party.name %></h1>
         
-        <div class="playlist"></div>
-        <div class="player"></div>
-        <div class="library"></div>
-    
+        <div class="row">
+            <div class="span3">
+                <div id="playlist"></div>
+            </div>
+            <div class="span6">
+                <div id="player"></div>
+            </div>
+        </div>
     </script>
     
     <script type="text/jst" id="partyEditTemplate">
@@ -129,16 +133,33 @@
                 Edit
             <%}%>
             a party</legend>
-            <label>Choose a cool name :</label>
-            <input name="partyName" type="text" <% if(isNew){%>placeholder="My awesome party"<%} else {%> value="<%= party.name %>"<% } %> >
-            <span class="help-block">Bitches love cool names</span>
-            <label class="checkbox">
-                <input type="checkbox"> Check out this useless checkbox
-            </label>
+            
+            <div class="control-group" id="nameControlGroup">
+              <label class="control-label" for="partyNameInput">Choose a cool name for your party:</label>
+              <div class="controls">
+                <input type="text" id="partyNameInput" <% if(isNew){%>placeholder="My awesome party"<%} else {%> value="<%= party.name %>"<% } %> >
+                <span class="help-inline helper"></span>
+              </div>
+            </div>
             <a href="#" class="btn cancelBtn">Cancel</a>
             <button type="submit" class="btn btn-primary submitBtn">Submit</button><img style="display: none;" class="ajaxLoader" src="app/img/ajax-loader.gif" alt="loading" />
         </fieldset>
         </form>
+    </script>
+    
+    <script type="text/jst" id="playlistTemplate">
+        <a href="#" class="openLibrary"><i class="icon-plus-sign" /> Add songs</a>
+        <ol>
+            <% _.each(songs, function(song){ %>
+            <li><%= song.title %></li>
+            <% }); %>
+        </ol>
+    </script>
+    
+    <script type="text/jst" id="playerTemplate">
+        <p class="well">
+            <strong>Here will come a fancy player. Currently played song : <%= song.title %> </strong>
+        </p>
     </script>
     
     <script type="text/jst" id="resNotFoundTemplate">

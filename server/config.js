@@ -3,7 +3,7 @@
 */
 
 var express = require('express');
-var redirect = require('./mobileRedirect.js');
+var redirect = require('./util/mobileRedirect.js');
 
 module.exports = function(app){
 

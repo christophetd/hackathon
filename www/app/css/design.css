@@ -78,3 +78,9 @@
     text-decoration: none;
 }
 
+#HTMLReporter {
+    z-index: 1000;
+    position: absolute;
+    width: 100%;
+    background-color: white;
+}

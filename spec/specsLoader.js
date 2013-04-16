@@ -8,7 +8,9 @@ requirejs.config({
     paths: {
         'socket.io': '/socket.io/lib/socket.io',
         'underscore': '/common/js/lib/underscore',
-        'backbone': '/common/js/lib/backbone'
+        'backbone': '/common/js/lib/backbone',
+        'common': '/common/js/',
+        'PageFragment': '/common/js/util/PageFragment'
     }
 });
 

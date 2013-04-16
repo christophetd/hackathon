@@ -28,7 +28,7 @@ module.exports = function(app){
         var resData = contents.toString().replace(/^((?:.|\r|\n)*)<\/head>((?:.|\r|\n)*)<script data-main="[a-zA-Z\/]+" src="[a-zA-Z\/.-]+require[a-zA-Z\/.-]+"><\/script>((?:.|\r|\n)*)$/, 
                 '$1<link rel="stylesheet" type="text/css" href="/test/jasmine.css"><script type="text/javascript" src="/test/jasmine.js">'
                 + '</script><script type="text/javascript" src="/test/jasmine-html.js"></script></head>$2'
-                + '<script data-main="/specLoader" src="/common/js/lib/require-jquery.js"></script>$3');
+                + '<script data-main="/'+((req.params[0]) ? 'm' : 'app')+'/js/specLoader" src="/common/js/lib/require-jquery.js"></script>$3');
         
 		res.set('Content-Type', 'text/html');
         res.send(resData);
@@ -42,7 +42,7 @@ module.exports = function(app){
     /*
         Javscript file that requires the specs and starts the tests.
     */
-    app.get('/specLoader.js', function(req, res){
+    app.get(/\/(m\/|app\/)?js\/specLoader\.js$/, function(req, res){
         res.sendfile('spec/specsLoader.js');
     });
     

@@ -6,7 +6,7 @@
         var IncSource = function(query){
             this.get = function(begin, size, cb){
                 window.setTimeout(function(){
-                    //For the test, we return an error if the search is "makerError"
+                    //For the test, we return an error if the search is "makeError"
                     if(query == "makeError"){ cb("Manually triggered error"); }
                     else {
                         var res = [];

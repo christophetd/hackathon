@@ -34,6 +34,8 @@ define(['jquery', 'backbone'], function($){
                 
                 this.trigger('activated');
             }
+            
+            return this;
         },
         
         deactivate: function(){
@@ -47,6 +49,8 @@ define(['jquery', 'backbone'], function($){
                 
                 this.trigger('deactivated');
             }
+            
+            return this;
         },
         
         activeCb: function(cb){

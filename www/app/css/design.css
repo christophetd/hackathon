@@ -35,13 +35,41 @@
     color: #ccc;
 }
 
-#partyPanel > div{
-    margin-top: 6px;
-    margin-bottom: 6px;
+
+
+#partyPanel > .container{
+    height: 100%;
 }
 
 .panelShrinked {
     height: 120px;
+}
+
+.playerButton {
+    border-radius: 70px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+}
+
+.playerButton i {
+    margin-top: 9px;
+}
+
+.playerButton-small {
+    margin: 8px;
+    border-radius: 40px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+}
+
+.playerButton-small i{
+    margin-top: 1px;
+}
+
+.actionsContainer {
+    margin-left: 30px;
 }
 
 .dropdown-menu form{
@@ -71,6 +99,8 @@
 
 .expandButton {
     opacity: 0.5;
+    position: relative;
+    z-index: 250;
 }
 
 .expandButton:hover {

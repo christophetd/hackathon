@@ -32,31 +32,6 @@
             }
         };
         RandomSource.title = "rand";
-        
-        /* A function used to consume search results */
-        function fetchResults(query, amount, cbs){
-            if(!cbs) cbs = {};  //Callbacks
-            for(var i = 0 ; i < amount ; i++){
-                
-                // There is no more data to be read or if an error occured
-                if(query.isEnd()){
-                    if(typeof(cbs.end) == 'function') cbs.end();
-                }
-                
-                // The data we want is not yet loaded
-                if(!query.hasNext()){
-                    
-                    // When new data comes, we try again reading our results
-                    query.once('data', function(){fetchResults(query, amount - i, cbs)});
-                    return;
-                }
-                
-                // We read the next element
-                var el = query.next();
-                if(typeof(cbs.read) == 'function') cbs.read(el);
-            }
-            if(typeof(cbs.done) == 'function') cbs.done();
-        }
     
         it("should accept single source addition and deletion", function(){
             var s = new Search();
@@ -203,7 +178,7 @@
                 return endEvt && q.isEnd();
             }, "end to be reached", 1500);
             
-            fetchResults(q, 1000);
+            Search.util.fetchResults(q, 1000);
         });
         
         it("should read the right results", function(){
@@ -226,7 +201,7 @@
             }, "all results to be fetched", 1500);
             
             var i = 0;
-            fetchResults(q, 50, {
+            Search.util.fetchResults(q, 50, {
                 read: function(el){
                     expect(el).toBe(''+(i++));
                 },

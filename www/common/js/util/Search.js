@@ -152,6 +152,44 @@ define(['jquery', 'common/models/Song', 'underscore'], function($, Source, Song)
         if(conf.preloadThreshold) this.preloadThreshold = conf.preloadThreshold;
     }
     
+    // Search utilities
+    Search.util = {
+        /*  
+            Fetches an certain "amount" of results from "query" passing them as arguments of
+            the read() callback passed in the hash of parameters "param".
+            "param" can contain the following values :
+                read : function(item), use this to read values from the search
+                done : function(), called when the amount of results has been read
+                end : function(), called when there is no more data to read from the query
+        */
+        fetchResults: function(query, amount, param){
+            if(!param) param = {};  //Callbacks
+            for(var i = 0 ; i < amount ; i++){
+                
+                // There is no more data to be read or if an error occured
+                if(query.isEnd()){
+                    if(typeof(param.end) == 'function') param.end();
+                }
+                
+                // The data we want is not yet loaded
+                if(!query.hasNext()){
+                    
+                    // When new data comes, we try again reading our results
+                    query.once('data', function(){
+                        Search.util.fetchResults(query, amount - i, param);
+                    });
+                    return;
+                }
+                
+                // We read the next element
+                var el = query.next();
+                if(typeof(param.read) == 'function') param.read(el);
+            }
+            if(typeof(param.done) == 'function') param.done();
+        }
+    
+    };
+    
     Search.prototype.DEFAULT_CHUNK_SIZE = 20;
     Search.prototype.DEFAULT_PRELOAD_THRESHOLD = 10;
     

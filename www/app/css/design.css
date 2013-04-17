@@ -114,3 +114,8 @@
     width: 100%;
     background-color: white;
 }
+
+.searchResult {
+    padding-bottom: 10px;
+}
+

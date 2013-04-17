@@ -3,7 +3,7 @@
     
     TODO : detect when individual sources come to end to keep consistent chunks sizes
 */
-define(['jquery', 'common/models/Song', 'underscore'], function($, Source, Song){
+define(['jquery', 'common/models/Song', 'common/js/util/YoutubeSource.js', 'common/js/util/FakeSource.js', 'underscore'], function($, Source, YoutubeSource, FakeSrc, Song){
     
     var Search = function(config){
     
@@ -21,27 +21,33 @@ define(['jquery', 'common/models/Song', 'underscore'], function($, Source, Song)
             
             for(var i in srcs){
                 var source = srcs[i];
-                
-                sources[source.title] = source;
+                var title = source.title ? source.title : source;
+                if(typeof(source) === 'string') {
+                    source = Search.util.mapToSource(source);
+                    console.log(source);
+                }
+                sources[title] = source;
             }
             
             return this;
         };
+
         
         this.removeSrc = function(srcs){
             if(Object.prototype.toString.call( srcs ) !== '[object Array]') srcs = [srcs];
             
             for(var i in srcs){
                 var source = srcs[i];
-                
-                delete sources[source.title];
+                var title = source.title ? source.title : source;
+                delete sources[title];
             }
             
             return this;
         };
         
         this.hasSource = function(src){
-            return typeof(sources[src.title]) !== 'undefined';
+            var title = src.title ? src.title : src;
+            return typeof(sources[title]) !== 'undefined';
         };
 
         this.getSources = function() {
@@ -188,6 +194,21 @@ define(['jquery', 'common/models/Song', 'underscore'], function($, Source, Song)
                 if(typeof(param.read) == 'function') param.read(el);
             }
             if(typeof(param.done) == 'function') param.done();
+        }, 
+
+        /* Maps a string representing the source name to the source object itself */
+        mapToSource: function(srcTitle) {
+            srcTitle = srcTitle.toLowerCase();
+            var mapping = {
+                'youtube': YoutubeSource, 
+                'fakesrc': FakeSrc
+            };
+            for(var name in mapping) {
+                if(name == srcTitle) {
+                    return mapping[name];
+                }
+            }
+            return false;
         }
     
     };

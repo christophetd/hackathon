@@ -263,7 +263,11 @@
             </div>
             <% } %>
             <div class="media-body">
-                <div class="media-heading"><%= result.get('title') %></div>
+                <div class="media-heading">
+                    <%= result.get('title') %><br />
+                    (From : <i><%= result.get('src') %></i>)
+
+                </div>
             </div>
         </div>
     </script>

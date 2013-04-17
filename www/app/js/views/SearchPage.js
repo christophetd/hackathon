@@ -5,8 +5,8 @@
     handle the task of querying additionnal results if we want more (ie. scrolling down the page
     should display results until no more result can be found on any source...)
  */
-define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/YoutubeSource.js', 
-    'common/models/Song', 'backbone'], function($, PageFragment, SearchAggregator, YoutubeSource, Song){
+define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/YoutubeSource.js', 'common/js/util/FakeSource.js',
+    'common/models/Song', 'backbone'], function($, PageFragment, SearchAggregator, YoutubeSource, FakeSrc, Song){
 
     var SearchResultView = PageFragment.extend({
         initialize: function() {
@@ -16,17 +16,6 @@ define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/Yo
             this.$el.html(this.template({result: this.model}));
         }
     });
-
-    var FakeSrc = function(query) {
-        this.get = function(begin, size, cb){
-           /* cb(null, new Song({
-                title: "Fake song", 
-                src: "fake"
-            }));*/
-        }
-
-    };
-    FakeSrc.title = "FakeSrc";
 
     return PageFragment.extend({
         
@@ -47,16 +36,10 @@ define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/Yo
             
             this.addSrc(YoutubeSource);
             this.addSrc(FakeSrc);
+            
 
             this.detectPageBottom();
         },
-        addSrc: function(source) {
-            this.searchAggregator.addSrc(source);
-/*            var title = source.title;
-            $('#selectSources').find('#select-'+title).click($.proxyfunction() {
-
-            });*/
-        }, 
 
         loadResult: function(result) {
             if(this.loader) this.loader.hide();
@@ -66,6 +49,7 @@ define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/Yo
             });
             $result.render();
             this.$el.find('#results').append($result.$el);
+
             this.dataLoading = false;
         },
 
@@ -94,6 +78,7 @@ define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/Yo
 
             this.queryIterator.on('end', $.proxy(function() {
                 this.loader.hide();
+                this.$el.find('#results').append('No results were found.');
             }, this));
             this.queryIterator.on('error', function(err) {
                 console.log("An error as occured while searching - "+err);
@@ -102,9 +87,10 @@ define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/Yo
         }, 
 
         render: function () {
-            /* Load initial results */
-            console.log("rendering");
             var self = this;
+
+
+            /* Load initial results */
             SearchAggregator.util.fetchResults(this.queryIterator, this.CHUNK_SIZE, {
                 read: self.loadResult
             });
@@ -114,7 +100,14 @@ define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/Yo
                 sources: this.sources
             }));
 
-            /* Dropdown sources menu <--------------------------- */
+            /* Loader (it will be hidden by loadResult) */
+            this.loader = $('<img />')
+                    .attr('src', '/app/img/ajax-loader.gif')
+                    .attr('id', 'searchAjaxLoader')
+                    .appendTo(this.$el);
+
+
+            /* Dropdown sources menu  */
             this.$el.find('.selectSource').each(function() {
                 var srcTitle = $(this).attr('data-id');
                 var $stateElement = $(this).find('i:first');
@@ -132,24 +125,22 @@ define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/Yo
                         self.addSrc(srcTitle);
                         $stateElement.attr("class" , "icon-ok");   
                     }
+                    self.search(self.keywords);
                     self.render();
                     return false;
                 });
             });
 
-            /* Loader (it will be hidden by loadResult) */
-            this.loader = $('<img />')
-                    .attr('src', '/app/img/ajax-loader.gif')
-                    .attr('id', 'searchAjaxLoader')
-                    .addClass('text-center')
-                    .appendTo(this.$el);
-
             return this;
         }, 
         addSrc: function(source) {
+            var source = source.title ? source : SearchAggregator.util.mapToSource(source);
+
+            // If it is not just disabled, it's not in the sources array, we add it
             if(this.sources.indexOf(source) === -1) {
-                this.sources.push(source);
+                this.sources.push(source); 
             }
+            // And add the source to the search aggregator
             this.searchAggregator.addSrc(source);
         }, 
         removeSrc: function(source) {
@@ -157,11 +148,13 @@ define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/Yo
             if(index != -1) {
                 this.sources.slice(index, 1);
             }
-            this.SearchAggregator.removeSrc(source);
+            this.searchAggregator.removeSrc(source);
         }, 
 
+        /* Disables a source : keeps it in the local sources array (so it remains in the source select dropdown)
+        * but removes it from the search aggregator so the result does not include the source anymore */
         disableSrc: function(source) {
-            if(this.SearchAggregator) this.SearchAggregator.removeSrc(source);
+            this.searchAggregator.removeSrc(source);
         }
     });
 });

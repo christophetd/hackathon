@@ -19,6 +19,7 @@ define(['jquery', 'common/models/Song'], function($, Song){
                             thumb   :   data.feed.entry[i].media$group.media$thumbnail[1].url
                         }));
                     }
+                    //setTimeout($.proxy(function() {cb(null, res)}, this), 1000);
                     cb(null, res);
                 },
                 error: function(){

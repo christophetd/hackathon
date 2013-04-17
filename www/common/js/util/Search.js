@@ -43,6 +43,10 @@ define(['jquery', 'common/models/Song', 'underscore'], function($, Source, Song)
         this.hasSource = function(src){
             return typeof(sources[src.title]) !== 'undefined';
         };
+
+        this.getSources = function() {
+            return sources;
+        };
         
         this.query = function(query){
             var parent = this;
@@ -173,14 +177,12 @@ define(['jquery', 'common/models/Song', 'underscore'], function($, Source, Song)
                 
                 // The data we want is not yet loaded
                 if(!query.hasNext()){
-                    
                     // When new data comes, we try again reading our results
                     query.once('data', function(){
                         Search.util.fetchResults(query, amount - i, param);
                     });
                     return;
                 }
-                
                 // We read the next element
                 var el = query.next();
                 if(typeof(param.read) == 'function') param.read(el);

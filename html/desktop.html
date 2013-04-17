@@ -108,7 +108,7 @@
     <div id="mainContainer">
         <div id="mainContents" class="container">
             <noscript>
-                <!-- TODO : handle users without javascript -->
+                <!-- TODO : handle users without javascript (gtfo biatch) -->
             </noscript>
         </div> <!-- /container -->
 	</div>
@@ -231,13 +231,41 @@
     </script>
     
     <script type="text/jst" id="searchTemplate">
+        <div class="btn-group" id="selectSources">
+          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            Select where you want to search from
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <% _.each(sources, function(source) { %>
+                <li><a href="#" class="selectSource" data-id="<%= source.title %>"><i></i> <%= source.title %></a></li>
+            <% }); %>
+            <!--<li><a href="#"><i class="icon-ok"></i> Youtube</a></li>
+            <li><a href="#">Grooveshark</a></li>
+            <li><a href="#">Spotify</a></li>
+            <li><a href="#">My music</a></li>!-->
+          </ul>
+        </div>
         <h1>Search</h1>
         
-        <p>Displaying search results for query : <strong><%= query %></strong><br />
+        <p>Displaying search results for query : <strong><%= keywords %></strong><br />
         <em>Btw : check out this awesome XSS</em></p>
 
         <div id="results"></div>
         
+    </script>
+
+    <script type="text/jst" id="searchResultTemplate">
+        <div class="searchResult media">
+            <% if(result.get('thumb')) { %>
+                <div class="pull-left">
+                <img class="media-object" src="<%= result.get('thumb') %>" />
+            </div>
+            <% } %>
+            <div class="media-body">
+                <div class="media-heading"><%= result.get('title') %></div>
+            </div>
+        </div>
     </script>
 
     <!-- Javascript placed at the end of the document so the page loads faster -->

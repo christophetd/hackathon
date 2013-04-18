@@ -190,11 +190,12 @@
     
     <script type="text/jst" id="playlistTemplate">
         <a href="#/music" class="openLibrary"><i class="icon-plus-sign" /> Add songs</a>
-        <ol>
-            <% _.each(songs, function(song){ %>
-            <li><%= song.title %></li>
-            <% }); %>
+        <ol class="songContainer">
         </ol>
+    </script>
+    
+    <script type="text/jst" id="playlistSongTemplate">
+        <li><a href="#" class="songLink" ><%= title %></a></li>
     </script>
     
     <script type="text/jst" id="playerTemplate">
@@ -212,7 +213,7 @@
             <a id="s_fwdButton"class="btn playerButton-small pull-left"><i class="icon-fast-forward"></i></a>
         </div>
         <div class="s_currentTrackContainer">
-            <p class="s_trackInfos">Gangnam Style - Psy</p>
+            <p class="s_trackInfos"><%= song.title %></p>
             <div class="s_sliderContainer">
                 <div type="text" class="s_trackSlider" ></div>
             </div>

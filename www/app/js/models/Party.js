@@ -8,11 +8,14 @@ define(['common/models/Playlist', 'backbone'], function(Playlist){
         
         defaults: {
             name: 'new party',
-            description: 'an awesome party'
+            description: 'an awesome party',
+            playlist: new Playlist()
         },
         
         initialize: function(){
-            this.set('playlist', new Playlist());
+            
+            this.set('currentSong', this.get('playlist').songs.at(0));
+            
         }
     });
 });

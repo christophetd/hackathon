@@ -1,16 +1,19 @@
 ﻿
-define(['PageFragment', 'backbone'], function(PageFragment){
+define(['app', 'PageFragment', 'backbone'], function(app, PageFragment){
 
     return PageFragment.extend({
         
         initialize: function(){
+            if(!app) app = require('app');
             this.template = _.template($('#playerTemplate').html());
             
-            this.currentSong = this.model.get('songs')[0];
+            this.listenTo(app.getParty(), 'change:currentSong', this.render);
         },
         
         render: function(){
-            this.$el.html(this.template({song: this.currentSong}));  
+            this.$el.html(this.template({
+                song: app.getParty().get('currentSong').toJSON()
+            }));  
         }
     
     });

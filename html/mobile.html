@@ -16,15 +16,14 @@
 	<!-- templates -->
 
 	<!-- Playlist page, were people can vote and search for songs -->
-	<div data-role="page" id="home">
+	<div data-role="page" id="home" data-theme="a">
 
-		<div data-role="header" data-theme="a" class="ui-header ui-bar-a" role="banner">
-			<img src="/m/img/tunelarge2.png" width="90" hspace="15">
+		<div data-role="header" data-theme="a">
+			<img src="/m/img/tunelarge2.png" width="90" hspace="15"/>
 			<!-- Do we need the refresh button? -->
-			<a href="#" data-icon="refresh" id="refresh-1" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner"><span class="ui-btn-text">Refresh</span><span class="ui-icon ui-icon-refresh ui-icon-shadow">&nbsp;</span></span></a>
+			<a href="#" data-icon="refresh" id="refresh-1" class="ui-btn-right">Refresh</a>
 		</div><!-- /header -->
 		<div data-role="content" data-theme="a">	
-		<br>
 			<div id="votelist">
    		 	<ul id="dynamicFieldList" data-role="listview" data-icon="arrow-u" data-filter="true" data-filter-placeholder="Add new songs and vote.." data-count-theme="c">
 
@@ -47,12 +46,10 @@
 
 	<!-- Sharing page, QR-Code displayed, Option to share the link with whatsapp or sms (?) -->
 
-	<div data-role="page" id="share">
+	<div data-role="page" id="share" data-theme="a">
 	
-		<div data-role="header" data-theme="a" class="ui-header ui-bar-a" role="banner">
-			<img src="/m/img/tunelarge2.png" width="90" hspace="15">
-			<!-- Do we need the refresh button? -->
-			<a href="#" data-icon="refresh" id="refresh-1" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner"><span class="ui-btn-text">Refresh</span><span class="ui-icon ui-icon-refresh ui-icon-shadow">&nbsp;</span></span></a>
+		<div data-role="header" data-theme="a">
+			<img src="/m/img/tunelarge2.png" width="90" hspace="15"/>
 		</div><!-- /header -->
 
 		<div data-role="content" data-theme="a">	
@@ -74,18 +71,17 @@
 	</div>
 
 	<!-- Page, where you get if you hit the enter button in the filter on playlist-page, list of search results -->
-	<div data-role="page" id="search">
+	<div data-role="page" id="search" data-theme="a">
 
-		<div data-role="header" data-theme="a" class="ui-header ui-bar-a" role="banner">
-			<img src="/m/img/tunelarge2.png" width="90" hspace="15">
-			<!-- Do we need the refresh button? -->
-			<a href="#" data-icon="refresh" id="refresh-1" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner"><span class="ui-btn-text">Refresh</span><span class="ui-icon ui-icon-refresh ui-icon-shadow">&nbsp;</span></span></a>
+		<div data-role="header" data-theme="a">
+			<img src="/m/img/tunelarge2.png" width="90" hspace="15"/>
+
 		</div><!-- /header -->
 
 		<div data-role="content" data-theme="a">	
 
-			<form>
-     			<input type="search" name="search-1" id="search-1"  placeholder="Search something else.." value="">
+			<form >
+     			<input type="search" name="search-1" id="search-1"  placeholder="Search something else.." value="" data-theme="c">
      			<input id="addnew" type="button" value="Search">
 			</form>
 			<div id="results">
@@ -98,7 +94,7 @@
 		<div data-role="footer" data-theme="a" data-position="fixed">
 			<div data-role="navbar" data-iconpos="bottom">
 			<ul>
-				<li><a href="#home" data-icon="bars">Playlist</a></li>
+				<li><a href="#home" data-icon="bars" class="ui-btn-active ui-state-persist">Playlist</a></li>
 			</ul>
 			</div><!-- /navbar -->
 		</div><!-- /footer -->

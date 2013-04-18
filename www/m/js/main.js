@@ -29,9 +29,8 @@ require(["jquery"], function($) {
                     event.preventDefault();
                     var toAdd = $('input[data-type="search"]').val();
                     //just to show that the value is saved in toAdd
-                    alert(toAdd);
-                    $.mobile.changePage( $("#search"), "slide", true, true);
-
+                    //$.mobile.changePage( $("#search"), "slide", true, true);
+                    location.hash = "#search"
                     //Make a searchrequest
                 };
             });

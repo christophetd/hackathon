@@ -4,7 +4,7 @@
     position: absolute;
     width: 100%;
     top: 41px;
-    bottom: 121px;
+    bottom: 61px;
     overflow: auto;
 }
 
@@ -58,23 +58,31 @@
     margin-top: 1px;
 }
 
-#panelShrinkedContents .row-fluid>div {
-    border-left: 1px #111 solid;
+#panelShrinkedContents .panel-row > div {
+    border-right: 1px #111 solid;
     height: 60px;
+    overflow: hidden;
+    position: relative;
 }
 
 #panelShrinkedContents {
     border-bottom:  1px #111 solid;
 }
 
+#shrinkedPlayer {
+    border-left: 1px #111 solid;
+}
+
 .s_currentTrackContainer {
-    float: left;
     height: 36px;
-    margin: 9px 12px;
+    margin-top: 9px;
     padding: 3px 14px;
-    min-width: 10px;
     background-color: #111;
     border-radius: 5px;
+    box-shadow: 1px 1px 5px #000 inset;
+    position: absolute;
+    right: 10px;
+    left: 90px;
 }
 
 .s_currentTrackContainer p{
@@ -82,8 +90,8 @@
 }
 
 .s_actionsContainer {
-    margin: 12px 6px;
-    float: left;
+    padding: 12px 6px;
+    position: absolute;
 }
 
 .dropdown-menu form{
@@ -131,5 +139,66 @@
 
 .searchResult {
     padding-bottom: 10px;
+}
+
+
+/** slider **/
+
+.s_sliderContainer{
+    margin-right: 10px;
+}
+
+.slider {
+  width: 100%;
+}
+
+.slider > .dragger {
+  background: #838790;
+  background: -webkit-linear-gradient(top, #d8d0c8, #535760);
+  background: -moz-linear-gradient(top, #d8d0c8, #535760);
+  background: linear-gradient(top, #d8d0c8, #535760);
+
+  -webkit-box-shadow: inset 0 2px 2px rgba(255,255,255,0.5), 0 2px 8px rgba(0,0,0,0.2);
+  -moz-box-shadow: inset 0 2px 2px rgba(255,255,255,0.5), 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: inset 0 2px 2px rgba(255,255,255,0.5), 0 2px 8px rgba(0,0,0,0.2);
+
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+
+  border: 1px solid #496805;
+  width: 12px;
+  height: 12px;
+}
+
+.slider > .dragger:hover {
+  background: -webkit-linear-gradient(top, #F2E8C4, #616668);
+}
+
+
+.slider > .track, .slider > .highlight-track {
+  background: #ccc;
+  background: -webkit-linear-gradient(top, #bbb, #ddd);
+  background: -moz-linear-gradient(top, #bbb, #ddd);
+  background: linear-gradient(top, #bbb, #ddd);
+
+  -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+
+  border: 1px solid #aaa;
+  height: 4px;
+}
+
+.slider > .highlight-track {
+	background: -webkit-linear-gradient(top, #3EC9A7, #2B879E);
+    background: -moz-linear-gradient(top, #3EC9A7, #2B879E);
+    background: linear-gradient(top, #3EC9A7, #2B879E);
+    
+    border-color: #2B879
 }
 

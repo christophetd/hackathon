@@ -115,8 +115,8 @@
     
 	<div id="partyPanel" class="panelShrinked">
         <div id="panelShrinkedContents" class="container-fluid">
-            <div class="row-fluid">
-                <div id="shrinkedPlayer" class="span4 offset2">
+            <div class="row-fluid panel-row">
+                <div id="shrinkedPlayer" class="span5 offset2">
                 
                 </div>
                 <div id="shrinkedPlaylist" class="span3">
@@ -129,7 +129,7 @@
                         <i class="icon-arrow-up icon-white" ></i>
                     </a>
                 </div>
-                <div class="span2"></div>
+                
             </div>
         </div>
         <div id="panelExpandedContents" style="display: none" class="container">
@@ -204,7 +204,7 @@
     </script>
     
     <script type="text/jst" id="shrinkedPlayerTemplate">
-        <div class="s_actionsContainer clearfix">
+        <div class="s_actionsContainer">
             <div class="s_playContainer pull-left">
                 <a id="s_playButton"class="btn playerButton"><i class="icon-play"></i></a>
                 <a id="s_pauseButton" class="btn playerButton" style="display: none;" ><i class="icon-pause"></i></a>
@@ -213,6 +213,9 @@
         </div>
         <div class="s_currentTrackContainer">
             <p class="s_trackInfos">Gangnam Style - Psy</p>
+            <div class="s_sliderContainer">
+                <div type="text" class="s_trackSlider" ></div>
+            </div>
         </div>
     </script>
     
@@ -252,15 +255,15 @@
 
     <script type="text/jst" id="searchResultTemplate">
         <div class="searchResult media">
-            <% if(result.get('thumb')) { %>
+            <% if(result.get("thumb")) { %>
                 <div class="pull-left">
-                <img class="media-object" src="<%= result.get('thumb') %>" />
+                <img class="media-object" src="<%= result.get("thumb") %>" />
             </div>
             <% } %>
             <div class="media-body">
                 <div class="media-heading">
-                    <%= result.get('title') %><br />
-                    (From : <i><%= result.get('src') %></i>)
+                    <%= result.get("title") %><br />
+                    (From : <i><%= result.get("src") %></i>)
 
                 </div>
             </div>
@@ -269,6 +272,5 @@
 
     <!-- Javascript placed at the end of the document so the page loads faster -->
     <script data-main="app/js/main" src="/common/js/lib/require-jquery.js"></script>
-	
   </body>
 </html>

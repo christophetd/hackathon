@@ -12,8 +12,8 @@
 */
 
 define(
-    ['jquery', 'app', 'views/DjView', 'backbone'], 
-    function($, app, DjView){
+    ['jquery', 'app', 'views/DjView', 'views/ShrinkedPlayer', 'backbone'], 
+    function($, app, DjView, ShrinkedPlayer){
 
     var Panel = Backbone.View.extend({
         
@@ -32,9 +32,7 @@ define(
             
             this.shrinked = true;
             
-            var measurer = $('<div class="panelShrinked" />').appendTo('body')
-            this.measure = measurer.height();
-            measurer.remove();
+            this.measure = this.$el.height();
             
             this.expandedContents = this.$('#panelExpandedContents');
             this.shrinkedContents = this.$('#panelShrinkedContents');
@@ -87,7 +85,12 @@ define(
         this.djView = new DjView({
             el: '#panelPage',
             model: app.getParty()
-        });
+        }).activate();
+        
+        this.playerView = new ShrinkedPlayer({
+            el: '#shrinkedPlayer',
+            model: app.getParty()
+        }).render();
     }
     
     function onAnimationEnd(){
@@ -103,11 +106,9 @@ define(
             // We can now display the final state (shrinked or expanded)
             if(this.shrinked){
                 this.shrinkedContents.fadeIn();
-                this.djView.deactivate();
             }
             else{
                 this.expandedContents.fadeIn();
-                this.djView.activate();
             }
         }
     }

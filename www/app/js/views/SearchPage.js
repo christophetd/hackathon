@@ -5,6 +5,7 @@
     handle the task of querying additionnal results if we want more (ie. scrolling down the page
     should display results until no more result can be found on any source...)
  */
+ 
 define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/YoutubeSource.js', 'common/js/util/FakeSource.js',
     'common/models/Song', 'backbone'], function($, PageFragment, SearchAggregator, YoutubeSource, FakeSrc, Song){
 
@@ -16,7 +17,6 @@ define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/Yo
             this.$el.html(this.template({result: this.model}));
         }
     });
-
     return PageFragment.extend({
         
         $scrollingElement: $('#mainContainer'), 
@@ -33,6 +33,10 @@ define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/Yo
                     chunkSize: this.CHUNK_SIZE, 
                     preloadThreshold: 3
             });
+
+            this.searchAggregator.addSrc(YoutubeSource);
+            this.query = this.searchAggregator.query(this.keywords);
+            this.query.exec();
             
             this.addSrc(YoutubeSource);
             this.addSrc(FakeSrc);

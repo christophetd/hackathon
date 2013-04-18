@@ -114,31 +114,36 @@
 	</div>
     
 	<div id="partyPanel" class="panelShrinked">
-        <div id="panelShrinkedContents">
-            <div class="container">
-                <div class="text-center">
+        <div id="panelShrinkedContents" class="container-fluid">
+            <div class="row-fluid">
+                <div id="shrinkedPlayer" class="span4 offset2">
+                
+                </div>
+                <div id="shrinkedPlaylist" class="span3">
+                
+                </div>
+                <div class="span1">
                     <a href="#" class="expandButton" data-action="expand">
                         <i class="icon-arrow-up icon-white" ></i>
                         <i class="icon-arrow-up icon-white" ></i>
                         <i class="icon-arrow-up icon-white" ></i>
                     </a>
                 </div>
-                Here will be a condensed player and playlist.
+                <div class="span2"></div>
             </div>
         </div>
-        <div id="panelExpandedContents" style="display: none">
-            <div class="container">
-                <div class="text-center">
-                    <a href="#" class="expandButton" data-action="shrink">
-                        <i class="icon-arrow-down icon-white" ></i>
-                        <i class="icon-arrow-down icon-white" ></i>
-                        <i class="icon-arrow-down icon-white" ></i>
-                    </a>
-                </div>
-                <div id="panelPage"><!--- TODO : place in a template with specific js view file -->
-                    <h1>Party</h1>
-                    <p>Here will be a complete player with it's playlist and some party administration stuff</p>
-                </div>
+        <div id="panelExpandedContents" style="display: none" class="container">
+            
+            <div class="text-center">
+                <a href="#" class="expandButton" data-action="shrink">
+                    <i class="icon-arrow-down icon-white" ></i>
+                    <i class="icon-arrow-down icon-white" ></i>
+                    <i class="icon-arrow-down icon-white" ></i>
+                </a>
+            </div>
+            <div id="panelPage"><!--- TODO : place in a template with specific js view file -->
+                <h1>Party</h1>
+                <p>Here will be a complete player with it's playlist and some party administration stuff</p>
             </div>
         </div>
     </div>
@@ -183,29 +188,6 @@
         </div>
     </script>
     
-    <script type="text/jst" id="partyEditTemplate">
-        <form class="partyForm">
-        <fieldset>
-            <legend><% if(isNew){ %> 
-                Create 
-            <%} else { %>
-                Edit
-            <%}%>
-            a party</legend>
-            
-            <div class="control-group" id="nameControlGroup">
-              <label class="control-label" for="partyNameInput">Choose a cool name for your party:</label>
-              <div class="controls">
-                <input type="text" id="partyNameInput" <% if(isNew){%>placeholder="My awesome party"<%} else {%> value="<%= party.name %>"<% } %> >
-                <span class="help-inline helper"></span>
-              </div>
-            </div>
-            <a href="#" class="btn cancelBtn">Cancel</a>
-            <button type="submit" class="btn btn-primary submitBtn">Submit</button><img style="display: none;" class="ajaxLoader" src="app/img/ajax-loader.gif" alt="loading" />
-        </fieldset>
-        </form>
-    </script>
-    
     <script type="text/jst" id="playlistTemplate">
         <a href="#/music" class="openLibrary"><i class="icon-plus-sign" /> Add songs</a>
         <ol>
@@ -219,6 +201,19 @@
         <p class="well">
             <strong>Here will come a fancy player. Currently played song : <%= song.title %> </strong>
         </p>
+    </script>
+    
+    <script type="text/jst" id="shrinkedPlayerTemplate">
+        <div class="s_actionsContainer clearfix">
+            <div class="s_playContainer pull-left">
+                <a id="s_playButton"class="btn playerButton"><i class="icon-play"></i></a>
+                <a id="s_pauseButton" class="btn playerButton" style="display: none;" ><i class="icon-pause"></i></a>
+            </div>
+            <a id="s_fwdButton"class="btn playerButton-small pull-left"><i class="icon-fast-forward"></i></a>
+        </div>
+        <div class="s_currentTrackContainer">
+            <p class="s_trackInfos">Gangnam Style - Psy</p>
+        </div>
     </script>
     
     <script type="text/jst" id="resNotFoundTemplate">

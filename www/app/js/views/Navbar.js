@@ -41,7 +41,9 @@ define(
         },
         
         onSearch: function(evt){
-            window.location.hash = 'search/'+encodeURIComponent(this.searchInput.val());
+            evt.preventDefault();
+            if(this.searchInput.val() !== '')
+                window.location.hash = 'search/'+encodeURIComponent(this.searchInput.val());
         }
         
     });

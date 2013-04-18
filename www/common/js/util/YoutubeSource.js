@@ -7,6 +7,7 @@ define(['jquery', 'common/models/Song'], function($, Song){
             var request = "http://gdata.youtube.com/feeds/api/videos?alt=json-in-script&q="+encodeURIComponent(query)
                         +"&start-index="+(begin+1)+"&max-results="+size;
             
+            console.log("youtube : fetching "+size+" results");
             $.ajax({
                 dataType: "jsonp",
                 url: request,

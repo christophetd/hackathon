@@ -10165,16 +10165,7 @@ jQuery.ajaxTransport( "script", function(s) {
 
 					if ( isAbort || !script.readyState || /loaded|complete/.test( script.readyState ) ) {
 
-						// Handle memory leak in IE
-						script.onload = script.onreadystatechange = null;
-
-						// Remove the script
-						if ( head && script.parentNode ) {
-							head.removeChild( script );
-						}
-
-						// Dereference the script
-						script = undefined;
+						cleanup();
 
 						// Callback if not abort
 						if ( !isAbort ) {
@@ -10182,6 +10173,27 @@ jQuery.ajaxTransport( "script", function(s) {
 						}
 					}
 				};
+                
+                /* ajax patch : */
+                script.onerror = function(){
+                    cleanup();
+                    
+                    // Sends an inappropriate error, still better than nothing
+                    callback(404, "not found");
+                };
+                
+                function cleanup(){
+                    // Handle memory leak in IE
+                    script.onload = script.onreadystatechange = null;
+
+                    // Remove the script
+                    if ( head && script.parentNode ) {
+                        head.removeChild( script );
+                    }
+
+                    // Dereference the script
+                    script = undefined;
+                }
 				// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
 				// This arises when a base node is used (#2709 and #4378).
 				head.insertBefore( script, head.firstChild );

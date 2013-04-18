@@ -59,7 +59,6 @@ define(['jquery', 'common/models/Song', 'common/js/util/YoutubeSource.js', 'comm
             
             var Query = function(chunkSize, preloadThreshold){
                 var cache = {};
-                var cacheKeys = [];
                 var isEnd = false;
                 var cacheSize = 0;
                 var chunkBegin = 0;
@@ -67,6 +66,7 @@ define(['jquery', 'common/models/Song', 'common/js/util/YoutubeSource.js', 'comm
                 var cursor = 0;
                 var fetching = false;
                 var cSources = []; // concrete sources
+                var activeSources = [];
 
                 this.isEnd = function(){
                     return isEnd;
@@ -81,13 +81,15 @@ define(['jquery', 'common/models/Song', 'common/js/util/YoutubeSource.js', 'comm
                     if(!this.hasNext())
                         return null;
                     
-                    cursor = (++cursor >= cacheKeys.length) ? 0 : cursor;
-                    var key = cacheKeys[cursor];
+                    cursor = (++cursor >= activeSources.length) ? 0 : cursor;
+                    var key = activeSources[cursor];
                     
                     if(cache[key].length > 0){
                         cacheSize --;
-                        if(cacheSize < preloadThreshold && !fetching){
-                            chunkBegin += chunkSize;
+                        if(cacheSize == 0 && activeSources.length == 0){
+                            this.isEnd = true;
+                            this.trigger("end");
+                        } else if(cacheSize < preloadThreshold && !fetching && activeSources.length > 0){
                             this.p_fetchNextChunk();
                         }
                         return cache[key].splice(0, 1)[0];
@@ -99,24 +101,32 @@ define(['jquery', 'common/models/Song', 'common/js/util/YoutubeSource.js', 'comm
                 
                 this.p_fetchNextChunk = function(){
                     fetching = true;
-                    nbFetchings = cacheKeys.length;
-                    for(var i in cache){
-                        this.p_fetchSource(i, chunkBegin, chunkSize);
+                    nbFetchings = activeSources.length;
+                    for(var i = 0 ; i < activeSources.length ; i++){
+                        this.p_fetchSource(activeSources[i], chunkBegin, chunkSize);
                     }
                 }
                 
                 this.p_fetchSource = function(title, begin, size){
-                    cSources[title].get(begin, Math.round(size/cacheKeys.length), $.proxy(function(err, data){
-                        if(err){
-                            this.trigger('error');
-                            parent.trigger('error');
-                            return;
+                    var called = false;
+                    cSources[title].get(begin, Math.round(size/activeSources.length), $.proxy(function(err, data){
+                        if(!called){
+                            called = true;
+                            if(err){
+                                this.trigger('error', err);
+                                parent.trigger('error');
+                                activeSources.splice(activeSources.indexOf(title), 1);
+                            } else if(data.length == 0){
+                                activeSources.splice(activeSources.indexOf(title), 1);
+                            } else {
+                                cache[title] = cache[title].concat(data);
+                                cacheSize += data.length;
+                            }
+                            
+                            this.p_fetchSourceEnd();
+                        } else {
+                            console.log("Debug : search callback called twice");
                         }
-                        
-                        cache[title] = cache[title].concat(data);
-                        cacheSize += data.length;
-                        
-                        this.p_fetchSourceEnd();
                     }, this));
                 }
                 
@@ -124,21 +134,24 @@ define(['jquery', 'common/models/Song', 'common/js/util/YoutubeSource.js', 'comm
                     nbFetchings --;
                     if(nbFetchings == 0){
                         fetching = false;
-                        if(cacheSize == 0){
+                        chunkBegin += chunkSize;
+                        if(cacheSize > 0){
+                            this.trigger('data');
+                        } else if(activeSources == 0){
                             isEnd = true;
                             this.trigger('end');
                         } else {
-                            this.trigger('data');
+                            this.p_fetchNextChunk();
                         }
                     }
                 }
                 
                 this.exec = function(){
-                    /* Initialization code */
+                
                     var s_cache = cache;
                     for(var i in sources){
                         cSources[i] = new sources[i](query);
-                        cacheKeys.push(i);
+                        activeSources.push(i);
                         
                         cache[i] = new Array();
                     }
@@ -183,6 +196,7 @@ define(['jquery', 'common/models/Song', 'common/js/util/YoutubeSource.js', 'comm
                 
                 // The data we want is not yet loaded
                 if(!query.hasNext()){
+                    if(typeof(param.loading) == 'function') param.loading();
                     // When new data comes, we try again reading our results
                     query.once('data', function(){
                         Search.util.fetchResults(query, amount - i, param);

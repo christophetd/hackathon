@@ -35,8 +35,6 @@ define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/Yo
             });
 
             this.searchAggregator.addSrc(YoutubeSource);
-            this.query = this.searchAggregator.query(this.keywords);
-            this.query.exec();
             
             this.addSrc(YoutubeSource);
             this.addSrc(FakeSrc);
@@ -53,8 +51,12 @@ define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/Yo
             });
             $result.render();
             this.$el.find('#results').append($result.$el);
-
+            
             this.dataLoading = false;
+        },
+        
+        doneResults: function(){
+            
         },
 
         detectPageBottom: function() {
@@ -71,7 +73,7 @@ define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/Yo
             this.loader.show();
 
             var self = this;
-            SearchAggregator.util.fetchResults(this.queryIterator, 2, {
+            SearchAggregator.util.fetchResults(this.queryIterator, 25, {
                 read: this.loadResult
             });
         },  
@@ -93,16 +95,15 @@ define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/Yo
         render: function () {
             var self = this;
 
-
-            /* Load initial results */
-            SearchAggregator.util.fetchResults(this.queryIterator, this.CHUNK_SIZE, {
-                read: self.loadResult
-            });
-
             this.$el.html(this.template({
                 keywords: this.keywords, 
                 sources: this.sources
             }));
+            
+            /* Load initial results */
+            SearchAggregator.util.fetchResults(this.queryIterator, this.CHUNK_SIZE, {
+                read: self.loadResult
+            });
 
             /* Loader (it will be hidden by loadResult) */
             this.loader = $('<img />')

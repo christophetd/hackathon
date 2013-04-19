@@ -62,6 +62,7 @@ define(['jquery', 'common/models/Song', 'common/js/util/YoutubeSource.js', 'comm
                 var isEnd = false;
                 var cacheSize = 0;
                 var chunkBegin = 0;
+                var currentChunkSize = 0;
                 var nbFetchings = 0;
                 var cursor = 0;
                 var fetching = false;
@@ -102,14 +103,15 @@ define(['jquery', 'common/models/Song', 'common/js/util/YoutubeSource.js', 'comm
                 this.p_fetchNextChunk = function(){
                     fetching = true;
                     nbFetchings = activeSources.length;
+                    currentChunkSize = Math.round(chunkSize/activeSources.length)
                     for(var i = 0 ; i < activeSources.length ; i++){
-                        this.p_fetchSource(activeSources[i], chunkBegin, chunkSize);
+                        this.p_fetchSource(activeSources[i], chunkBegin, currentChunkSize);
                     }
                 }
                 
                 this.p_fetchSource = function(title, begin, size){
                     var called = false;
-                    cSources[title].get(begin, Math.round(size/activeSources.length), $.proxy(function(err, data){
+                    cSources[title].get(begin, size, $.proxy(function(err, data){
                         if(!called){
                             called = true;
                             if(err){
@@ -134,7 +136,7 @@ define(['jquery', 'common/models/Song', 'common/js/util/YoutubeSource.js', 'comm
                     nbFetchings --;
                     if(nbFetchings == 0){
                         fetching = false;
-                        chunkBegin += chunkSize;
+                        chunkBegin += currentChunkSize;
                         if(cacheSize > 0){
                             this.trigger('data');
                         } else if(activeSources == 0){

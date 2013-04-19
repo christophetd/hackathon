@@ -54,10 +54,6 @@ define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/Yo
             
             this.dataLoading = false;
         },
-        
-        doneResults: function(){
-            
-        },
 
         detectPageBottom: function() {
             this.$scrollingElement.bind('scroll', $.proxy(function() {
@@ -73,7 +69,7 @@ define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/Yo
             this.loader.show();
 
             var self = this;
-            SearchAggregator.util.fetchResults(this.queryIterator, 25, {
+            SearchAggregator.util.fetchResults(this.queryIterator, 2, {
                 read: this.loadResult
             });
         },  

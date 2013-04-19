@@ -1,20 +1,7 @@
 ﻿<!DOCTYPE html>
 
 <!--
-
-
-	/!\ TODO (half done) /!\
-
-
-	Refactor the whole page with "templates" and maybe a default 
-	content displayed (for search engines).
-	
-
-	This page is the only html page served for the desktop app
-	(no more /start).
-
-
-
+    This page is the only html page served for the desktop app
 -->
 <html lang="en">
   <head>
@@ -30,7 +17,7 @@
     
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-		<script src="/css/bootstrap/js/html5shiv.js"></script>
+        <script src="/css/bootstrap/js/html5shiv.js"></script>
     <![endif]-->
 
     <!-- Fav and touch icons -->
@@ -92,18 +79,10 @@
                         </div>
                     </li>
                 </ul>
-                        
-                <!-- Login view -
-                <form class="navbar-form pull-right">
-                    <input type="text" class="span2" placeholder="Username">
-                    <input type="password" class="span2" placeholder="Password">
-                    <button type="submit" class="btn">Log in</button>
-                </form>-->
-        
             </div>
         </div>
     </div>
-	
+    
     
     <div id="mainContainer">
         <div id="mainContents" class="container">
@@ -111,9 +90,9 @@
                 <!-- TODO : handle users without javascript (gtfo biatch) -->
             </noscript>
         </div> <!-- /container -->
-	</div>
+    </div>
     
-	<div id="partyPanel" class="panelShrinked">
+    <div id="partyPanel" class="panelShrinked">
         <div id="panelShrinkedContents" class="container-fluid">
             <div class="row-fluid panel-row">
                 <div id="shrinkedPlayer" class="span5 offset2">
@@ -148,9 +127,9 @@
         </div>
     </div>
     
-	<!-- Templates -->
-	
-	<script type="text/jst" id="homeTemplate">
+    <!-- Templates -->
+    
+    <script type="text/jst" id="homeTemplate">
         <h1>Welcome to square...something !</h1>
         <div class="row">
             <div class="span12">
@@ -172,30 +151,29 @@
                 smartphone for the music they want to listen to. Anyone can also propose a new song via an integrated YouTube search.</p>
             </div>
         </div>
-	</script>
+    </script>
     
     <script type="text/jst" id="djTemplate">
         
         <h1><%= party.name %></h1>
         
         <div class="row">
-            <div class="span3">
+            <div class="span4">
                 <div id="playlist"></div>
             </div>
-            <div class="span6">
+            <div class="span8">
                 <div id="player"></div>
             </div>
         </div>
     </script>
     
     <script type="text/jst" id="playlistTemplate">
-        <a href="#/music" class="openLibrary"><i class="icon-plus-sign" /> Add songs</a>
         <ol class="songContainer">
         </ol>
     </script>
     
     <script type="text/jst" id="playlistSongTemplate">
-        <li><a href="#" class="songLink" ><%= title %></a></li>
+        <li class="songVignette"><a href="#" data-action="playNow" ><%= title %></a><a href="#" class="pull-right" data-action="delete"><i class="icon-trash icon-white"></i></a></li>
     </script>
     
     <script type="text/jst" id="playerTemplate">
@@ -266,7 +244,7 @@
                     <%= result.get("title") %><br />
                     (From : <i><%= result.get("src") %></i>)
 
-                </div>
+                </div><a class="btn" data-action="addToPlaylist"><i class="icon-plus-sign"></i> add to playlist</a>
             </div>
         </div>
     </script>

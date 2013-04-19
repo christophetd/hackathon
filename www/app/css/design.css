@@ -73,6 +73,22 @@
     border-left: 1px #111 solid;
 }
 
+#playlist {
+    margin-top: 9px;
+    background-color: #111;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px #000 inset;
+}
+
+.songContainer {
+    border-left: 1px black solid;
+}
+
+.songVignette {
+    border-bottom: 1px black solid;
+    padding: 2px 10px 2px 5px;
+}
+
 .s_currentTrackContainer {
     height: 36px;
     margin-top: 9px;

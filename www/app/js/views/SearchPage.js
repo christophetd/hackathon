@@ -6,15 +6,28 @@
     should display results until no more result can be found on any source...)
  */
  
-define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/YoutubeSource.js', 'common/js/util/FakeSource.js',
-    'common/models/Song', 'backbone'], function($, PageFragment, SearchAggregator, YoutubeSource, FakeSrc, Song){
+define(['jquery', 'app', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/YoutubeSource.js', 'common/js/util/FakeSource.js',
+    'common/models/Song', 'backbone'], function($, app, PageFragment, SearchAggregator, YoutubeSource, FakeSrc, Song){
 
     var SearchResultView = PageFragment.extend({
+        events: {
+            'click [data-action=addToPlaylist]': 'onClick'
+        },
+        
         initialize: function() {
+            _.bindAll(this, 'onClick');
+            
             this.template = _.template($('#searchResultTemplate').html());
         }, 
+        
         render: function() {
             this.$el.html(this.template({result: this.model}));
+        },
+        
+        onClick: function(evt){
+            evt.preventDefault();
+            
+            app.getParty().get('playlist').songs.add(this.model);
         }
     });
     return PageFragment.extend({
@@ -26,6 +39,8 @@ define(['jquery', 'PageFragment', 'common/js/util/Search.js', 'common/js/util/Yo
         sources: [], 
 
         initialize: function () {
+            if(!app) app = require('app');
+            
             this.template = _.template($('#searchTemplate').html());
             _.bindAll(this, 'detectPageBottom', 'bottomReached', 'loadResult', 'addSrc', 'removeSrc', 'disableSrc');
 

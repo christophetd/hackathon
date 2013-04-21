@@ -1,20 +1,29 @@
 ﻿
 define(['app', 'jquery', 'lib/simple-slider', 'backbone'], function(app){
 
+    /* Intervals between tracking refresh */
+    var REFRESH_RATE_MS = 200;
+    
     return Backbone.View.extend({
         
         events: {
-            "mousedown #s_playButton": "play",
-            "mousedown #s_pauseButton": "pause"
+            "mousedown #s_playButton"       : "play",
+            "mousedown #s_pauseButton"      : "pause",
+            "slider:changed .s_trackSlider"   : "onSliderChange"
         },
         
         initialize: function(){
             if(!app) app = require('app');
             this.template = _.template($('#shrinkedPlayerTemplate').html());
             
-            _.bindAll(this, 'pause', 'play', 'setPlayButton');
+            _.bindAll(this, 'pause', 'play', 'showPlayButton', 'showPauseButton', 'pollTime', 'onSliderChange');
+            
+            app.player.on('play', this.showPauseButton);
+            app.player.on('pause', this.showPlayButton);
             
             this.listenTo(app.getParty(), 'change:currentSong', this.render);
+            
+            this.interval = window.setInterval(this.pollTime, REFRESH_RATE_MS);
         },
         
         render: function(){
@@ -22,33 +31,54 @@ define(['app', 'jquery', 'lib/simple-slider', 'backbone'], function(app){
                 song: app.getParty().get('currentSong').toJSON() 
             }));
             
-            this.$('.s_trackSlider').simpleSlider({
+            this.slider = this.$('.s_trackSlider').simpleSlider({
                 highlight: true,
                 animate: false
             });
             this.playButton = this.$('#s_playButton');
             this.pauseButton = this.$('#s_pauseButton');
+            
             return this;
         },
         
         pause: function(evt){
             if(evt){evt.preventDefault(); evt.stopPropagation();}
-            this.setPlayButton(true);
+            
+            app.player.pause();
         },
         
         play: function(evt){
             if(evt){evt.preventDefault(); evt.stopPropagation();}
-            this.setPlayButton(false);
+            
+            app.player.play();
         },
         
-        setPlayButton: function(state){
-            if(state === true){
-                this.pauseButton.hide();
-                this.playButton.show();
-            } else {
-                this.pauseButton.show();
-                this.playButton.hide();
+        showPlayButton: function(state){
+            this.pauseButton.hide();
+            this.playButton.show();
+        },
+        
+        showPauseButton: function(){
+            this.pauseButton.show();
+            this.playButton.hide();
+        },
+        
+        pollTime: function(){
+            var time = app.player.getTime();
+            var totalTime = app.player.getTotalTime();
+            
+            this.slider.simpleSlider("setRatio", time/totalTime);
+        },
+        
+        onSliderChange: function(evt, data){
+            if(data.trigger == "domDrag"){
+                console.log("change : "+data.ratio);
+                app.player.seekTo(app.player.getTotalTime()*data.ratio);
             }
+        },
+        
+        destroy: function(){
+            window.clearInterval(this.interval);
         }
     
     });

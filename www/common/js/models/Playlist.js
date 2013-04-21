@@ -10,8 +10,8 @@ define(['common/models/Song', 'backbone'], function(Song){
         model: Song,
         
         initialize: function(){
-            this.add(new Song({title: "never gonna give you up", source: "init"}));
-            this.add(new Song({title: "Harlem style (10 hours edition)", source: "init"}));
+            this.add(new Song({title: "G3 live fron Denver Joe Satriani, Steve Vai, Yngwe Malmsteen", src: "youtube", data: "eS3cneScoaw"}));
+            this.add(new Song({title: "Muse - Time is running out", src: "youtube", data: "oHg5SJYRHA0"}));
         }
     });
     

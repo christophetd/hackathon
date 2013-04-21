@@ -32,10 +32,16 @@ define(
             
             this.shrinked = true;
             
-            this.measure = this.$el.height();
-            
-            this.expandedContents = this.$('#panelExpandedContents');
+            //Retreives shrinked contents
             this.shrinkedContents = this.$('#panelShrinkedContents');
+            
+            /* Here is a tricky hack : we measure the height of the panel as the main content is hidden,
+                then we definitively show this content and we reset the height of the panel as it was before
+                to make it look like the panel is hidden (but the contents is still active...) */
+            this.measure = this.$el.height();
+            this.expandedContents = this.$('#panelExpandedContents').show();
+            this.$el.height(this.measure);
+            
         },
         
         onExpandClick: function(evt){
@@ -87,6 +93,10 @@ define(
             model: app.getParty()
         }).activate();
         
+        // Player view has to be explicitely destroyed for garbadge collection to happen
+        if(this.playerView) this.playerView.destroy();
+        
+        // We MUST create the player view after dj view because the latter one depends on the other.
         this.playerView = new ShrinkedPlayer({
             el: '#shrinkedPlayer',
             model: app.getParty()
@@ -106,9 +116,6 @@ define(
             // We can now display the final state (shrinked or expanded)
             if(this.shrinked){
                 this.shrinkedContents.fadeIn();
-            }
-            else{
-                this.expandedContents.fadeIn();
             }
         }
     }
@@ -135,7 +142,6 @@ define(
         this.$el.css('height', this.$el.height())
                 .css('top', '');
         
-        this.expandedContents.fadeOut('fast');
         this.$el.animate({
             height: this.measure
         }, {

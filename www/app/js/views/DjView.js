@@ -27,7 +27,7 @@ define(
                 el: this.$el.find('#playlist'),
                 model: this.model.get('playlist')});
 
-            this.player = new PlayerView({
+            app.player = this.player = new PlayerView({
                 parent: this, 
                 el: this.$el.find('#player'),
                 model: this.model.get('playlist')});

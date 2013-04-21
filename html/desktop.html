@@ -177,9 +177,25 @@
     </script>
     
     <script type="text/jst" id="playerTemplate">
-        <p class="well">
-            <strong>Here will come a fancy player. Currently played song : <%= song.title %> </strong>
-        </p>
+        <div class="well">
+            <h2><%= song.title %> </h2>
+            <% if(player){ %>
+                <%= player %>
+            <% } else { %>
+                <p class="error">Source is not supported</p>
+            <% } %>
+        </div>
+    </script>
+    
+    <script type="text/jst" id="youtubePlayerTemplate">
+        <object 
+            type="application/x-shockwave-flash" 
+            id="yt-player" 
+            data="http://www.youtube.com/v/<%= songid %>?enablejsapi=1&amp;playerapiid=ytplayer&amp;version=3&amp;autoplay=1" 
+            width="420" 
+            height="315">
+            <param name="allowScriptAccess" value="always">
+        </object>
     </script>
     
     <script type="text/jst" id="shrinkedPlayerTemplate">

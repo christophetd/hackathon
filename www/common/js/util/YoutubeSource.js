@@ -7,20 +7,20 @@ define(['jquery', 'common/models/Song'], function($, Song){
             var request = "http://gdata.youtube.com/feeds/api/videos?alt=json-in-script&q="+encodeURIComponent(query)
                         +"&start-index="+(begin+1)+"&max-results="+size;
             
-            console.log("youtube : fetching "+size+" results");
             $.ajax({
                 dataType: "jsonp",
                 url: request,
                 success: function(data){
                     var res = [];
+                    console.log(data);
                     for(var i in data.feed.entry){
                         res.push(new Song({
                             title   :   data.feed.entry[i].title.$t,
                             src     :   'youtube',
-                            thumb   :   data.feed.entry[i].media$group.media$thumbnail[1].url
+                            thumb   :   data.feed.entry[i].media$group.media$thumbnail[1].url,
+                            data    :   _.last(data.feed.entry[i].id.$t.split('/'))
                         }));
                     }
-                    //setTimeout($.proxy(function() {cb(null, res)}, this), 1000);
                     cb(null, res);
                 },
                 error: function(){

@@ -33,6 +33,8 @@
     background-repeat: repeat-x;
     
     color: #ccc;
+    
+    overflow: hidden;
 }
 
 .playerButton {

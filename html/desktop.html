@@ -111,18 +111,19 @@
                 
             </div>
         </div>
-        <div id="panelExpandedContents" style="display: none" class="container">
-            
-            <div class="text-center">
-                <a href="#" class="expandButton" data-action="shrink">
-                    <i class="icon-arrow-down icon-white" ></i>
-                    <i class="icon-arrow-down icon-white" ></i>
-                    <i class="icon-arrow-down icon-white" ></i>
-                </a>
-            </div>
-            <div id="panelPage"><!--- TODO : place in a template with specific js view file -->
-                <h1>Party</h1>
-                <p>Here will be a complete player with it's playlist and some party administration stuff</p>
+        <div id="panelExpandedContents" style="display: none" >
+            <div class="container">
+                <div class="text-center">
+                    <a href="#" class="expandButton" data-action="shrink">
+                        <i class="icon-arrow-down icon-white" ></i>
+                        <i class="icon-arrow-down icon-white" ></i>
+                        <i class="icon-arrow-down icon-white" ></i>
+                    </a>
+                </div>
+                <div id="panelPage"><!--- TODO : place in a template with specific js view file -->
+                    <h1>Party</h1>
+                    <p>Here will be a complete player with it's playlist and some party administration stuff</p>
+                </div>
             </div>
         </div>
     </div>
@@ -154,9 +155,24 @@
     </script>
     
     <script type="text/jst" id="djTemplate">
-        
-        <h1><%= party.name %></h1>
-        
+        <div class="row">
+            <div class="span7 partyTitle">
+                <h1>
+                    <%= party.name %>
+                </h1>
+            </div>
+            <div class="span5 mobileAccessFrame">
+                <div class="well clearfix">
+                    <div class="btn-group pull-right">
+                      <button class="btn"><i class="icon-qrcode" ></i></button>
+                      <button class="btn"><i class="icon-share-alt" ></i></button>
+                    </div>
+                    <p data-toggle="tooltip" title="This is the id your users have to enter to access to your party.">
+                        Mobile access : <strong><%= party.alias %></strong>
+                    </p>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="span4">
                 <div id="playlist"></div>
@@ -173,7 +189,10 @@
     </script>
     
     <script type="text/jst" id="playlistSongTemplate">
-        <li class="songVignette"><a href="#" data-action="playNow" ><%= title %></a><a href="#" class="pull-right" data-action="delete"><i class="icon-trash icon-white"></i></a></li>
+        <li class="songVignette">
+            <a href="#" data-action="playNow" ><%= title %></a>
+            <a href="#" class="pull-right" data-action="delete"> <i class="icon-trash icon-white"></i> </a>
+        </li>
     </script>
     
     <script type="text/jst" id="playerTemplate">

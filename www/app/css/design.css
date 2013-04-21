@@ -32,9 +32,46 @@
     
     background-repeat: repeat-x;
     
-    color: #ccc;
+    color: #ddd;
     
     overflow: hidden;
+}
+
+#partyPanel .well {
+    border: 1px black solid;
+    border-radius: 10px;
+    padding: 5px;
+    padding-left: 12px;
+    background-color: #111;
+    box-shadow: 1px 1px 5px #000 inset;
+}
+
+#partyPanel .well .btn {
+    background-color: #A0A0A5;
+    background-image: -moz-linear-gradient(top,#B5B5C0,#A0A0A5);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#B5B5C0),to(#A0A0A5));
+    background-image: -webkit-linear-gradient(top,#B5B5C0,#A0A0A5);
+    background-image: -o-linear-gradient(top,#B5B5C0,#A0A0A5);
+    background-image: linear-gradient(to bottom,#B5B5C0,#A0A0A5);
+    text-shadow: 0 1px 1px rgba(0,0,0,0.75);
+    border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+}
+
+#partyPanel strong {
+    color: white;
+}
+
+.mobileAccessFrame .btn-group{
+    padding-right: 12px;
+}
+
+.mobileAccessFrame p {
+    margin: 5px;
+    float: left;
+}
+
+.partyTitle {
+    text-align: center;
 }
 
 .playerButton {
@@ -58,6 +95,11 @@
 
 .playerButton-small i{
     margin-top: 1px;
+}
+
+#panelExpandedContents {
+    overflow: auto;
+    height: 100%;
 }
 
 #panelShrinkedContents .panel-row > div {

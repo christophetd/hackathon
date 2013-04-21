@@ -52,7 +52,7 @@ define(['jquery', 'app', 'PageFragment', 'common/js/util/Search.js', 'common/js/
             this.searchAggregator.addSrc(YoutubeSource);
             
             this.addSrc(YoutubeSource);
-            this.addSrc(FakeSrc);
+            //this.addSrc(FakeSrc);
             
 
             this.detectPageBottom();

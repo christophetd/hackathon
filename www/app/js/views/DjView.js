@@ -35,6 +35,7 @@ define(
             this.player.render();
             this.playlist.render();
             
+            this.$('[data-toggle=tooltip]').tooltip({placement: 'bottom'});
             return this;
         }
     });

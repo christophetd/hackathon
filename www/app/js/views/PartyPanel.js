@@ -116,6 +116,9 @@ define(
             // We can now display the final state (shrinked or expanded)
             if(this.shrinked){
                 this.shrinkedContents.fadeIn();
+            } else {
+                // Re-enables scrolling when panel is expanded
+                this.expandedContents.css('overflow', 'auto');
             }
         }
     }
@@ -138,6 +141,9 @@ define(
     
     function doShrink(){
         this.shrinked = true;
+        
+        // Avoids showing a scroll bar while the panel is animating
+        this.expandedContents.css('overflow', 'hidden');
         
         this.$el.css('height', this.$el.height())
                 .css('top', '');

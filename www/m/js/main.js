@@ -21,7 +21,7 @@ require(["jquery"], function($) {
             which should go inside a view's code...
         */
         //Searchrequest if Enter is hit in filter form
-        $(document).delegate('[data-role="page"]', 'pageinit', function () {
+        /*$(document).delegate('[data-role="page"]', 'pageinit', function () {
             var _this = this
             $(_this).delegate('input[data-type="search"]', 'keydown', function (event) {
                 //detect if enter was hit (13)
@@ -34,7 +34,7 @@ require(["jquery"], function($) {
                     //Make a searchrequest
                 };
             });
-        });
+        });*/
         
         
         /***    Actual implementation of main.js     ***/

@@ -25,7 +25,7 @@ define(['jquery', 'PageFragment'], function($, PageFragment){
                 console.log(toAdd)
                 
                 //there must be a better thing to trigger the pagechange (?)
-                location.hash = "#search"
+                location.hash = "#search/" + toAdd
                 //Make a searchrequest
             };
         }

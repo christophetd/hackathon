@@ -65,7 +65,7 @@ define(['jquery', 'app', 'PageFragment', 'common/js/util/Search.js', 'common/js/
                 model: result, 
             });
             $result.render();
-            this.$el.find('#results').append($result.$el);
+            this.$('#results').append($result.$el);
             
             this.dataLoading = false;
         },

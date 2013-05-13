@@ -19,7 +19,7 @@ define([
         routes: {
             "home":"home",
             "share":"share",
-            "search":"search"
+            "search/:query":"search"
         },
 
         //Called when the router is instanciated. 
@@ -40,10 +40,12 @@ define([
                 (the PageManager seems appropriate for that)
             */
             this.manager = new PageManager('#maincontent');
+
+            this.searchView = new SearchView({el: '#search'});
             this.manager.registerPages({
                 'home': new HomeView({el: '#home'}),
                 'share': new ShareView({el: '#share'}),
-                'search': new SearchView({el: '#search'})
+                'search': this.searchView
             });
         
             // Handle back button throughout the application
@@ -63,8 +65,9 @@ define([
             this.manager.changePage('share');
         },
 
-        search: function () {
+        search: function (query) {
             console.log('#search');
+            this.searchView.search(decodeURIComponent(query));
             this.manager.changePage('search');
         }
 

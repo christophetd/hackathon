@@ -7,6 +7,9 @@ define(['jquery', 'app', 'PageFragment', 'common/js/util/Search.js', 'common/js/
 		// make one list element
 
 	var SearchResultView = PageFragment.extend({
+
+        tagName: 'li',
+
         events: {
             'click [data-action=addToPlaylist]': 'onClick'
         },
@@ -19,7 +22,9 @@ define(['jquery', 'app', 'PageFragment', 'common/js/util/Search.js', 'common/js/
         }, 
         
         render: function() {
-            this.$el.html(this.template({result: this.model}));
+            listel = this.template({result: this.model})
+            //this.setElement( $(listel) );
+            this.$el.html(listel);
 
             
         },
@@ -54,7 +59,7 @@ define(['jquery', 'app', 'PageFragment', 'common/js/util/Search.js', 'common/js/
             this.addSrc(YoutubeSource);
             //this.addSrc(FakeSrc);
             
-            //this.$('#dynamicResults').listview();
+            
             //this.detectPageBottom();
 
         },
@@ -68,7 +73,7 @@ define(['jquery', 'app', 'PageFragment', 'common/js/util/Search.js', 'common/js/
             $result.render();
             this.$('#dynamicResults').append($result.$el);
 
-            //this.$('#dynamicResults').listview('refresh');
+            this.$('#dynamicResults').listview('refresh');
             
             this.dataLoading = false;
         },

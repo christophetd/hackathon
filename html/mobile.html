@@ -82,8 +82,9 @@
 
 			<form >
      			<input type="search" name="search-1" id="search-1"  placeholder="Search something else.." value="" data-theme="c">
-     			<input id="addnew" type="button" value="Search">
+     			<!--<input id="addnew" type="button" value="Search"> -->
 			</form>
+		</br>
 			<div id="results">
 				<ul id="dynamicResults" data-role="listview" data-icon="plus" data-count-theme="c">
 				</ul>
@@ -120,6 +121,22 @@
 
 
     <script type="text/jst" id="searchResultTemplate">
+            <% if(result.get("thumb")) { %>
+                <img src="<%= result.get("thumb") %>"/>
+            <% } %>
+
+            <%= result.get("title") %>
+    </script>
+
+    <script type="text/jst" id="searchResultTemplate1">
+       	<% if(result.get("thumb")) { %>
+                <img src="<%= result.get("thumb") %>"/>
+            <% } %>
+
+            <%= result.get("title") %>
+    </script>
+
+    <script type="text/jst" id="searchResultTemplate3">
         <li class="listitem">
             <% if(result.get("thumb")) { %>
                 <img src="<%= result.get("thumb") %>"/>

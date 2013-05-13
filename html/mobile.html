@@ -101,50 +101,20 @@
 		</div><!-- /footer -->
 	</div>
 
-	<script type="text/jst" id="searchResultTemplate1">
-        <div class="searchResult media">
-            <% if(result.get("thumb")) { %>
-                <div class="pull-left">
-                <img class="media-object" src="<%= result.get("thumb") %>" />
-            </div>
-            <% } %>
-            <div class="media-body">
-                <div class="media-heading">
-                    <%= result.get("title") %><br />
-                    (From : <i><%= result.get("src") %></i>)
 
-                </div><a class="btn" data-action="addToPlaylist"><i class="icon-plus-sign"></i> add to playlist</a>
-            </div>
-        </div>
-    </script>
 
 
 
     <script type="text/jst" id="searchResultTemplate">
+            <a>
             <% if(result.get("thumb")) { %>
                 <img src="<%= result.get("thumb") %>"/>
-            <% } %>
+                <% } %>
+                <h3><%= result.get("title") %> </h3>
+            </a>
 
-            <%= result.get("title") %>
     </script>
 
-    <script type="text/jst" id="searchResultTemplate1">
-       	<% if(result.get("thumb")) { %>
-                <img src="<%= result.get("thumb") %>"/>
-            <% } %>
-
-            <%= result.get("title") %>
-    </script>
-
-    <script type="text/jst" id="searchResultTemplate3">
-        <li class="listitem">
-            <% if(result.get("thumb")) { %>
-                <img src="<%= result.get("thumb") %>"/>
-            <% } %>
-
-            <%= result.get("title") %>
-        </li>
-    </script>
 
 </body>
 

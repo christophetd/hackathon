@@ -18,7 +18,6 @@ define(['jquery', 'app', 'PageFragment', 'common/js/util/Search.js', 'common/js/
             _.bindAll(this, 'onClick');
             
             this.template = _.template($('#searchResultTemplate').html());
-            console.log('SearchResultView init');
         }, 
         
         render: function() {
@@ -43,6 +42,10 @@ define(['jquery', 'app', 'PageFragment', 'common/js/util/Search.js', 'common/js/
         keywords: '', 
         CHUNK_SIZE: 20,
         sources: [], 
+
+        events: {
+            'keydown :input': 'logKey'
+        },
     
         initialize: function () {
         	 if(!app) app = require('app');
@@ -99,6 +102,8 @@ define(['jquery', 'app', 'PageFragment', 'common/js/util/Search.js', 'common/js/
 		*/
 
         search: function(keywords) {
+            //Modification 1
+            this.$('#dynamicResults').empty();
             this.keywords = keywords;
             this.queryIterator = this.searchAggregator.query(this.keywords);
 
@@ -135,6 +140,17 @@ define(['jquery', 'app', 'PageFragment', 'common/js/util/Search.js', 'common/js/
                     .appendTo(this.$el);
 
             return this;
+        },
+
+        logKey: function(e){
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                
+                var toAdd = $('input[id="search-1"]').val();
+                //this.search(toAdd);
+                console.log(toAdd);
+                location.hash = "#search/" + toAdd;
+            };
         },
 
         addSrc: function(source) {

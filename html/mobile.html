@@ -15,6 +15,24 @@
 <body>
 	<!-- templates -->
 
+	<!-- Welcome View Template -->
+	<div data-role="page" id="welcome" data-theme="a">
+
+		<div data-role="header" data-theme="a">
+			
+		</div><!-- /header -->
+		<div data-role="content" data-theme="a">	
+			<!-- Make a login page, just put in party name -->
+        <img src="/m/img/tunelarge2.png" width="80%" margin="auto">
+		<input type="text" name="text-basic" id="text-basic" value="">
+		<a href="#" data-role="button">Join playlist!</a>
+		</div><!-- /content -->
+
+		<div data-role="footer" data-theme="a" data-position="fixed">
+
+		</div><!-- /footer -->
+	</div>
+
 	<!-- Playlist page, were people can vote and search for songs -->
 	<div data-role="page" id="home" data-theme="a">
 
@@ -28,8 +46,7 @@
    		 	<ul id="dynamicFieldList" data-role="listview" data-icon="arrow-u" data-filter="true" data-filter-placeholder="Add new songs and vote.." data-count-theme="c">
 
    		 	</ul>
-            <!-- test setup, to remove -->
-            <div id="counter"></div>
+           
 			</div>			
 
 		</div><!-- /content -->

@@ -3,12 +3,14 @@
  */
 define([
     'util/PageManager',
+    'views/Welcome',
     'views/Home',
     'views/Search',
     'views/Share',
     'backbone',
 ], function(
     PageManager,
+    WelcomeView,
     HomeView,
     SearchView,
     ShareView
@@ -17,6 +19,7 @@ define([
 
         //Defines mapping between routes and methods
         routes: {
+            "welcome":"welcome",
             "home":"home",
             "share":"share",
             "search/:query":"search"
@@ -31,6 +34,7 @@ define([
                 Therefore, our views might be null at that point and we need to require them again now that
                 dependencies have been solved.
              */
+            if(!WelcomeView) WelcomeView = require('views/Welcome');
             if(!HomeView) HomeView = require('views/Home');
             if(!SearchView) SearchView = require('views/Search');
             if(!ShareView) ShareView = require('views/Share');
@@ -43,6 +47,7 @@ define([
 
             this.searchView = new SearchView({el: '#search'});
             this.manager.registerPages({
+                'welcome': new WelcomeView({el: '#welcome'}),
                 'home': new HomeView({el: '#home'}),
                 'share': new ShareView({el: '#share'}),
                 'search': this.searchView
@@ -55,6 +60,11 @@ define([
             });
         },
         
+        welcome: function () {
+            console.log('#welcome');
+            this.manager.changePage('welcome');
+        },
+
         home: function () {
             console.log('#home');
             this.manager.changePage('home');
